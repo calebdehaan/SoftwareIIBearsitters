@@ -5,19 +5,40 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as Users from 'js/users';
 import * as Login from 'js/login';
+import axios from 'axios';
 
 export class Home extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			message: ' '
+		};
+	}
+
+	componentDidMount(){
+		/*
+		axios.get('/api/user/hello')
+			.then(response => {
+				this.setState({ message: response.data });
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+		*/
+	}
+
 	render() {
 		return (
 			<div className="container padded">
-				This is the home page.
+				TT {this.state.message} This is the home page.
 
-				<ul>
+				<ul >
 					<li><Link to="/register">Register</Link></li>
 					<li><Link to="/login">Login</Link></li>
 					<li><Link to="/page-1">Page 1</Link></li>
 					<li><Link to="/page-2">Page 2</Link></li>
 					<li><Link to="/page-3">Page 3</Link></li>
+					<li><Link to="/">Homepage</Link></li>
 				</ul>
 			</div>
 		);

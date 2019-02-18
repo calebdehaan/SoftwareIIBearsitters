@@ -12,6 +12,8 @@ import Index from 'js/index';
 import * as Users from 'js/users';
 import * as Utils from 'js/alloy/utils/core-utils';
 
+import Cookies from 'universal-cookie';
+
 import 'styles/main.scss';
 
 const reducers = [
@@ -19,8 +21,16 @@ const reducers = [
 	Users.Reducers
 ];
 
+// Used to store the user's information
+const cookies = new Cookies();
+
 const reducer = Utils.combineReducers(reducers);
-const store = createStore(reducer, {authentication: null, user: null}, applyMiddleware(thunkMiddleware, createLogger()));
+
+// Preloads the store with the user's information
+const store = createStore(reducer, {
+	authentication: cookies.get('authentication'),
+	user: cookies.get('user'),
+}, applyMiddleware(thunkMiddleware, createLogger()));
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.put['Content-Type'] = 'application/json';

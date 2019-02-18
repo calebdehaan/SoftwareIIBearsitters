@@ -5,12 +5,10 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import petfinder.site.common.pet.PetDto;
 import petfinder.site.common.user.UserDao;
@@ -98,11 +96,11 @@ public class UserEndpoint {
 		return userService.findPets(user);
 	}
 
-	/**
-	 * This endpoint associates a new pet with the current user. The itself must be created prior to calling this endpoint via PetEndpoint.savePet(...)
-	 */
-	@PostMapping(value = "/pet")
-	public UserPetDto addPet(@RequestBody UserPetDto userPetDto) {
-		return userService.save(userPetDto);
+	/*
+	@GetMapping(value = "/hello", produces = "application/json")
+	public ResponseEntity<String> hello() {
+		System.out.println("Hit me!");
+		return new ResponseEntity<String>("Hello, you!", HttpStatus.OK);
 	}
+	*/
 }
