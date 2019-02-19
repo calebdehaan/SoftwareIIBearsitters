@@ -30,7 +30,8 @@ export class Home extends React.Component {
 	render() {
 		return (
 			<div className="container padded">
-				TT {this.state.message} This is the home page.
+				<h1>BearSitters</h1>
+				{this.state.message} This is the home page.
 
 				<ul >
 					<li><Link to="/register">Register</Link></li>
@@ -56,6 +57,7 @@ export class RegisterPage extends React.Component {
 						<Login.RegistrationForm />
 					</div>
 				</div>
+                <Link to="/">Homepage</Link>
 			</div>
 		);
 	}
@@ -72,6 +74,7 @@ export class LoginPage extends React.Component {
 						<Login.LoginForm />
 					</div>
 				</div>
+                <Link to="/">Homepage</Link>
 			</div>
 		);
 	}
@@ -90,6 +93,7 @@ class Page1 extends React.Component {
 				{ _.isDefined(this.props.user) &&
 				<div>Welcome, {this.props.user.principal}!</div>
 				}
+                <Link to="/">Homepage</Link>
 			</div>
 		);
 	}
@@ -109,6 +113,7 @@ export class Page2 extends React.Component {
 		return (
 			<div className="container padded">
 				This is page 2.
+                <Link to="/">Homepage</Link>
 			</div>
 		);
 	}
@@ -119,6 +124,7 @@ export class Page3 extends React.Component {
 		return (
 			<div className="container padded">
 				This is page 3.
+                <Link to="/">Homepage</Link>
 			</div>
 		);
 	}

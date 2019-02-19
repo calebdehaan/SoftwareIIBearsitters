@@ -4,6 +4,10 @@ $fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome.scss";
 
 body{
-    background-color:red;
+    background-color: black;
+    -webkit-text-fill-color: green;
 }
 
+h1{
+    -webkit-text-fill-color: darkgoldenrod;
+}
