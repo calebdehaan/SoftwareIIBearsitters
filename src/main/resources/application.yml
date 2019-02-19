@@ -31,8 +31,8 @@ web:
     css-bundle-location: /statics/petfinder-site.css
 
 elastic-search:
-  host: cherry-664035219.us-east-1.bonsaisearch.net
+  host: holly-541774034.us-east-1.bonsaisearch.net
   port: 443
   scheme: https
-  user-name: 9qqpi6lavi
-  password: 8yjvr01pdc
+  user-name: 1cnwq6p2c9
+  password: nlfod3h9a1
