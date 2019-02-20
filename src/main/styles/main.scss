@@ -3,11 +3,19 @@
 $fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome.scss";
 
+.navbar-brand{
+    font-size:30px;
+}
+
 body{
     background-color: black;
-    -webkit-text-fill-color: green;
+    -webkit-text-fill-color: white;
 }
 
 h1{
     -webkit-text-fill-color: darkgoldenrod;
+}
+
+.nav-item:hover{
+    font-size:20px;
 }
