@@ -16,11 +16,11 @@ class LoginForm extends React.Component {
 		let { handleSubmit, submitting } = this.props;
 
 		return (
-			<form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
-				<Bessemer.Field name="principal" friendlyName="Email Address"
+			<form style={{backgroundColor:'black'}} name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
+				<Bessemer.Field style={{backgroundColor:'black'}} name="principal" friendlyName="Email Address"
 				                validators={[Validation.requiredValidator, Validation.emailValidator]} />
 
-				<Bessemer.Field name="password" friendlyName="Password"
+				<Bessemer.Field style={{backgroundColor:'black'}} name="password" friendlyName="Password"
 				                validators={[Validation.requiredValidator, Validation.passwordValidator]} />
 
 				<Bessemer.Button loading={submitting}>Sign In</Bessemer.Button>
