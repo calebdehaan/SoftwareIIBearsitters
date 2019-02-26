@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as Users from 'js/users';
 import * as Login from 'js/login';
 import * as NavBarr from 'js/gen';
+import * as Prefer from 'js/pref';
 import axios from 'axios';
 
 
@@ -120,6 +121,17 @@ export class Page3 extends React.Component {
 			<div className="container padded">
                 <NavBarr.NavBar />
 				This is page 3.
+			</div>
+		);
+	}
+}
+
+export class Preferences extends React.Component {
+	render() {
+		return (
+			<div className="container padded">
+				<NavBarr.NavBar />
+				<Prefer.Preferences/>
 			</div>
 		);
 	}

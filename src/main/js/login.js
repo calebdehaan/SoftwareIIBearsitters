@@ -43,6 +43,8 @@ LoginForm = connect(
 export { LoginForm };
 
 class RegistrationForm extends React.Component {
+	mapOfRoles={'one':'1','two':'2'};
+
 	onSubmit = user => {
 		return this.props.register(user);
 	};
@@ -58,6 +60,10 @@ class RegistrationForm extends React.Component {
 				<Bessemer.Field name="password" friendlyName="Password"
 				                validators={[Validation.requiredValidator, Validation.passwordValidator]}
 				                field={<input className="form-control" type="password" />} />
+
+				<Bessemer.Field name="Address" friendlyName="Address"
+								field={<input className="form-control" type="address" />} />
+
 
 				<Bessemer.Button loading={submitting}>Register</Bessemer.Button>
 			</form>

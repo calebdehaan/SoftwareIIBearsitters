@@ -57,6 +57,13 @@ class NavBar extends React.Component {
                                     <a className="nav-link" href="#/" onClick={this.LogoutClick}> Log Out</a>
                                 </li>
                             }
+
+                            {_.isDefined(this.props.user) &&
+                            <li className="nav-item" style={{float:'right'}}>
+                                <a className="nav-link" href="#/pref" > Preferences </a>
+                            </li>
+                            }
+
                         </ul>
                     </div>
                 </nav>
