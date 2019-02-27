@@ -14,6 +14,7 @@ class Preferences extends React.Component {
                 <div>Welcome, {this.props.user.principal}!</div>
                 }
 
+
             </div>
         );
     }

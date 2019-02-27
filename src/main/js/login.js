@@ -6,8 +6,13 @@ import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 
 import * as Users from 'js/users';
+import Redirect from 'react-router-dom/es/Redirect';
 
 class LoginForm extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
 	onSubmit = ({principal, password}) => {
 		return this.props.authenticate(principal, password);
 	};
@@ -15,13 +20,22 @@ class LoginForm extends React.Component {
 	render() {
 		let { handleSubmit, submitting } = this.props;
 
+		if (this.props.user) {
+			return <Redirect to='/'/>;
+		}
+
 		return (
-			<form style={{backgroundColor:'black'}} name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
+			<form style={{backgroundColor:'black'}} name="form" action={'/'} onSubmit={handleSubmit(form => this.onSubmit(form))}>
 				<Bessemer.Field style={{backgroundColor:'black'}} name="principal" friendlyName="Email Address"
-				                validators={[Validation.requiredValidator, Validation.emailValidator]} />
+									validators={[Validation.requiredValidator, Validation.emailValidator]}
+									field={<input className="form-control" type="email" autoComplete="username"/>}
+				/>
 
 				<Bessemer.Field style={{backgroundColor:'black'}} name="password" friendlyName="Password"
-				                validators={[Validation.requiredValidator, Validation.passwordValidator]} />
+									validators={[Validation.requiredValidator, Validation.passwordValidator]}
+									field={<input className="form-control" type="password"
+												  autoComplete={'current-password'}/>}
+				/>
 
 				<Bessemer.Button loading={submitting}>Sign In</Bessemer.Button>
 			</form>
@@ -33,7 +47,7 @@ LoginForm = ReduxForm.reduxForm({form: 'login'})(LoginForm);
 
 LoginForm = connect(
 	state => ({
-		initialValues: { principal: 'This is a Default', password: 'This is a Password' }
+		user: Users.State.getUser(state)
 	}),
 	dispatch => ({
 		authenticate: (principal, password) => dispatch(Users.Actions.authenticate(principal, password))
@@ -43,14 +57,21 @@ LoginForm = connect(
 export { LoginForm };
 
 class RegistrationForm extends React.Component {
-	mapOfRoles={'one':'1','two':'2'};
+
+	constructor(props) {
+		super(props);
+	}
 
 	onSubmit = user => {
-		return this.props.register(user);
+		return this.props.register(user).then();
 	};
 
 	render() {
 		let { handleSubmit, submitting } = this.props;
+
+		if (this.props.user) {
+			return <Redirect to='/'/>;
+		}
 
 		return (
 			<form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
@@ -60,9 +81,6 @@ class RegistrationForm extends React.Component {
 				<Bessemer.Field name="password" friendlyName="Password"
 				                validators={[Validation.requiredValidator, Validation.passwordValidator]}
 				                field={<input className="form-control" type="password" />} />
-
-				<Bessemer.Field name="Address" friendlyName="Address"
-								field={<input className="form-control" type="address" />} />
 
 
 				<Bessemer.Button loading={submitting}>Register</Bessemer.Button>
@@ -75,7 +93,7 @@ RegistrationForm = ReduxForm.reduxForm({form: 'register'})(RegistrationForm);
 
 RegistrationForm = connect(
 	state => ({
-
+		user: Users.State.getUser(state)
 	}),
 	dispatch => ({
 		register: user => dispatch(Users.Actions.register(user))
