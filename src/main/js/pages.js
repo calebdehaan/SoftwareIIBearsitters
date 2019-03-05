@@ -118,7 +118,7 @@ export class Page2 extends React.Component {
 }
 
 export class Availability extends React.Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props);
         this.state = {
             startDate: new Date()
@@ -135,20 +135,30 @@ export class Availability extends React.Component {
     handleSubmit(e){
         e.preventDefault();
         let main = this.state.startDate;
-    }
+    }*/
 
+/*				<form onSubmit={ this.handleSubmit }>
+                    <div className="form-group">
+                        <label>Select Start Date: </label>
+                        *//*
+                        <DatePicker
+                            selected={this.state.startDate}
+                            onChange={this.handleChange}
+                         />*//*
+                    </div>
+                    <div className="form-group">
+                        <button className="btn btn-success">Add Dates</button>
+                    </div>
+                </form>*/
 	render() {
 		return (
 			<div className="container padded">
                 <NavBarr.NavBar />
-				<form onSubmit={ this.handleSubmit }>
-				    <div className="form-group">
-				        <label>Select Start Date: </label>
-				        /*
-                        <DatePicker
-                            selected={this.state.startDate}
-                            onChange={this.handleChange}
-                         />*/
+                This is avaiablility page
+                <form>
+                    <div className="form-group">
+                        <label>Select Start Date:</label>
+                        <input type="text" name="dates">
                     </div>
                     <div className="form-group">
                         <button className="btn btn-success">Add Dates</button>
