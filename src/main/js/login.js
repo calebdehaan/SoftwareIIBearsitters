@@ -83,11 +83,21 @@ class RegistrationForm extends React.Component {
 				                field={<input className="form-control" type="password" />} />
 
 				<Bessemer.Field name='firstName' friendlyName='First Name'
-								placeholder='John'
+								placeholder={'Yes'}
 								validators={[Validation.requiredValidator]}/>
 
-				<Bessemer.Field name='lastName' friendlyName='Last Name'
-								placeholder='Doe'
+				<Bessemer.Field name='lastName' friendlyName='Last Name' placeholder={'Doe'} validators={[Validation.requiredValidator]}/>
+
+				<Bessemer.Field name='phone' friendlyName='Phone Number'
+								placeholder={'987-654-3210'}
+								validators={[Validation.requiredValidator, Validation.phoneNumberValidator]}/>
+
+				<Bessemer.Field name='street' friendlyName='Street Address'
+								placeholder={'7342 Pumpkin Hill St.'}
+								validators={[Validation.requiredValidator]}/>
+
+				<Bessemer.Field name='city' friendlyName='City'
+								placeholder={'Duluth'}
 								validators={[Validation.requiredValidator]}/>
 
 

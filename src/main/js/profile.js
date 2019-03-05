@@ -11,9 +11,8 @@ class Profile extends React.Component {
                 This is your profile page
 
                 { _.isDefined(this.props.user) &&
-                <div>Welcome, {this.props.user.principal}!</div>
+                <div>Welcome, {this.props.user.attributes['firstName']}!</div>
                 }
-
 
             </div>
         );

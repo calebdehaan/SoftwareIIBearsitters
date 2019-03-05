@@ -1,10 +1,7 @@
 package petfinder.site.common.user;
 
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,7 +34,7 @@ public class UserService {
 	}
 
 	public UserDto constructUser(RegistrationRequest request) {
-		return new UserDto(request.getPrincipal(),_Lists.list("ROLE_USER"), UserType.OWNER, request.getAttributes());
+		return new UserDto(request.getPrincipal(), request.getRoles(),request.getAttributes(), request.getAddress(), request.getPets());
 	}
 
 	public static class RegistrationRequest {
@@ -47,6 +44,12 @@ public class UserService {
 		private String lastName;
 		private String phone;
 		private String street;
+		private String city;
+		private String state;
+		private String zip;
+		private String petSitter;
+		private String petOwner;
+		private List<Long> pets;
 
 		public String getPrincipal() {
 			return principal;
@@ -68,8 +71,33 @@ public class UserService {
 			Map<String, Object> theAttributes = new HashMap<>();
 			theAttributes.put("firstName", this.firstName);
 			theAttributes.put("lastName", this.lastName);
+			theAttributes.put("phone", this.phone);
 
 			return theAttributes;
+		}
+
+		public Map<String, Object> getAddress() {
+			Map<String, Object> myAddress = new HashMap<>();
+			myAddress.put("street", this.street);
+			myAddress.put("city", this.city);
+			myAddress.put("state", this.state);
+			myAddress.put("zip", this.zip);
+
+			return myAddress;
+		}
+
+		public List<String> getRoles() {
+			List<String> myRoles = new ArrayList<>();
+
+			if (this.petOwner.equals("true")) {
+				myRoles.add(UserType.OWNER.toString());
+			}
+			if (this.petSitter.equals("true")) {
+				myRoles.add(UserType.SITTER.toString());
+			}
+
+			if (myRoles.isEmpty()) myRoles.add("None");
+			return myRoles;
 		}
 
 		public String getFirstName() {
@@ -102,6 +130,54 @@ public class UserService {
 
 		public void setStreet(String street) {
 			this.street = street;
+		}
+
+		public String getCity() {
+			return city;
+		}
+
+		public void setCity(String city) {
+			this.city = city;
+		}
+
+		public String getState() {
+			return state;
+		}
+
+		public void setState(String state) {
+			this.state = state;
+		}
+
+		public String getZip() {
+			return zip;
+		}
+
+		public void setZip(String zip) {
+			this.zip = zip;
+		}
+
+		public String getPetSitter() {
+			return petSitter;
+		}
+
+		public void setPetSitter(String petSitter) {
+			this.petSitter = petSitter;
+		}
+
+		public String getPetOwner() {
+			return petOwner;
+		}
+
+		public void setPetOwner(String petOwner) {
+			this.petOwner = petOwner;
+		}
+
+		public List<Long> getPets() {
+			return pets;
+		}
+
+		public void setPets(List<Long> pets) {
+			this.pets = pets;
 		}
 	}
 
