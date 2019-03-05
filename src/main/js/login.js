@@ -97,6 +97,8 @@ class RegistrationForm extends React.Component {
 				<Bessemer.Field name='city' friendlyName='City' field={<input className="form-control" placeholder={'City'} />}
 								validators={[Validation.requiredValidator]}/>
 
+				<Bessemer.Field name='zip' friendlyName='Zipcode' field={<input className="form-control" placeholder={'Zipcode'} />}
+								validators={[Validation.requiredValidator, Validation.zipValidator]}/>
 
 
 				<Bessemer.Button loading={submitting}>Register</Bessemer.Button>
