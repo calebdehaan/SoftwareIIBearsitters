@@ -54,7 +54,7 @@ class NavBar extends React.Component {
 
                             {_.isDefined(this.props.user) &&
                             <li className="nav-item" style={{float:'right'}}>
-                                <a className="nav-link" href="#/pref" > Preferences </a>
+                                <a className="nav-link" href="#/profile" > Profile </a>
                             </li>
                             }
 

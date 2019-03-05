@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as Users from 'js/users';
 import * as Login from 'js/login';
 import * as NavBarr from 'js/gen';
-import * as Prefer from 'js/pref';
+import * as Prof from 'js/profile';
 import axios from 'axios';
 
 
@@ -26,7 +26,7 @@ export class Home extends React.Component {
 			<div className="container padded">
                 <NavBarr.NavBar />
 				{this.state.message} This is the home page. <br/>
-				<img style={{position:'absolute',top:'40%', left:'35%'}} src={'statics/bearsitting.png'} alt="the bear will sit" title="the bear will sit"/>
+				<img style={{position:'absolute',  top:'40%', left:'35%'}} src={'statics/bearsitting.png'} alt="the bear will sit" title="the bear will sit"/>
 			</div>
 		);
 	}
@@ -126,12 +126,12 @@ export class Page3 extends React.Component {
 	}
 }
 
-export class Preferences extends React.Component {
+export class Profile extends React.Component {
 	render() {
 		return (
 			<div className="container padded">
 				<NavBarr.NavBar />
-				<Prefer.Preferences/>
+				<Prof.Profile/>
 			</div>
 		);
 	}

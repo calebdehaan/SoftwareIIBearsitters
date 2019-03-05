@@ -4,32 +4,27 @@ import _ from 'lodash';
 import {connect} from 'react-redux';
 import * as Users from 'js/users';
 
-class Preferences extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
-
+class Profile extends React.Component {
     render() {
         return (
             <div className="container padded">
-                This is your preference page
+                This is your profile page
 
                 { _.isDefined(this.props.user) &&
-                <div>Welcome, {this.props.user.attributes['firstName']}!</div>
-
+                <div>Welcome, {this.props.user.principal}!</div>
                 }
+
 
             </div>
         );
     }
 }
 
-Preferences = connect(
+Profile = connect(
     state => ({
         authentication: Users.State.getAuthentication(state),
         user: Users.State.getUser(state)
     })
-)(Preferences);
+)(Profile);
 
-export { Preferences };
+export { Profile };
