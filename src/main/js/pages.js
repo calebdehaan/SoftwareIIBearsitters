@@ -154,7 +154,7 @@ export class Availability extends React.Component {
 		return (
 			<div className="container padded">
                 <NavBarr.NavBar />
-                This is avaiablility page
+                This is availability page
                 <form>
                     <div className="form-group">
                         <label>Select Start Date:</label>
