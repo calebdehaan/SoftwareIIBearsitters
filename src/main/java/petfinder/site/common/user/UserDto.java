@@ -1,9 +1,6 @@
 package petfinder.site.common.user;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -17,17 +14,20 @@ import petfinder.site.common.pet.PetDto;
 public class UserDto implements Momento<String> {
 	private String principal;
 	private List<String> roles;
-	private UserType type;
 	private Map<String, Object> attributes;
+	private Map<String, Object> address;
+	private List<Long> pets;
 
 	private UserDto() {
 
 	}
 
-	public UserDto(String principal, List<String> roles, UserType type, Map<String, Object> attributes) {
+	public UserDto(String principal, List<String> roles, Map<String, Object> attributes,Map<String, Object> address, List<Long> pets) {
 		this.principal = principal;
 		this.roles = roles;
 		this.attributes = attributes;
+		this.address = address;
+		this.pets = pets;
 	}
 
 	public String getPrincipal() {
@@ -42,9 +42,31 @@ public class UserDto implements Momento<String> {
 		return attributes;
 	}
 
-	public UserType getType() {
-		return type;
+	public Map<String, Object> getAddress() {
+		return address;
 	}
+
+	public List<Long> getPets() {
+		return pets;
+	}
+
+	public void setPets(List<Long> pets) {
+		this.pets = pets;
+	}
+
+	public void addPet(Long id) {
+		if (this.pets == null) {
+			this.pets = new ArrayList<>();
+		}
+		this.pets.add(id);
+	}
+
+	public void deletePet(Long id) {
+		if (this.pets != null) {
+			this.pets.remove(id);
+		}
+	}
+
 
 	@JsonIgnore
 	@Override

@@ -27,7 +27,7 @@ export class Home extends React.Component {
 		return (
 			<div className="container padded">
                 <NavBarr.NavBar />
-				{this.state.message} This is the home page. <br/>
+				{this.state.message}Welcome to BearSitters!<br/>
 				<img style={{position:'absolute',  top:'40%', left:'35%'}} src={'statics/bearsitting.png'} alt="the bear will sit" title="the bear will sit"/>
 			</div>
 		);
