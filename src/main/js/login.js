@@ -82,22 +82,19 @@ class RegistrationForm extends React.Component {
 				                validators={[Validation.requiredValidator, Validation.passwordValidator]}
 				                field={<input className="form-control" type="password" />} />
 
-				<Bessemer.Field name='firstName' friendlyName='First Name'
-								placeholder={'Yes'}
+				<Bessemer.Field name='firstName' friendlyName='First Name'  field={<input className="form-control" placeholder={'First Name'} />}
 								validators={[Validation.requiredValidator]}/>
 
-				<Bessemer.Field name='lastName' friendlyName='Last Name' placeholder={'Doe'} validators={[Validation.requiredValidator]}/>
+				<Bessemer.Field name='lastName' friendlyName='Last Name' field={<input className="form-control" placeholder={'Last Name'} />}
+								validators={[Validation.requiredValidator]}/>
 
-				<Bessemer.Field name='phone' friendlyName='Phone Number'
-								placeholder={'987-654-3210'}
+				<Bessemer.Field name='phone' friendlyName='Phone Number' field={<input className="form-control" placeholder={'Phone Number'} />}
 								validators={[Validation.requiredValidator, Validation.phoneNumberValidator]}/>
 
-				<Bessemer.Field name='street' friendlyName='Street Address'
-								placeholder={'7342 Pumpkin Hill St.'}
+				<Bessemer.Field name='street' friendlyName='Street Address' field={<input className="form-control" placeholder={'Street Address'} />}
 								validators={[Validation.requiredValidator]}/>
 
-				<Bessemer.Field name='city' friendlyName='City'
-								placeholder={'Duluth'}
+				<Bessemer.Field name='city' friendlyName='City' field={<input className="form-control" placeholder={'City'} />}
 								validators={[Validation.requiredValidator]}/>
 
 
