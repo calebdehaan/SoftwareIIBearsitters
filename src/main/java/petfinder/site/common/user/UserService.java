@@ -1,6 +1,7 @@
 package petfinder.site.common.user;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -35,10 +36,17 @@ public class UserService {
 		return userDao.findUserByPrincipal(principal);
 	}
 
+	public UserDto constructUser(RegistrationRequest request) {
+		return new UserDto(request.getPrincipal(),_Lists.list("ROLE_USER"), UserType.OWNER, request.getAttributes());
+	}
+
 	public static class RegistrationRequest {
 		private String principal;
 		private String password;
-		private Map<String, Object> attributes;
+		private String firstName;
+		private String lastName;
+		private String phone;
+		private String street;
 
 		public String getPrincipal() {
 			return principal;
@@ -57,18 +65,48 @@ public class UserService {
 		}
 
 		public Map<String, Object> getAttributes() {
-			return attributes;
+			Map<String, Object> theAttributes = new HashMap<>();
+			theAttributes.put("firstName", this.firstName);
+			theAttributes.put("lastName", this.lastName);
+
+			return theAttributes;
 		}
 
-		public void setAttributes(Map<String, Object> attributes) {
-			this.attributes = attributes;
+		public String getFirstName() {
+			return firstName;
+		}
+
+		public void setFirstName(String firstName) {
+			this.firstName = firstName;
+		}
+
+		public String getLastName() {
+			return lastName;
+		}
+
+		public void setLastName(String lastName) {
+			this.lastName = lastName;
+		}
+
+		public String getPhone() {
+			return phone;
+		}
+
+		public void setPhone(String phone) {
+			this.phone = phone;
+		}
+
+		public String getStreet() {
+			return street;
+		}
+
+		public void setStreet(String street) {
+			this.street = street;
 		}
 	}
 
 	public UserDto register(RegistrationRequest request) {
-		UserAuthenticationDto userAuthentication = new UserAuthenticationDto(
-				new UserDto(request.getPrincipal(), _Lists.list("ROLE_USER"), UserType.OWNER, request.getAttributes()), passwordEncoder.encode(request.getPassword()));
-
+		UserAuthenticationDto userAuthentication = new UserAuthenticationDto(constructUser(request), this.passwordEncoder.encode(request.getPassword()));
 		userDao.save(userAuthentication);
 		return userAuthentication.getUser();
 	}

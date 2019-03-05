@@ -93,6 +93,15 @@ Actions.setUser = user => {
 	return {type: Actions.Types.SET_USER, user};
 };
 
+/* Fetchers that will get some user objects and set them accordingly */
+Actions.fetchUser = () => {
+	return (dispatch) => {
+		return getUserDetails().then(user => {
+			return dispatch(Actions.setUser(user));
+		});
+	};
+};
+
 export { Actions };
 
 let Reducers = {};

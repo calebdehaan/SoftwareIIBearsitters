@@ -96,11 +96,4 @@ public class UserEndpoint {
 		return userService.findPets(user);
 	}
 
-	/*
-	@GetMapping(value = "/hello", produces = "application/json")
-	public ResponseEntity<String> hello() {
-		System.out.println("Hit me!");
-		return new ResponseEntity<String>("Hello, you!", HttpStatus.OK);
-	}
-	*/
 }

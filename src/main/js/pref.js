@@ -5,15 +5,20 @@ import {connect} from 'react-redux';
 import * as Users from 'js/users';
 
 class Preferences extends React.Component {
+    constructor(props) {
+        super(props);
+
+    }
+
     render() {
         return (
             <div className="container padded">
                 This is your preference page
 
                 { _.isDefined(this.props.user) &&
-                <div>Welcome, {this.props.user.principal}!</div>
-                }
+                <div>Welcome, {this.props.user.attributes['firstName']}!</div>
 
+                }
 
             </div>
         );
