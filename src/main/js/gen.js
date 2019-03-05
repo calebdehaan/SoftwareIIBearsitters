@@ -49,7 +49,7 @@ class NavBar extends React.Component {
                                 <a className="nav-link" href="#/page-2">Page2</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#/page-3">Page3</a>
+                                <a className="nav-link" href="#/availability">Schedule Availability</a>
                             </li>
 
                             {_.isDefined(this.props.user) &&

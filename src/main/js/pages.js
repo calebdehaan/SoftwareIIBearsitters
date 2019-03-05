@@ -8,7 +8,9 @@ import * as Login from 'js/login';
 import * as NavBarr from 'js/gen';
 import * as Prof from 'js/profile';
 import axios from 'axios';
+//import DatePicker from 'react-datepicker';
 
+//import 'react-datepicker/dist/react-datepicker.css'
 
 export class Home extends React.Component {
 	constructor(props){
@@ -115,12 +117,43 @@ export class Page2 extends React.Component {
 	}
 }
 
-export class Page3 extends React.Component {
+export class Availability extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            startDate: new Date()
+        };
+        this.handleChange = this.handlechange.bind(this);
+    }
+
+    handleChange(date) {
+        this.setState({
+            startDate: date
+        });
+    }
+
+    handleSubmit(e){
+        e.preventDefault();
+        let main = this.state.startDate;
+    }
+
 	render() {
 		return (
 			<div className="container padded">
                 <NavBarr.NavBar />
-				This is page 3.
+				<form onSubmit={ this.handleSubmit }>
+				    <div className="form-group">
+				        <label>Select Start Date: </label>
+				        /*
+                        <DatePicker
+                            selected={this.state.startDate}
+                            onChange={this.handleChange}
+                         />*/
+                    </div>
+                    <div className="form-group">
+                        <button className="btn btn-success">Add Dates</button>
+                    </div>
+                </form>
 			</div>
 		);
 	}
