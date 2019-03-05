@@ -158,7 +158,7 @@ export class Availability extends React.Component {
                 <form>
                     <div className="form-group">
                         <label>Select Start Date:</label>
-                        <input type="text" name="dates">
+                        <input type="text" id="dates" class="form-control">
                     </div>
                     <div className="form-group">
                         <button className="btn btn-success">Add Dates</button>
