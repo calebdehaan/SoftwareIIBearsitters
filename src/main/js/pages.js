@@ -1,8 +1,6 @@
 import _ from 'lodash';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import * as Users from 'js/User/users';
 import * as Login from 'js/LoginRegister/login';
 import * as Register from 'js/LoginRegister/form';
@@ -27,7 +25,7 @@ export class Home extends React.Component {
 		return (
 			<div className="container padded">
                 <NavBarr.NavBar />
-				{this.state.message}Welcome t  o BearSitters!<br/>
+				{this.state.message}Welcome to the BearSitters!<br/>
 				<img style={{position:'absolute',  top:'40%', left:'35%'}} src={'statics/bearsitting.png'} alt="the bear will sit" title="the bear will sit"/>
 			</div>
 		);
@@ -36,10 +34,6 @@ export class Home extends React.Component {
 
 export class RegisterPage extends React.Component {
 	render() {
-
-        if(this.props.user){
-            return <Redirect to='/'/>;
-        }
 
 		return (
 			<div className="container padded">
@@ -58,10 +52,6 @@ export class RegisterPage extends React.Component {
 
 export class LoginPage extends React.Component {
 	render() {
-
-        if(this.props.user){
-            return <Redirect to='/'/>;
-        }
 
 		return (
 			<div className="container padded">

@@ -33,13 +33,13 @@ class NavBar extends React.Component {
                             </li>
 
 
-                            {_.isDefined(this.props.user) &&
+                            { (this.props.user) &&
                                 <li className="nav-item">
                                     <a className="nav-link" href="#/availability">Schedule Availability</a>
                                 </li>
                             }
 
-                            {_.isDefined(this.props.user) &&
+                            { (this.props.user) &&
                                 <li className="nav-item" style={{float:'right'}}>
                                     <a className="nav-link" href="#/profile" > Profile </a>
                                 </li>
@@ -47,18 +47,18 @@ class NavBar extends React.Component {
                         </ul>
 
                         <ul className="navbar-nav" style={{float:'right'}}>
-                            { (_.isUndefined(this.props.user) || _.isNil(this.props.user) ) &&
+                            { (!this.props.user) &&
                             <li className="nav-item">
                                 <a className="nav-link" href="#/register">Register</a>
                             </li>
                             }
 
-                            { (_.isUndefined(this.props.user) || _.isNil(this.props.user) ) &&
+                            { (!this.props.user) &&
                             <li className="nav-item">
                                 <a className="nav-link" href="#/login">Login</a>
                             </li>
                             }
-                            {_.isDefined(this.props.user) &&
+                            { (this.props.user) &&
                                 <li className="nav-item">
                                     <a className="nav-link" href="#/" onClick={this.LogoutClick}> Log Out</a>
                                 </li>

@@ -88,15 +88,23 @@ public class UserService {
 
 		public List<String> getRoles() {
 			List<String> myRoles = new ArrayList<>();
-			/*
-			if (this.petOwner.equals("true")) {
-				myRoles.add(UserType.OWNER.toString());
-			}
-			if (this.petSitter.equals("true")) {
-				myRoles.add(UserType.SITTER.toString());
-			}*/
 
-			if (myRoles.isEmpty()) myRoles.add("None");
+			if(this.petOwner != null) {
+                if (this.petOwner.equals("true")) {
+                    myRoles.add(UserType.OWNER.toString());
+                }
+            }
+
+            if(this.petSitter != null) {
+                if (this.petSitter.equals("true")) {
+                    myRoles.add(UserType.SITTER.toString());
+                }
+            }
+
+			if (myRoles.isEmpty()){
+			    myRoles.add("None");
+			}
+
 			return myRoles;
 		}
 

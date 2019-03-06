@@ -1,5 +1,4 @@
 import React from 'react';
-import * as NavBarr from '../Common/navBar';
 import _ from 'lodash';
 import {connect} from 'react-redux';
 import * as Users from './users';
@@ -8,9 +7,22 @@ class Profile extends React.Component {
     render() {
         return (
             <div className="container padded">
-                This is your profile paasdasasdage
+                This is your profile page
+                { !_.isNil(this.props.user) &&
+                    <div> You're a
+                        { (this.props.user.roles.length === 2) &&
+                        <span> Petsitter and Petowner! Congratulations!! </span>
+                        }
+                        {(this.props.user.roles.length === 1) && this.props.user.roles.includes('OWNER') &&
+                        <span> Petowner! Congratulations!! </span>
+                        }
+                        {(this.props.user.roles.length === 1) && this.props.user.roles.includes('SITTER') &&
+                        <span> Petsitter! Congratulations!! </span>
+                        }
+                    <br/></div>
+                }
 
-                { _.isDefined(this.props.user) &&
+                { !_.isNil(this.props.user) &&
                     <div>
                         Welcome , {this.props.user.attributes['firstName']}! <br/> <br/>
                         <div className="profileHeader">Full Name: <br/></div>
