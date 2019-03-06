@@ -95,5 +95,4 @@ public class UserEndpoint {
 		UserDto user = userService.findUserByPrincipal(principal).get();
 		return userService.findPets(user);
 	}
-
 }

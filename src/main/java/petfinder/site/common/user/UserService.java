@@ -38,7 +38,6 @@ public class UserService {
 		private String phone;
 		private String street;
 		private String city;
-		private String state;
 		private String zip;
 		private String petSitter;
 		private String petOwner;
@@ -73,7 +72,6 @@ public class UserService {
 			Map<String, Object> myAddress = new HashMap<>();
 			myAddress.put("street", this.street);
 			myAddress.put("city", this.city);
-			myAddress.put("state", this.state);
 			myAddress.put("zip", this.zip);
 
 			return myAddress;
@@ -139,14 +137,6 @@ public class UserService {
 
 		public void setCity(String city) {
 			this.city = city;
-		}
-
-		public String getState() {
-			return state;
-		}
-
-		public void setState(String state) {
-			this.state = state;
 		}
 
 		public String getZip() {
