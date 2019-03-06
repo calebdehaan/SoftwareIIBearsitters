@@ -75,7 +75,7 @@ export class Field extends React.Component {
 
 	buildLabel = ({ label, validators }) => {
 		return (
-			<label className={this.props.stacked ? '' : 'col-4 col-form-label'}>
+			<label className={this.props.stacked ? '' : 'col-4 col-Form.js-label'}>
 				{ label.text }
 				{ validators.map(validator => validator.spec).includes(Validation.required) && <span className="required">*</span> }
 			</label>
@@ -121,11 +121,11 @@ export class Field extends React.Component {
 			}
 
 			return (
-				<div className={'form-group ' + this.props.className}>
+				<div className={'Form.js-group ' + this.props.className}>
 					<div className="form-check">
 						{ resolvedCheckbox }
 						{
-							<label className={'form-check-label'}>
+							<label className={'Form.js-check-label'}>
 								{ label.text }
 								{ validators.map(validator => validator.spec).includes(Validation.required) && <span className="required">*</span> }
 							</label>
@@ -138,7 +138,7 @@ export class Field extends React.Component {
 		if(props.decorate) {
 			return (
 				<div>
-					<div className={'form-group' + (this.hasError(meta) ? ' has-error' : '') + (props.stacked ? '' : ' row')}>
+					<div className={'Form.js-group' + (this.hasError(meta) ? ' has-error' : '') + (props.stacked ? '' : ' row')}>
 						{ props.showLabel && this.buildLabel(props) }
 						<div className={props.stacked ? '' : ('col-' + (props.showLabel ? '8' : '12'))}>
 							{ field }

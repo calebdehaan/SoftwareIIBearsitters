@@ -1,14 +1,14 @@
 import React from 'react';
-import * as NavBarr from 'js/gen';
+import * as NavBarr from '../Common/navBar';
 import _ from 'lodash';
 import {connect} from 'react-redux';
-import * as Users from 'js/users';
+import * as Users from './users';
 
 class Profile extends React.Component {
     render() {
         return (
             <div className="container padded">
-                This is your profile page
+                This is your profile paasdasasdage
 
                 { _.isDefined(this.props.user) &&
                     <div>

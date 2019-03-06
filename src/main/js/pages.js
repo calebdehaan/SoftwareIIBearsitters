@@ -3,11 +3,11 @@ import _ from 'lodash';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as Users from 'js/users';
-import * as Login from 'js/login';
-import * as NavBarr from 'js/gen';
-import * as Prof from 'js/profile';
-import axios from 'axios';
+import * as Users from 'js/User/users';
+import * as Login from 'js/LoginRegister/login';
+import * as Register from 'js/LoginRegister/form';
+import * as NavBarr from 'js/Common/navBar';
+import * as Prof from 'js/User/profile';
 //import DatePicker from 'react-datepicker';
 
 //import 'react-datepicker/dist/react-datepicker.css'
@@ -27,7 +27,7 @@ export class Home extends React.Component {
 		return (
 			<div className="container padded">
                 <NavBarr.NavBar />
-				{this.state.message}Welcome to BearSitters!<br/>
+				{this.state.message}Welcome t  o BearSitters!<br/>
 				<img style={{position:'absolute',  top:'40%', left:'35%'}} src={'statics/bearsitting.png'} alt="the bear will sit" title="the bear will sit"/>
 			</div>
 		);
@@ -48,7 +48,7 @@ export class RegisterPage extends React.Component {
 					<div className="col-6 offset-md-3">
 						<h2>Register</h2>
 						<hr />
-						<Login.RegistrationForm />
+						<Register.RegistrationForm />
 					</div>
 				</div>
 			</div>
@@ -97,8 +97,8 @@ export class Availability extends React.Component {
         let main = this.state.startDate;
     }*/
 
-/*				<form onSubmit={ this.handleSubmit }>
-                    <div className="form-group">
+/*				<Form.js onSubmit={ this.handleSubmit }>
+                    <div className="Form.js-group">
                         <label>Select Start Date: </label>
                         *//*
                         <DatePicker
@@ -106,10 +106,10 @@ export class Availability extends React.Component {
                             onChange={this.handleChange}
                          />*//*
                     </div>
-                    <div className="form-group">
+                    <div className="Form.js-group">
                         <button className="btn btn-success">Add Dates</button>
                     </div>
-                </form>*/
+                </Form.js>*/
 	render() {
 		return (
 			<div className="container padded">

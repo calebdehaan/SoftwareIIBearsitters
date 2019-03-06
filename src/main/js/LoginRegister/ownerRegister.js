@@ -2,10 +2,10 @@ import React from 'react';
 import * as ReduxForm from 'redux-form';
 import { connect } from 'react-redux';
 
-import * as Validation from 'js/alloy/utils/validation';
-import * as Bessemer from 'js/alloy/bessemer/components';
+import * as Validation from '../alloy/utils/validation';
+import * as Bessemer from '../alloy/bessemer/components';
 
-import * as Users from 'js/users';
+import * as Users from '../User/users';
 import Redirect from 'react-router-dom/es/Redirect';
 
 class LoginForm extends React.Component {
@@ -56,6 +56,16 @@ LoginForm = connect(
 
 export { LoginForm };
 
+import React from 'react';
+import * as ReduxForm from 'redux-form';
+import { connect } from 'react-redux';
+
+import * as Validation from '../alloy/utils/validation';
+import * as Bessemer from '../alloy/bessemer/components';
+
+import * as Users from '../User/users';
+import Redirect from 'react-router-dom/es/Redirect';
+
 class RegistrationForm extends React.Component {
 
 	constructor(props) {
@@ -76,11 +86,11 @@ class RegistrationForm extends React.Component {
 		return (
 			<form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
 				<Bessemer.Field name="principal" friendlyName="Email Address"
-				                validators={[Validation.requiredValidator, Validation.emailValidator]} />
+								validators={[Validation.requiredValidator, Validation.emailValidator]} />
 
 				<Bessemer.Field name="password" friendlyName="Password"
-				                validators={[Validation.requiredValidator, Validation.passwordValidator]}
-				                field={<input className="form-control" type="password" />} />
+								validators={[Validation.requiredValidator, Validation.passwordValidator]}
+								field={<input className="form-control" type="password" />} />
 
 				<Bessemer.Field name='firstName' friendlyName='First Name'  field={<input className="form-control" placeholder={'First Name'} />}
 								validators={[Validation.requiredValidator]}/>
