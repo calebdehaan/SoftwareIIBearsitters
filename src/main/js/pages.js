@@ -77,46 +77,6 @@ export class LoginPage extends React.Component {
 		);
 	}
 }
-
-class Page1 extends React.Component {
-	render() {
-		return (
-			<div className="container padded">
-                <NavBarr.NavBar />
-				This is page 1.
-
-				{ _.isDefined(this.props.authentication) &&
-				<div>{this.props.authentication['access_token']}</div>
-				}
-
-				{ _.isDefined(this.props.user) &&
-				<div>Welcome, {this.props.user.principal}!</div>
-				}
-			</div>
-		);
-	}
-}
-
-Page1 = connect(
-	state => ({
-		authentication: Users.State.getAuthentication(state),
-		user: Users.State.getUser(state)
-	})
-)(Page1);
-
-export { Page1 };
-
-export class Page2 extends React.Component {
-	render() {
-		return (
-			<div className="container padded">
-                <NavBarr.NavBar />
-				This is page 2.
-			</div>
-		);
-	}
-}
-
 export class Availability extends React.Component {
     /*constructor(props) {
         super(props);
@@ -158,7 +118,7 @@ export class Availability extends React.Component {
                 <form>
                     <div className="form-group">
                         <label>Select Start Date:</label>
-                        <input type="text" id="dates" class="form-control">
+						<input type="text" id="dates" class="form-control"></input>
                     </div>
                     <div className="form-group">
                         <button className="btn btn-success">Add Dates</button>

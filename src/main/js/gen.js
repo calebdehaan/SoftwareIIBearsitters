@@ -31,37 +31,33 @@ class NavBar extends React.Component {
                             <li className="nav-item active">
                                 <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
                             </li>
-                            { (_.isUndefined(this.props.user) || _.isNil(this.props.user) ) &&
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#/register">Register</a>
-                                </li>
-                            }
 
-                            { (_.isUndefined(this.props.user) || _.isNil(this.props.user) ) &&
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#/login">Login</a>
-                                </li>
-                            }
-                            <li className="nav-item">
-                                <a className="nav-link" href="#/page-1">Page1</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#/page-2">Page2</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#/availability">Schedule Availability</a>
-                            </li>
 
                             {_.isDefined(this.props.user) &&
-                            <li className="nav-item" style={{float:'right'}}>
-                                <a className="nav-link" href="#/profile" > Profile </a>
-                            </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#/availability">Schedule Availability</a>
+                                </li>
                             }
 
+                            {_.isDefined(this.props.user) &&
+                                <li className="nav-item" style={{float:'right'}}>
+                                    <a className="nav-link" href="#/profile" > Profile </a>
+                                </li>
+                            }
                         </ul>
 
                         <ul className="navbar-nav" style={{float:'right'}}>
+                            { (_.isUndefined(this.props.user) || _.isNil(this.props.user) ) &&
+                            <li className="nav-item">
+                                <a className="nav-link" href="#/register">Register</a>
+                            </li>
+                            }
 
+                            { (_.isUndefined(this.props.user) || _.isNil(this.props.user) ) &&
+                            <li className="nav-item">
+                                <a className="nav-link" href="#/login">Login</a>
+                            </li>
+                            }
                             {_.isDefined(this.props.user) &&
                                 <li className="nav-item">
                                     <a className="nav-link" href="#/" onClick={this.LogoutClick}> Log Out</a>
