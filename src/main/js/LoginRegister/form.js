@@ -57,13 +57,13 @@ class RegistrationForm extends React.Component {
 				<Bessemer.Field name='lastName' friendlyName='Last Name' field={<input className="form-control" placeholder={'Last Name'} />}
 								validators={[Validation.requiredValidator]}/>
 				<Bessemer.Field name='phone' friendlyName='Phone Number' field={<input className="form-control" placeholder={'Phone Number'} />}
-								validators={[Validation.requiredValidator]}/>
+								validators={[Validation.requiredValidator, Validation.phoneNumberValidator]}/>
 				<Bessemer.Field name='street' friendlyName='Street Address' field={<input className="form-control" placeholder={'Street Address'} />}
 								validators={[Validation.requiredValidator]}/>
 				<Bessemer.Field name='city' friendlyName='City' field={<input className="form-control" placeholder={'City'} />}
 								validators={[Validation.requiredValidator]}/>
 				<Bessemer.Field name='zip' friendlyName='Zipcode' field={<input className="form-control" placeholder={'Zipcode'} />}
-								validators={[Validation.requiredValidator]}/>
+								validators={[Validation.requiredValidator, Validation.zipValidator]}/>
 				<Bessemer.Field name={'petOwner'}
 								onChange={(e) => this.checkboxChange(e)}
 								showLabel={false}

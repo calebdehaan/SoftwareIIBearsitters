@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import {connect} from 'react-redux';
 import * as Users from './users';
+import * as Pet from 'js/Pet/addPets';
 
 class Profile extends React.Component {
     render() {
@@ -36,6 +37,7 @@ class Profile extends React.Component {
                     </div>
                 }
 
+                <Pet.Pets/>
 
             </div>
         );

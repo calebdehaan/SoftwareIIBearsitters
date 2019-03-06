@@ -7,7 +7,6 @@ import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form';
 import axios from 'axios';
-
 import Index from 'js/index';
 import * as Users from 'js/User/users';
 import * as Utils from 'js/alloy/utils/core-utils';

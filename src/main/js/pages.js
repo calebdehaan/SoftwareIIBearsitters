@@ -1,7 +1,4 @@
-import _ from 'lodash';
-
 import React from 'react';
-import * as Users from 'js/User/users';
 import * as Login from 'js/LoginRegister/login';
 import * as Register from 'js/LoginRegister/form';
 import * as NavBarr from 'js/Common/navBar';
@@ -108,7 +105,7 @@ export class Availability extends React.Component {
                 <form>
                     <div className="form-group">
                         <label>Select Start Date:</label>
-						<input type="text" id="dates" class="form-control"></input>
+						<input type="text" id="dates" className="form-control"></input>
                     </div>
                     <div className="form-group">
                         <button className="btn btn-success">Add Dates</button>

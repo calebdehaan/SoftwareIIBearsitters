@@ -67,7 +67,6 @@ public class UserDto implements Momento<String> {
 		}
 	}
 
-
 	@JsonIgnore
 	@Override
 	public String getMomento() {

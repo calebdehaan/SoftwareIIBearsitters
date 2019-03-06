@@ -1,7 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
-import * as Validation from '../alloy/utils/validation';
-import * as Bessemer from '../alloy/bessemer/components';
 import * as Users from '../User/users';
 import {connect} from 'react-redux';
 

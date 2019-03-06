@@ -7,7 +7,6 @@ import * as Bessemer from '../alloy/bessemer/components';
 
 import * as Users from '../User/users';
 import Redirect from 'react-router-dom/es/Redirect';
-import _ from 'lodash';
 
 class LoginForm extends React.Component {
 	constructor(props) {

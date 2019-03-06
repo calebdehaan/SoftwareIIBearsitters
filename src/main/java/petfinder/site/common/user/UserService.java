@@ -1,16 +1,9 @@
 package petfinder.site.common.user;
 
-import java.time.Duration;
 import java.util.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import alloy.util.AlloyAuthentication;
-import alloy.util.Wait;
-import alloy.util._Lists;
-import alloy.util._Maps;
 import petfinder.site.common.pet.PetDto;
 import petfinder.site.common.user.UserDto.UserType;
 
