@@ -4,7 +4,7 @@ $fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome.scss";
 
 .navbar-brand{
-    font-size:30px;
+    font-size:31px;
 }
 
 body{
@@ -31,5 +31,5 @@ input.form-control, input.form-control:focus{
 
 .profileHeader{
     font-size:25px;
-    font-color: grey;
+    -webkit-text-fill-color: grey;
 }
