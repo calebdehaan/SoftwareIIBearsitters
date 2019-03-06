@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Users from '../User/users';
 import {connect} from 'react-redux';
+import Favicon from 'react-favicon';
 
 
 class NavBar extends React.Component {
@@ -15,7 +16,8 @@ class NavBar extends React.Component {
     render() {
         return (
             <div>
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <Favicon url="https://img.icons8.com/ios/50/000000/bear-footprint-filled.png" />
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark" >
                     <a className="navbar-brand" href="#">BearSitters</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
