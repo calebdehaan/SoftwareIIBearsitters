@@ -11,7 +11,7 @@ public class PetTest {
   @DisplayName("PetDto")
   @Nested
   class PetDtoTest {
-    private PetDto dto = new PetDto();
+    private PetDto dto = new PetDto("123","Jake","Dog","Male", (long) 12);
 
     @DisplayName("Setters")
     @Nested
@@ -31,16 +31,16 @@ public class PetTest {
         @Test
         void setName() {
           String testName = "Test Name";
-          dto.setName(testName);
-          assertEquals(testName, dto.getName());
+          dto.setPetName(testName);
+          assertEquals(testName, dto.getPetName());
         }
 
         @DisplayName("Set Type")
         @Test
         void setType() {
           String testType = "Type";
-          dto.setType(testType);
-          assertEquals(testType, dto.getType());
+          dto.setPetSpecies(testType);
+          assertEquals(testType, dto.getPetSpecies());
         }
       }
     }

@@ -28,7 +28,7 @@ public class UserTest {
         List<String> roles = Arrays.asList("role1", "role2");
         Map<String, Object> attributes = new HashMap<>();
         Map<String, Object> address = new HashMap<>();
-        List<Long> pets = Arrays.asList(1L,2L,3L,4L,5L);
+        List<String> pets = Arrays.asList("123","122");
 
         //call constructor
         UserDto dto = new UserDto(principal, roles, attributes, address, pets);
@@ -48,8 +48,8 @@ public class UserTest {
       @DisplayName("Pre-existing pet list")
       @Test
       void listExists() {
-        long petId = 555L;
-        List<Long> pets = new ArrayList<>();
+        String petId = "123";
+        List<String> pets = new ArrayList<>();
         UserDto dto = new UserDto(null, null, null, null, pets);
         dto.addPet(petId);
         assertTrue(dto.getPets().contains(petId));
@@ -58,7 +58,7 @@ public class UserTest {
       @DisplayName("Pet list is null")
       @Test
       void noList() {
-        long petId = 32423L;
+        String petId = "122";
         UserDto dto = new UserDto(null, null, null, null, null);
         dto.addPet(petId);
         assertTrue(dto.getPets().contains(petId));
@@ -79,8 +79,8 @@ public class UserTest {
       @DisplayName("Pet exists in list")
       @Test
       void petExists() {
-        long petId = 555L;
-        List<Long> pets = new ArrayList<>();
+        String petId = "123";
+        List<String> pets = new ArrayList<>();
         pets.add(petId);
         UserDto dto = new UserDto(null, null, null, null, pets);
         dto.deletePet(petId);
@@ -89,18 +89,18 @@ public class UserTest {
       @DisplayName("Pet not in list")
       @Test
       void badPet() {
-        List<Long> pets = new ArrayList<>();
-        pets.add(555L);
-        pets.add(3224L);
+        List<String> pets = new ArrayList<>();
+        pets.add("123");
+        pets.add("122");
         UserDto dto = new UserDto(null, null, null, null, pets);
-        dto.deletePet(333L);
+        dto.deletePet("12");
         //TODO what should happen if you try to delete a pet that doesn't exist?
       }
 
       @DisplayName("List is null")
       @Test
       void noList() {
-        long petId = 555L;
+        String petId = "1222";
         UserDto dto = new UserDto(null, null, null, null, null);
         dto.deletePet(petId);
       }
@@ -108,8 +108,8 @@ public class UserTest {
       @DisplayName("Pet id is null")
       @Test
       void nullPet() {
-        List<Long> pets = new ArrayList<>();
-        pets.add(555L);
+        List<String> pets = new ArrayList<>();
+        pets.add("1");
         UserDto dto = new UserDto(null, null, null, null, pets);
         dto.deletePet(null);
         //TODO what should happen if you try to delete null?

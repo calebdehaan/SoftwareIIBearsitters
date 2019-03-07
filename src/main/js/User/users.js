@@ -27,15 +27,6 @@ export function getUserDetails() {
 	return axios.get('/api/user');
 }
 
-export function addPet(pet) {
-	// Add this new pet to the pets index
-	return axios.post('/' + pet.id, pet).then(() => {
-
-		// Add the pet ID to the users pet list
-		return axios.post('/api/user/pet/' + pet.id);
-	})
-}
-
 let State = {};
 
 State.getAuthentication = state => {
@@ -44,10 +35,6 @@ State.getAuthentication = state => {
 
 State.getUser = state => {
 	return state.user;
-};
-
-State.getPets = state => {
-	return state.pets;
 };
 
 export { State };

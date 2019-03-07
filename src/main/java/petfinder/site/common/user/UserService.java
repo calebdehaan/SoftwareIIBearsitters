@@ -41,7 +41,7 @@ public class UserService {
 		private String zip;
 		private String petSitter;
 		private String petOwner;
-		private List<Long> pets;
+		private List<String> pets;
 
 		public String getPrincipal() {
 			return principal;
@@ -163,11 +163,11 @@ public class UserService {
 			this.petOwner = petOwner;
 		}
 
-		public List<Long> getPets() {
+		public List<String> getPets() {
 			return pets;
 		}
 
-		public void setPets(List<Long> pets) {
+		public void setPets(List<String> pets) {
 			this.pets = pets;
 		}
 	}
