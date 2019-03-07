@@ -37,6 +37,9 @@ class Profile extends React.Component {
                     </div>
                 }
 
+                {/* This displays a user's pets */}
+
+                {/* This is where you add pets  */}
                 <Pet.Pets/>
 
             </div>

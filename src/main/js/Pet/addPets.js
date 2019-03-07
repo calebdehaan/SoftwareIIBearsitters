@@ -141,6 +141,7 @@ export const speciesOptions = [
     {label: 'Dog', value: 'Dog'},
     {label: 'Cat', value: 'Cat'},
     {label: 'Bird', value: 'Bird'},
+    {label: 'Fish', value: 'Fish'},
     {label: 'Mouse', value: 'Mouse'},
     {label: 'Squirrel', value: 'Squirrel'},
 ];

@@ -4,9 +4,7 @@ import java.util.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import alloy.util.Identifiable;
 import alloy.util.Momento;
-import petfinder.site.common.pet.PetDto;
 
 /**
  * Created by jlutteringer on 8/23/17.
@@ -16,13 +14,13 @@ public class UserDto implements Momento<String> {
 	private List<String> roles;
 	private Map<String, Object> attributes;
 	private Map<String, Object> address;
-	private List<Long> pets;
+	private List<String> pets;
 
 	private UserDto() {
 
 	}
 
-	public UserDto(String principal, List<String> roles, Map<String, Object> attributes,Map<String, Object> address, List<Long> pets) {
+	public UserDto(String principal, List<String> roles, Map<String, Object> attributes, Map<String, Object> address, List<String> pets) {
 		this.principal = principal;
 		this.roles = roles;
 		this.attributes = attributes;
@@ -46,22 +44,22 @@ public class UserDto implements Momento<String> {
 		return address;
 	}
 
-	public List<Long> getPets() {
+	public List<String> getPets() {
 		return pets;
 	}
 
-	public void setPets(List<Long> pets) {
+	public void setPets(List<String> pets) {
 		this.pets = pets;
 	}
 
-	public void addPet(Long id) {
+	public void addPet(String id) {
 		if (this.pets == null) {
-			this.pets = new ArrayList<>();
+			this.pets = new ArrayList<String>();
 		}
 		this.pets.add(id);
 	}
 
-	public void deletePet(Long id) {
+	public void deletePet(String id) {
 		if (this.pets != null) {
 			this.pets.remove(id);
 		}

@@ -10,12 +10,18 @@ import alloy.util.Momento;
  */
 public class PetDto implements Momento<String> {
 	private String id;
-	private String name;
-	private String type;
+	private String petName;
+	private String petSpecies;
+	private String petSex;
+	private Long petAge;
 
-	public PetDto() {
-		// Randomly generate an id when constructing a pet object.
-		this.id = UUID.randomUUID().toString();
+	public PetDto(String id, String petName, String petSpecies, String petSex, Long petAge) {
+		this.id = id;
+		this.petName = petName;
+		this.petSpecies = petSpecies;
+		this.petSex = petSex;
+		this.petAge = petAge;
+
 	}
 
 	public String getId() {
@@ -26,24 +32,41 @@ public class PetDto implements Momento<String> {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 	@Override
 	public String getMomento() {
 		return id;
+	}
+
+	public String getPetName() {
+		return petName;
+	}
+
+	public void setPetName(String petName) {
+		this.petName = petName;
+	}
+
+	public String getPetSpecies() {
+		return petSpecies;
+	}
+
+	public void setPetSpecies(String petSpecies) {
+		this.petSpecies = petSpecies;
+	}
+
+	public String getPetSex() {
+		return petSex;
+	}
+
+	public void setPetSex(String petSex) {
+		this.petSex = petSex;
+	}
+
+	public Long getPetAge() {
+		return petAge;
+	}
+
+	public void setPetAge(Long petAge) {
+		this.petAge = petAge;
 	}
 }
