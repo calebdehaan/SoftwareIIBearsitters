@@ -1,5 +1,6 @@
 package petfinder.site.common.user;
 
+import java.io.IOException;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,6 +29,15 @@ public class UserService {
 
 	public UserDto constructUser(RegistrationRequest request) {
 		return new UserDto(request.getPrincipal(), request.getRoles(),request.getAttributes(), request.getAddress(), request.getPets());
+	}
+
+	public UserDto update(UserDto user) {
+		try {
+			userDao.update(user);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 
 	public static class RegistrationRequest {
@@ -182,7 +192,7 @@ public class UserService {
 		return userDao.save(userPetDto);
 	}
 
-	public List<PetDto> findPets(UserDto user) {
+	public List<Optional<PetDto>> findPets(UserDto user) {
 		return userDao.findPets(user);
 	}
 }

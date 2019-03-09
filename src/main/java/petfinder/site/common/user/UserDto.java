@@ -53,7 +53,7 @@ public class UserDto implements Momento<String> {
 
 	public void addPet(String id) {
 		if (this.pets == null) {
-			this.pets = new ArrayList<String>();
+			this.pets = new ArrayList<>();
 		}
 		this.pets.add(id);
 	}

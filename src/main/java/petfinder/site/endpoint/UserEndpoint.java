@@ -90,9 +90,21 @@ public class UserEndpoint {
 	 * You can find the meat of this method in UserDao.findPets(...) - its here we call out to Elasticsearch and manually join the various indexes together.
 	 */
 	@GetMapping(value = "/pet")
-	public List<PetDto> getPets() {
-		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
-		UserDto user = userService.findUserByPrincipal(principal).get();
-		return userService.findPets(user);
+	public List<Optional<PetDto>> getPets() {
+		return getUserDetails().map(userDto -> userService.findPets(userDto)).orElse(null);
+	}
+
+	@PostMapping(value = "/update")
+	public UserDto update(@RequestBody RegistrationRequest request) {
+		UserDto myUser = userService.constructUser(request);
+		return userService.update(myUser);
+	}
+
+	@PostMapping(value = "/pet/{id}")
+	public UserDto addPet(@PathVariable("id") String id) {
+		return getUserDetails().map(userDto -> {
+			userDto.addPet(id);
+			return userService.update(userDto);
+		}).orElse(null);
 	}
 }

@@ -5,6 +5,14 @@ export function register(user) {
 	return axios.post('/api/user/register', user);
 }
 
+export function addPet(pet) {
+	console.log(JSON.stringify(pet));
+	return axios.post('/api/pets', pet).then(() => {
+		// Add the pet ID to the users pet list
+		return axios.post('/api/user/pet/' + pet.id);
+	});
+}
+
 export function authenticate(username, password) {
 	return axios(
 		{
@@ -27,6 +35,22 @@ export function getUserDetails() {
 	return axios.get('/api/user');
 }
 
+export function getPetDetails(pet) {
+	return axios.get('/api/pets/' + pet.id);
+}
+
+
+export function getPets() {
+	console.log('Getting pets from elastic search\n');
+	return axios.get('/api/user/pet');
+}
+
+
+export function updateUser(user) {
+	console.log('Updating user in elastic search\n');
+	return axios.post('/api/user/update', user);
+}
+
 let State = {};
 
 State.getAuthentication = state => {
@@ -35,6 +59,10 @@ State.getAuthentication = state => {
 
 State.getUser = state => {
 	return state.user;
+};
+
+State.getPets = state => {
+	return state.pets;
 };
 
 export { State };
@@ -103,6 +131,31 @@ Actions.fetchUser = () => {
 	};
 };
 
+Actions.fetchPets = () => {
+	return (dispatch) => {
+		return getPets().then(pets => {
+			return dispatch(Actions.setPets(pets));
+		});
+	};
+};
+
+Actions.setPets = pets => {
+	if (pets != null) {
+		for (let pet = 0; pet < pets.length; pet++) {
+			if (pets[pet] != null) pets[pet].editing = false;
+		}
+	}
+	return {type: Actions.Types.SET_PETS, pets};
+};
+
+Actions.addPet = pet => {
+	return (dispatch) => {
+		return addPet(pet).then(() => {
+			return dispatch(Actions.fetchPets());
+		});
+	};
+};
+
 export { Actions };
 
 let Reducers = {};
@@ -127,6 +180,10 @@ Reducers.user = (user = null, action) => {
 			return user;
 		}
 	}
+};
+
+Reducers.pets = (pets = [], action) => {
+	return action.type === Actions.Types.SET_PETS? (action.pets) : pets;
 };
 
 export { Reducers };

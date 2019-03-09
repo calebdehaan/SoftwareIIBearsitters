@@ -15,6 +15,11 @@ public class PetDto implements Momento<String> {
 	private String petSex;
 	private Long petAge;
 
+	private PetDto() {
+
+	}
+
+
 	public PetDto(String id, String petName, String petSpecies, String petSex, Long petAge) {
 		this.id = id;
 		this.petName = petName;
