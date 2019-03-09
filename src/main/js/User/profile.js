@@ -5,7 +5,40 @@ import * as Users from './users';
 import * as Pet from 'js/Pet/addPets';
 
 class Profile extends React.Component {
+    intervalID = 0;
+
+    constructor(props){
+        super(props);
+        this.state = {
+            petName: '',
+            petSex: 'Male',
+            petSpecies: 'Dog',
+            petAge: 0,
+            toggle: false,
+        };
+    }
+
+    componentDidMount() {
+        this.props.fPets().then(() => {
+            this.state.toggle = !this.state.toggle;
+            this.setState(this.state);
+        });
+        this.intervalID = setInterval(() => this.fPets(), 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
+
+    fPets = () => {
+        this.props.fPets().then(() => {
+            this.state.toggle = !this.state.toggle;
+            this.setState(this.state);
+        });
+    };
+
     render() {
+
         return (
             <div className="container padded">
                 This is your profile page
@@ -38,6 +71,43 @@ class Profile extends React.Component {
                 }
 
                 {/* This displays a user's pets */}
+                {_.isDefined(this.props.pets) && this.props.pets.length !== 0 &&
+                <div className="d-md-flex flex-md-wrap justify-content-md-start">
+                    {this.props.pets.map(pet => (
+                        _.isDefined(pet) && _.isDefined(pet.petName) &&
+                        <div key={pet.petName + '_' + pet.id} className="card m-md-3" style={{backgroundColor:'black'}}>
+                            <div className="card-header">
+                                <div>
+                                    <span className="text-muted">Pet Name: </span>{pet.petName}
+                                </div>
+                            </div>
+                            <ul className="list-group list-group-flush" >
+                                <li className="list-group-item" style={{backgroundColor:'black'}}>
+                                    <div>
+                                        <span className="text-muted">Species: </span>{pet.petSpecies}
+                                    </div>
+
+                                </li>
+                                <li className="list-group-item" style={{backgroundColor:'black'}}>
+                                    <div>
+                                        <span className="text-muted">Sex: </span>{pet.petSex}
+                                    </div>
+                                </li>
+                                <li className="list-group-item" style={{backgroundColor:'black'}}>
+                                    <div>
+                                        <span className="text-muted">Age: </span>{pet.petAge}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    ))
+                    }
+                </div>
+                }
+                {!_.isDefined(this.props.pets) &&
+                    <span> No pets yet. Add some !! </span>
+
+                }
 
                 {/* This is where you add pets  */}
                 <Pet.Pets/>
@@ -50,7 +120,11 @@ class Profile extends React.Component {
 Profile = connect(
     state => ({
         authentication: Users.State.getAuthentication(state),
-        user: Users.State.getUser(state)
+        user: Users.State.getUser(state),
+        pets: Users.State.getPets(state),
+    }),
+    dispatch => ({
+        fPets: () => dispatch(Users.Actions.fetchPets()),
     })
 )(Profile);
 

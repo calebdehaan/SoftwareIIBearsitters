@@ -103,6 +103,7 @@ Actions.logout = () => {
 		cookies.remove('authentication');
 		cookies.remove('user');
 
+		dispatch(Actions.setPets(null));
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));
 	};
@@ -183,7 +184,14 @@ Reducers.user = (user = null, action) => {
 };
 
 Reducers.pets = (pets = [], action) => {
-	return action.type === Actions.Types.SET_PETS? (action.pets) : pets;
+	switch (action.type) {
+		case Actions.Types.SET_PETS: {
+			return action.pets;
+		}
+		default: {
+			return pets;
+		}
+	}
 };
 
 export { Reducers };
