@@ -5,6 +5,7 @@ import * as Users from './users';
 import * as Owner from 'js/User/owner';
 import * as Sitter from 'js/User/sitter';
 import * as Bessemer from '../alloy/bessemer/components';
+import * as Editor from 'js/User/editProfile';
 
 class Profile extends React.Component {
 	constructor(props){
@@ -47,8 +48,10 @@ class Profile extends React.Component {
 		return console.log('editing email now ' + this.state.edit4);
 	}
 
-	updateUser = user =>{
-
+	componentDidMount() {
+		this.props.fetchUser().then(() => {
+			this.setState(this.state);
+		});
 	}
 
 
@@ -78,7 +81,7 @@ class Profile extends React.Component {
 							{!this.state.edit1 ?
 								<p>{this.props.user.attributes['firstName']} {this.props.user.attributes['lastName']} </p>
 								:
-								<p> Editing now </p>
+								<Editor.EditProfile1/>
 							}
 							<br/>
 						<div className="profileHeader">Street Address: <br/></div>
@@ -90,7 +93,7 @@ class Profile extends React.Component {
 							}
 							<br/>
 						<div className="profileHeader">Phone Number: <br/></div>
-							<Bessemer.Button onClick={this.editAttr2} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
+							<Bessemer.Button onClick={this.editAttr3} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
 							{!this.state.edit3 ?
 								<p>{this.props.user.attributes['phone']}</p>
 								:
@@ -98,7 +101,7 @@ class Profile extends React.Component {
 							}
 							<br/>
 						<div className="profileHeader">Email: <br/></div>
-							<Bessemer.Button onClick={this.editAttr2} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
+							<Bessemer.Button onClick={this.editAttr4} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
 							{!this.state.edit4 ?
 								<p>{this.props.user.principal}</p>
 								:
@@ -125,6 +128,9 @@ Profile = connect(
 		user: Users.State.getUser(state),
 		pets: Users.State.getPets(state),
 	}),
+	dispatch => ({
+		fetchUser: () => dispatch(Users.Actions.fetchUser())
+	})
 )(Profile);
 
 export { Profile };
