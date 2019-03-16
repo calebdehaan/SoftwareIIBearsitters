@@ -4,18 +4,53 @@ import {connect} from 'react-redux';
 import * as Users from './users';
 import * as Owner from 'js/User/owner';
 import * as Sitter from 'js/User/sitter';
+import * as Bessemer from '../alloy/bessemer/components';
 
 class Profile extends React.Component {
 	constructor(props){
 		super(props);
+		this.editAttr1 = this.editAttr1.bind(this);
+		this.editAttr2 = this.editAttr2.bind(this);
+		this.editAttr3 = this.editAttr3.bind(this);
+		this.editAttr4 = this.editAttr4.bind(this);
+
 		this.state = {
 			petName: '',
 			petSex: 'Male',
 			petSpecies: 'Dog',
 			petAge: 0,
-			toggle: false,
+			edit1:false,
+			edit2:false,
+			edit3:false,
+			edit4:false
 		};
 	}
+
+	editAttr1(){
+		this.state.edit1 = !this.state.edit1;
+		this.setState(this.state);
+		return console.log('editing name now ' + this.state.edit1);
+	}
+	editAttr2(){
+		this.state.edit2 = !this.state.edit2;
+		this.setState(this.state);
+		return console.log('editing address now ' + this.state.edit2);
+	}
+	editAttr3(){
+		this.state.edit3 = !this.state.edit3;
+		this.setState(this.state);
+		return console.log('editing phone number now ' + this.state.edit3);
+	}
+	editAttr4(){
+		this.state.edit4 = !this.state.edit4;
+		this.setState(this.state);
+		return console.log('editing email now ' + this.state.edit4);
+	}
+
+	updateUser = user =>{
+
+	}
+
 
 	render() {
 		return (
@@ -39,13 +74,37 @@ class Profile extends React.Component {
 					<div>
 						Welcome , {this.props.user.attributes['firstName']}! <br/> <br/>
 						<div className="profileHeader">Full Name: <br/></div>
-						{this.props.user.attributes['firstName']} {this.props.user.attributes['lastName']} <br/><br/>
+							<Bessemer.Button onClick={this.editAttr1} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
+							{!this.state.edit1 ?
+								<p>{this.props.user.attributes['firstName']} {this.props.user.attributes['lastName']} </p>
+								:
+								<p> Editing now </p>
+							}
+							<br/>
 						<div className="profileHeader">Street Address: <br/></div>
-							{this.props.user.address['street']}, {this.props.user.address['city']} {this.props.user.address['zip']} <br/><br/>
+							<Bessemer.Button onClick={this.editAttr2} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
+							{!this.state.edit2 ?
+								<p>{this.props.user.address['street']} , {this.props.user.address['city']} {this.props.user.address['zip']}</p>
+								:
+								<p> Editing now </p>
+							}
+							<br/>
 						<div className="profileHeader">Phone Number: <br/></div>
-						{this.props.user.attributes['phone']} <br/><br/>
+							<Bessemer.Button onClick={this.editAttr2} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
+							{!this.state.edit3 ?
+								<p>{this.props.user.attributes['phone']}</p>
+								:
+								<p> Editing now </p>
+							}
+							<br/>
 						<div className="profileHeader">Email: <br/></div>
-						{this.props.user.principal} <br/><br/>
+							<Bessemer.Button onClick={this.editAttr2} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
+							{!this.state.edit4 ?
+								<p>{this.props.user.principal}</p>
+								:
+								<p> Editing now </p>
+							}
+							<br/>
 					</div>
 				}
 

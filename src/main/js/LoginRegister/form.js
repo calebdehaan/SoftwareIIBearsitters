@@ -13,6 +13,7 @@ class RegistrationForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.checkboxChange = this.checkboxChange.bind(this);
+		this.onSubmit = this.onSubmit.bind(this);
 
 		this.state = {
 			items: new Map(),
