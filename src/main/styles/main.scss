@@ -37,3 +37,19 @@ input.form-control, input.form-control:focus{
 .Select-menu .Select-option{
     background-color:black;
 }
+
+#main > div > div > div.container.padded > div:nth-child(3) > div > div > div:nth-child(even) > form > ul > li:nth-child(1) > div > div > label{
+	display:none;
+}
+
+#main > div > div > div.container.padded > div:nth-child(3) > div > div > div:nth-child(odd) > form > ul > li:nth-child(1) > div > div > label{
+	display:none;
+}
+
+#main > div > div > div.container.padded > div:nth-child(3) > div > div > div:nth-child(odd) > form > ul > li:nth-child(1) > div > div{
+	height:3vh;
+}
+
+#main > div > div > div.container.padded > div:nth-child(3) > div > div > div:nth-child(even) > form > ul > li:nth-child(1) > div > div{
+	height:3vh;
+}

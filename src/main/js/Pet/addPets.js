@@ -11,6 +11,7 @@ class PetList extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.updatePets = this.updatePets.bind(this);
 		this.state = {
 			petName: '',
 			petSex: 'Male',
@@ -40,7 +41,72 @@ class PetList extends React.Component {
 		});
 	};
 
+	sexChange = e => {
+		if (e != null) {
+			this.state.petSex = e;
+			this.setState(this.state);
+		}
+	};
+
+	speciesChange = e => {
+		if (e != null) {
+			this.state.petSpecies = e;
+			this.setState(this.state);
+		}
+	};
+
+	ageChange = e => {
+		if (e != null) {
+			this.state.petAge = e;
+			this.setState(this.state);
+		}
+	};
+
+	toggleAll = () => {
+		if (_.isDefined(this.props.pets) && _.isArray(this.props.pets) && this.props.pets.length !== 0) {
+			this.props.pets.forEach(pet => {
+				if (pet != null && pet.editing === true) {
+					pet.editing = false;
+				}
+			});
+		}
+
+		this.state.toggle = !this.state.toggle;
+		this.setState(this.state);
+	};
+
+	updatePet = (form, pet) => {
+		let petToUpdate = JSON.parse(JSON.stringify(form));
+		this.toggleAll();
+
+		if (!_.isEmpty(form)) {
+			petToUpdate.id = pet.id;
+			if (petToUpdate.petName == null) petToUpdate.petName = pet.petName;
+			if (petToUpdate.petSpecies == null) petToUpdate.petSpecies = this.state.petSpecies;
+			if (petToUpdate.petSex == null) petToUpdate.petSex = this.state.petSex;
+			if (petToUpdate.petAge == null) petToUpdate.petAge = this.state.petAge;
+
+			Users.updatePet(petToUpdate).then(() => {
+				this.props.fPets().then(() => {
+					this.state.toggle = !this.state.toggle;
+					this.setState(this.state);
+				});
+			});
+
+			console.log('updated pet now\n\n\n\n');
+		}
+	};
+
+	editPet = (e, pet) => {
+		this.toggleAll();
+			pet.editing = true;
+			this.state.toggle = !this.state.toggle;
+			this.setState(this.state);
+	};
+
 	render() {
+		let { handleSubmit, submitting } = this.props;
+
 		return (
 			<div>
 				{/* This displays a user's pets */}
@@ -48,43 +114,85 @@ class PetList extends React.Component {
 				<div className="d-md-flex flex-md-wrap justify-content-md-start">
 					{this.props.pets.map(pet => (
 						_.isDefined(pet) && _.isDefined(pet.petName) &&
-						<div key={pet.petName + '_' + pet.id} className="card m-md-3" style={{backgroundColor:'black'}}>
-							<div className="card-header">
-								<div>
-									<span className="text-muted">Pet Name: </span>{pet.petName}
-								</div>
-							</div>
-							<ul className="list-group list-group-flush" >
-								<li className="list-group-item" style={{backgroundColor:'black'}}>
-									<div>
-										<span className="text-muted">Species: </span>{pet.petSpecies}
-									</div>
-
-								</li>
-								<li className="list-group-item" style={{backgroundColor:'black'}}>
-									<div>
-										<span className="text-muted">Sex: </span>{pet.petSex}
-									</div>
-								</li>
-								<li className="list-group-item" style={{backgroundColor:'black'}}>
-									<div>
-										<span className="text-muted">Age: </span>{pet.petAge}
-									</div>
-								</li>
-							</ul>
+						<div key={pet.petName + '_' + pet.id} className="card m-md-3" style={{backgroundColor: 'black'}}>
+							<form name={'PetList'} onSubmit={handleSubmit(form => this.updatePet(form, pet))}>
+								<ul className="list-group list-group-flush">
+									<li className="list-group-item" style={{backgroundColor: 'black'}}>
+										{pet.editing === false &&
+										<div>
+											<span className="text-muted">Pet Name: </span>{pet.petName}
+										</div>
+										}
+										{pet.editing === true &&
+										<Bessemer.Field name="petName" friendlyName="Pet Name"/>
+										}
+									</li>
+									<li className="list-group-item" style={{backgroundColor: 'black'}}>
+										{pet.editing === false &&
+										<div>
+											<span className="text-muted">Species: </span>{pet.petSpecies}
+										</div>
+										}
+										{pet.editing === true &&
+										<Bessemer.Select style={{backgroundColor: 'black'}} name="petSpecies"
+														 className='col-8'
+														 friendlyName="Pet Species" placeholder={pet.petSpecies}
+														 validators={[Validation.requiredValidator]}
+														 options={speciesOptions} value={this.state.petSpecies}
+														 onChange={opt => this.speciesChange(opt)}/>
+										}
+									</li>
+									<li className="list-group-item" style={{backgroundColor: 'black'}}>
+										{pet.editing === false &&
+										<div>
+											<span className="text-muted">Sex: </span>{pet.petSex}
+										</div>
+										}
+										{pet.editing === true &&
+										<Bessemer.Select style={{backgroundColor: 'black'}} name="petSex"
+														 className='col-8'
+														 friendlyName="Pet Sex" placeholder={pet.petSex}
+														 validators={[Validation.requiredValidator]}
+														 options={sexOptions} value={this.state.petSex}
+														 onChange={opt => this.sexChange(opt)}/>
+										}
+									</li>
+									<li className="list-group-item" style={{backgroundColor: 'black'}}>
+										{pet.editing === false &&
+										<div>
+											<span className="text-muted">Age: </span>{pet.petAge}
+										</div>
+										}
+										{pet.editing === true &&
+										<Bessemer.Select style={{backgroundColor: 'black'}} name="petAge"
+														 className='col-8'
+														 friendlyName="Pet Age" placeholder={pet.petAge}
+														 validators={[Validation.requiredValidator]}
+														 options={ageOptions} value={this.state.petAge}
+														 onChange={opt => this.ageChange(opt)}/>
+										}
+									</li>
+								</ul>
+								{pet.editing === false &&
+									<Bessemer.Button onClick={(e) => {this.editPet(e, pet);}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
+								}
+								{pet.editing === true &&
+									<Bessemer.Button  loading={submitting}> Update </Bessemer.Button>
+								}
+							</form>
 						</div>
-					))
+					))}
+					{/* This displays if a user has no pets */}
+					{!_.isDefined(this.props.pets) &&
+					<span> No pets yet. Add some !! </span>
 					}
 				</div>
-				}
-				{/* This displays if a user has no pets */}
-				{!_.isDefined(this.props.pets) &&
-				<span> No pets yet. Add some !! </span>
 				}
 			</div>
 		);
 	}
 }
+PetList = ReduxForm.reduxForm({form: 'PetList'})(PetList);
 
 PetList = connect(
 	state => ({
@@ -98,7 +206,6 @@ PetList = connect(
 )(PetList);
 
 export { PetList };
-
 
 class Pets extends React.Component {
 	constructor(props){

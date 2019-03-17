@@ -38,4 +38,9 @@ public class PetEndpoint {
 		petService.save(pet);
 		return pet;
 	}
+
+	@PostMapping(value = "/update")
+	public void updatePet(@RequestBody PetDto pet) {
+		petService.save(pet);
+	}
 }

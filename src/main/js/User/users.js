@@ -41,14 +41,17 @@ export function getPetDetails(pet) {
 
 
 export function getPets() {
-	console.log('Getting pets from elastic search\n');
 	return axios.get('/api/user/pet');
 }
 
 
 export function updateUser(user) {
-	console.log('Updating user in elastic search\n');
 	return axios.post('/api/user/update', user);
+}
+
+export function updatePet(pet) {
+	console.log('Updating pet in elastic search\n\n\n');
+	return axios.post('/api/pets/update/', pet);
 }
 
 let State = {};
