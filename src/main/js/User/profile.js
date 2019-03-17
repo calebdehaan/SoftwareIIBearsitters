@@ -89,7 +89,7 @@ class Profile extends React.Component {
 							{!this.state.edit2 ?
 								<p>{this.props.user.address['street']} , {this.props.user.address['city']} {this.props.user.address['zip']}</p>
 								:
-								<p> Editing now </p>
+								<Editor.EditProfile2/>
 							}
 							<br/>
 						<div className="profileHeader">Phone Number: <br/></div>
@@ -97,7 +97,7 @@ class Profile extends React.Component {
 							{!this.state.edit3 ?
 								<p>{this.props.user.attributes['phone']}</p>
 								:
-								<p> Editing now </p>
+								<Editor.EditProfile3/>
 							}
 							<br/>
 						<div className="profileHeader">Email: <br/></div>
@@ -105,7 +105,7 @@ class Profile extends React.Component {
 							{!this.state.edit4 ?
 								<p>{this.props.user.principal}</p>
 								:
-								<p> Editing now </p>
+								<Editor.EditProfile4/>
 							}
 							<br/>
 					</div>
