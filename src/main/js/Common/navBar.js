@@ -2,6 +2,7 @@ import React from 'react';
 import * as Users from '../User/users';
 import {connect} from 'react-redux';
 import Favicon from 'react-favicon';
+import Redirect from 'react-router-dom/es/Redirect';
 
 
 class NavBar extends React.Component {
@@ -10,7 +11,10 @@ class NavBar extends React.Component {
 	}
 
 	LogoutClick = () => {
-		return this.props.logout();
+		return this.props.logout().
+		then(
+			<Redirect to='/'/>
+			);
 	};
 
 	render() {

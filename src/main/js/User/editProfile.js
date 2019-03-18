@@ -6,9 +6,11 @@ import * as Validation from 'js/alloy/utils/validation';
 import * as ReduxForm from 'redux-form';
 
 class EditProfile1 extends React.Component {
-
 	constructor(props){
 		super(props);
+		this.state = {
+			toggle:true,
+		};
 
 	}
 
@@ -36,7 +38,9 @@ class EditProfile1 extends React.Component {
 
 		Users.updateUser(userToUpdate).then(() => {
 			this.props.fetchUser().then(() => {
+				this.state.toggle = !this.state.toggle;
 				this.setState(this.state);
+				this.props.action();
 			});
 		});
 	};
@@ -44,7 +48,7 @@ class EditProfile1 extends React.Component {
 	render() {
 		let { handleSubmit, submitting } = this.props;
 		return (
-			<form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
+			<form name="editProfile1" onSubmit={handleSubmit(form => this.onSubmit(form))}>
 				<br/>
 				<Bessemer.Field name='firstName' friendlyName='First Name'
 								field={<input className="form-control" placeholder={this.props.user.attributes['firstName']} />}
@@ -105,7 +109,9 @@ class EditProfile2 extends React.Component {
 
 		Users.updateUser(userToUpdate).then(() => {
 			this.props.fetchUser().then(() => {
+				this.props.dispatch(ReduxForm.reset('editProfile2'));
 				this.setState(this.state);
+				this.props.action();
 			});
 		});
 	};
@@ -113,7 +119,7 @@ class EditProfile2 extends React.Component {
 	render() {
 		let { handleSubmit, submitting } = this.props;
 		return (
-			<form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
+			<form name="editProfile2" onSubmit={handleSubmit(form => this.onSubmit(form))}>
 				<br/>
 				<Bessemer.Field name='street' friendlyName='Street Address'
 								field={<input className="form-control" placeholder={this.props.user.address['street']} />}
@@ -175,7 +181,9 @@ class EditProfile3 extends React.Component {
 
 		Users.updateUser(userToUpdate).then(() => {
 			this.props.fetchUser().then(() => {
+				this.props.dispatch(ReduxForm.reset('editProfile3'));
 				this.setState(this.state);
+				this.props.action();
 			});
 		});
 	};
@@ -183,7 +191,7 @@ class EditProfile3 extends React.Component {
 	render() {
 		let { handleSubmit, submitting } = this.props;
 		return (
-			<form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
+			<form name="editProfile3" onSubmit={handleSubmit(form => this.onSubmit(form))}>
 				<br/>
 				<Bessemer.Field name='phone' friendlyName='Phone Number'
 								field={<input className="form-control" placeholder={this.props.user.attributes['phone']} />}
@@ -241,7 +249,9 @@ class EditProfile4 extends React.Component {
 
 		Users.updateUser(userToUpdate).then(() => {
 			this.props.fetchUser().then(() => {
+				this.props.dispatch(ReduxForm.reset('editProfile4'));
 				this.setState(this.state);
+				this.props.action();
 			});
 		});
 	};
@@ -249,7 +259,7 @@ class EditProfile4 extends React.Component {
 	render() {
 		let { handleSubmit, submitting } = this.props;
 		return (
-			<form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
+			<form name="editProfile4" onSubmit={handleSubmit(form => this.onSubmit(form))}>
 				<br/>
 				<Bessemer.Field name="principal" friendlyName="Email Address"
 								field={<input className="form-control" placeholder={this.props.user.principal} />}

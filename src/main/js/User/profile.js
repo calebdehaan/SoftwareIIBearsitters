@@ -8,6 +8,8 @@ import * as Bessemer from '../alloy/bessemer/components';
 import * as Editor from 'js/User/editProfile';
 
 class Profile extends React.Component {
+	seconds = 0;
+
 	constructor(props){
 		super(props);
 		this.editAttr1 = this.editAttr1.bind(this);
@@ -23,43 +25,45 @@ class Profile extends React.Component {
 			edit1:false,
 			edit2:false,
 			edit3:false,
-			edit4:false
+			edit4:false,
+			toggle:false
 		};
 	}
 
 	editAttr1(){
 		this.state.edit1 = !this.state.edit1;
 		this.setState(this.state);
-		return console.log('editing name now ' + this.state.edit1);
 	}
 	editAttr2(){
 		this.state.edit2 = !this.state.edit2;
 		this.setState(this.state);
-		return console.log('editing address now ' + this.state.edit2);
 	}
 	editAttr3(){
 		this.state.edit3 = !this.state.edit3;
 		this.setState(this.state);
-		return console.log('editing phone number now ' + this.state.edit3);
 	}
 	editAttr4(){
 		this.state.edit4 = !this.state.edit4;
 		this.setState(this.state);
-		return console.log('editing email now ' + this.state.edit4);
 	}
 
 	componentDidMount() {
 		this.props.fetchUser().then(() => {
+			this.state.toggle = !this.state.toggle;
 			this.setState(this.state);
 		});
+		this.seconds = setInterval(() => this.props.fetchUser(), 1000);
 	}
 
+	componentWillUnmount() {
+		clearInterval(this.seconds);
+	}
 
 	render() {
 		return (
 			<div className="container padded">
 				This is your profile page
-				{ !_.isNil(this.props.user) && !_.isNil(this.props.user.roles) &&
+				{ !_.isNil(this.props.user) && this.props.user.roles != null &&
 					<div> You're a
 						{ (this.props.user.roles.length === 2) &&
 						<span> Petsitter and Petowner! Congratulations!! </span>
@@ -75,13 +79,13 @@ class Profile extends React.Component {
 
 				{ !_.isNil(this.props.user) &&
 					<div>
-						Welcome , {this.props.user.attributes['firstName']}! <br/> <br/>
+						Welcome {this.props.user.attributes['firstName']}! <br/> <br/>
 						<div className="profileHeader">Full Name: <br/></div>
 							<Bessemer.Button onClick={this.editAttr1} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
 							{!this.state.edit1 ?
 								<p>{this.props.user.attributes['firstName']} {this.props.user.attributes['lastName']} </p>
 								:
-								<Editor.EditProfile1/>
+								<Editor.EditProfile1 action={this.editAttr1}/>
 							}
 							<br/>
 						<div className="profileHeader">Street Address: <br/></div>
@@ -89,7 +93,7 @@ class Profile extends React.Component {
 							{!this.state.edit2 ?
 								<p>{this.props.user.address['street']} , {this.props.user.address['city']} {this.props.user.address['zip']}</p>
 								:
-								<Editor.EditProfile2/>
+								<Editor.EditProfile2 action={this.editAttr2}/>
 							}
 							<br/>
 						<div className="profileHeader">Phone Number: <br/></div>
@@ -97,7 +101,7 @@ class Profile extends React.Component {
 							{!this.state.edit3 ?
 								<p>{this.props.user.attributes['phone']}</p>
 								:
-								<Editor.EditProfile3/>
+								<Editor.EditProfile3 action={this.editAttr3}/>
 							}
 							<br/>
 						<div className="profileHeader">Email: <br/></div>
@@ -105,17 +109,17 @@ class Profile extends React.Component {
 							{!this.state.edit4 ?
 								<p>{this.props.user.principal}</p>
 								:
-								<Editor.EditProfile4/>
+								<Editor.EditProfile4 action={this.editAttr4}/>
 							}
 							<br/>
 					</div>
 				}
 
 				{/* Owner profile settings */}
-				{this.props.user.roles.includes('OWNER') && <Owner.Owner/> }
+				{ !_.isNil(this.props.user) && this.props.user.roles != null && this.props.user.roles.includes('OWNER') && <Owner.Owner/> }
 
 				{/* Sitter profile settings */}
-				{this.props.user.roles.includes('SITTER') && <Sitter.Sitter/> }
+				{ !_.isNil(this.props.user) && this.props.user.roles != null && this.props.user.roles.includes('SITTER') && <Sitter.Sitter/> }
 
 			</div>
 		);

@@ -79,7 +79,6 @@ class PetList extends React.Component {
 		let petToUpdate = JSON.parse(JSON.stringify(form));
 		this.toggleAll();
 
-		if (!_.isEmpty(form)) {
 			petToUpdate.id = pet.id;
 			if (petToUpdate.petName == null) petToUpdate.petName = pet.petName;
 			if (petToUpdate.petSpecies == null) petToUpdate.petSpecies = this.state.petSpecies;
@@ -94,7 +93,6 @@ class PetList extends React.Component {
 			});
 
 			console.log('updated pet now\n\n\n\n');
-		}
 	};
 
 	editPet = (e, pet) => {
@@ -118,14 +116,9 @@ class PetList extends React.Component {
 							<form name={'PetList'} onSubmit={handleSubmit(form => this.updatePet(form, pet))}>
 								<ul className="list-group list-group-flush">
 									<li className="list-group-item" style={{backgroundColor: 'black'}}>
-										{pet.editing === false &&
 										<div>
 											<span className="text-muted">Pet Name: </span>{pet.petName}
 										</div>
-										}
-										{pet.editing === true &&
-										<Bessemer.Field name="petName" friendlyName="Pet Name"/>
-										}
 									</li>
 									<li className="list-group-item" style={{backgroundColor: 'black'}}>
 										{pet.editing === false &&

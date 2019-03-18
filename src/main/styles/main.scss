@@ -38,18 +38,19 @@ input.form-control, input.form-control:focus{
     background-color:black;
 }
 
-#main > div > div > div.container.padded > div:nth-child(3) > div > div > div:nth-child(even) > form > ul > li:nth-child(1) > div > div > label{
+#main > div > div > div.container.padded > div:nth-child(3) > div > div > div:nth-child(even) > form > ul > li > div > div > label{
 	display:none;
 }
 
-#main > div > div > div.container.padded > div:nth-child(3) > div > div > div:nth-child(odd) > form > ul > li:nth-child(1) > div > div > label{
-	display:none;
-}
-
-#main > div > div > div.container.padded > div:nth-child(3) > div > div > div:nth-child(odd) > form > ul > li:nth-child(1) > div > div{
+#main > div > div > div.container.padded > div:nth-child(3) > div > div > div:nth-child(odd) > form > ul > li > div > div{
 	height:3vh;
 }
 
-#main > div > div > div.container.padded > div:nth-child(3) > div > div > div:nth-child(even) > form > ul > li:nth-child(1) > div > div{
-	height:3vh;
+#main > div > div > div.container.padded > div:nth-child(3) > div > div > div > form > ul > li > div > div{
+	min-width:9vw;
+	margin-left:-1vw;
+}
+
+#main > div > div > div.container.padded > div:nth-child(3) > div > div > div > form > button{
+	margin-left:3vw;
 }
