@@ -104,6 +104,7 @@ class Profile extends React.Component {
 								<Editor.EditProfile3 action={this.editAttr3}/>
 							}
 							<br/>
+
 						<div className="profileHeader">Email: <br/></div>
 							<Bessemer.Button onClick={this.editAttr4} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
 							{!this.state.edit4 ?

@@ -49,6 +49,7 @@ public class UserService {
 		private String street;
 		private String city;
 		private String zip;
+		private String state;
 		private String petSitter;
 		private String petOwner;
 		private List<String> pets;
@@ -83,6 +84,7 @@ public class UserService {
 			myAddress.put("street", this.street);
 			myAddress.put("city", this.city);
 			myAddress.put("zip", this.zip);
+			myAddress.put("state", this.state);
 
 			return myAddress;
 		}
@@ -179,6 +181,14 @@ public class UserService {
 
 		public void setPets(List<String> pets) {
 			this.pets = pets;
+		}
+
+		public String getState() {
+			return state;
+		}
+
+		public void setState(String state) {
+			this.state = state;
 		}
 	}
 

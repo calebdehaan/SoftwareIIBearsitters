@@ -6,6 +6,7 @@ import * as Bessemer from '../alloy/bessemer/components';
 import * as Users from '../User/users';
 import Redirect from 'react-router-dom/es/Redirect';
 import Checkbox from 'js/Common/checkBox';
+import {ageOptions} from 'js/Pet/addPets';
 
 class RegistrationForm extends React.Component {
 
@@ -17,6 +18,7 @@ class RegistrationForm extends React.Component {
 
 		this.state = {
 			items: new Map(),
+			state:'TX',
 		};
 	}
 
@@ -26,6 +28,7 @@ class RegistrationForm extends React.Component {
 
 		newUser.petSitter = this.state.items.get('petSitter');
 		newUser.petOwner = this.state.items.get('petOwner');
+		newUser.state = this.state.state;
 
 
 		return this.props.register(newUser);
@@ -37,6 +40,13 @@ class RegistrationForm extends React.Component {
 		this.setState(this.state);
 		console.log(e + ' set to ' + this.state.items.get(e));
 	}
+
+	stateChange = e => {
+		if (e != null) {
+			this.state.state = e;
+			this.setState(this.state);
+		}
+	};
 
 	render() {
 		let { handleSubmit, submitting } = this.props;
@@ -63,6 +73,12 @@ class RegistrationForm extends React.Component {
 								validators={[Validation.requiredValidator]}/>
 				<Bessemer.Field name='city' friendlyName='City' field={<input className="form-control" placeholder={'City'} />}
 								validators={[Validation.requiredValidator]}/>
+				<Bessemer.Select name="state"
+								 className='col-8'
+								 friendlyName="Pet Age" placeholder="0"
+								 validators={[Validation.requiredValidator]}
+								 options={stateOptions} value={this.state.state}
+								 onChange={opt => this.stateChange(opt)}/>
 				<Bessemer.Field name='zip' friendlyName='Zipcode' field={<input className="form-control" placeholder={'Zipcode'} />}
 								validators={[Validation.requiredValidator, Validation.zipValidator]}/>
 				<Bessemer.Field name={'petOwner'}
@@ -81,6 +97,8 @@ class RegistrationForm extends React.Component {
 												 defaultCheck={this.state.items.get('petSitter')}/>}/>
 
 
+
+
 				<Bessemer.Button loading={submitting}>Register</Bessemer.Button>
 			</form>
 		);
@@ -97,5 +115,59 @@ RegistrationForm = connect(
 		register: user => dispatch(Users.Actions.register(user))
 	})
 )(RegistrationForm);
+
+// State options
+export const stateOptions = [
+	{label: 'Alabama', value: 'AL'},
+	{label: 'Alaska', value: 'AK'},
+	{label: 'Arizona', value: 'AZ'},
+	{label: 'Arkansas', value: 'AR'},
+	{label: 'California', value: 'CA'},
+	{label: 'Colorado', value: 'CO'},
+	{label: 'Connecticut', value: 'CT'},
+	{label: 'Delaware', value: 'DE'},
+	{label: 'Florida', value: 'FL'},
+	{label: 'Georgia', value: 'GA'},
+	{label: 'Hawaii', value: 'HI'},
+	{label: 'Idaho', value: 'ID'},
+	{label: 'Illinois', value: 'IL'},
+	{label: 'Indiana', value: 'IN'},
+	{label: 'Iowa', value: 'IA'},
+	{label: 'Kansas', value: 'KS'},
+	{label: 'Kentucky', value: 'KY'},
+	{label: 'Louisiana', value: 'LA'},
+	{label: 'Maine', value: 'ME'},
+	{label: 'Maryland', value: 'MD'},
+	{label: 'Massachusetts', value: 'MA'},
+	{label: 'Michigan', value: 'MI'},
+	{label: 'Minnesota', value: 'MN'},
+	{label: 'Mississippi', value: 'MS'},
+	{label: 'Missouri', value: 'MO'},
+	{label: 'Montana', value: 'MT'},
+	{label: 'Nebraska', value: 'NE'},
+	{label: 'Nevada', value: 'NV'},
+	{label: 'New Hampshire', value: 'NH'},
+	{label: 'New Jersey', value: 'NJ'},
+	{label: 'New Mexico', value: 'NM'},
+	{label: 'New York', value: 'NY'},
+	{label: 'North Carolina', value: 'NC'},
+	{label: 'North Dakota', value: 'ND'},
+	{label: 'Ohio', value: 'OH'},
+	{label: 'Oklahoma', value: 'OK'},
+	{label: 'Oregon', value: 'OR'},
+	{label: 'Pennsylvania', value: 'PA'},
+	{label: 'Rhode Island', value: 'RI'},
+	{label: 'South Carolina', value: 'SC'},
+	{label: 'South Dakota', value: 'SD'},
+	{label: 'Tennessee', value: 'TN'},
+	{label: 'Texas', value: 'TX'},
+	{label: 'Utah', value: 'UT'},
+	{label: 'Vermont', value: 'VT'},
+	{label: 'Virginia', value: 'VA'},
+	{label: 'Washington', value: 'WA'},
+	{label: 'West Virginia', value: 'WV'},
+	{label: 'Wisconsin', value: 'WI'},
+	{label: 'Wyoming', value: 'WY'}
+];
 
 export { RegistrationForm };
