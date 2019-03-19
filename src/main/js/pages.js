@@ -4,6 +4,7 @@ import * as Register from 'js/LoginRegister/form';
 import * as NavBarr from 'js/Common/navBar';
 import * as Prof from 'js/User/profile';
 import * as Request from 'js/User/requestSitting';
+import * as Post from 'js/Post/postings';
 //import DatePicker from 'react-datepicker';
 
 //import 'react-datepicker/dist/react-datepicker.css'
@@ -72,6 +73,18 @@ export class RequestSitting extends React.Component {
                 <NavBarr.NavBar />
                 This is request a sitting page. Enter the start and end date you want your pet sat.
                 <Request.Request/>
+			</div>
+		);
+	}
+}
+
+export class Postings extends React.Component {
+	render() {
+		return (
+			<div className="container padded">
+				<NavBarr.NavBar />
+				These are all of the postings available.
+				<Post.Posting/>
 			</div>
 		);
 	}

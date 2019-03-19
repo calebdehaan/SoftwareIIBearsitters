@@ -36,10 +36,16 @@ class NavBar extends React.Component {
 							</li>
 
 
-							{ (this.props.user) &&
+							{ (this.props.user) && (this.props.user.roles.includes('OWNER')) &&
 								<li className="nav-item">
 									<a className="nav-link" href="#/request">Request Sitting</a>
 								</li>
+							}
+
+							{ (this.props.user) && (this.props.user.roles.includes('SITTER')) &&
+							<li className="nav-item">
+								<a className="nav-link" href="#/posting">Find Postings</a>
+							</li>
 							}
 
 							{ (this.props.user) &&
