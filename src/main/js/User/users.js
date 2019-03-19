@@ -54,6 +54,13 @@ export function updatePet(pet) {
 	return axios.post('/api/pets/update/', pet);
 }
 
+export function addPost(post){
+    return axios.post('/api/post', post).then(() => {
+		// Add the pet ID to the users pet list
+		return axios.post('/api/user/post/' + post.id);
+	});
+}
+
 let State = {};
 
 State.getAuthentication = state => {
@@ -157,6 +164,12 @@ Actions.addPet = pet => {
 		return addPet(pet).then(() => {
 			return dispatch(Actions.fetchPets());
 		});
+	};
+};
+
+Actions.addPost = post => {
+	return (dispatch) => {
+		return addPost(post);
 	};
 };
 
