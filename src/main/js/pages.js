@@ -3,6 +3,7 @@ import * as Login from 'js/LoginRegister/login';
 import * as Register from 'js/LoginRegister/form';
 import * as NavBarr from 'js/Common/navBar';
 import * as Prof from 'js/User/profile';
+import * as Request from 'js/User/requestSitting';
 //import DatePicker from 'react-datepicker';
 
 //import 'react-datepicker/dist/react-datepicker.css'
@@ -64,21 +65,13 @@ export class LoginPage extends React.Component {
 	}
 }
 
-export class Request extends React.Component {
+export class RequestSitting extends React.Component {
 	render() {
 		return (
 			<div className="container padded">
                 <NavBarr.NavBar />
-                This is availability page
-                <form>
-                    <div className="form-group">
-                        <label>Select Start Date:</label>
-						<input type="text" id="dates" className="form-control"></input>
-                    </div>
-                    <div className="form-group">
-                        <button className="btn btn-success">Add Dates</button>
-                    </div>
-                </form>
+                This is request a sitting page. Enter the start and end date you want your pet sat.
+                <Request.Request/>
 			</div>
 		);
 	}
