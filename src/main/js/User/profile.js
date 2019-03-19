@@ -91,7 +91,7 @@ class Profile extends React.Component {
 						<div className="profileHeader">Street Address: <br/></div>
 							<Bessemer.Button onClick={this.editAttr2} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
 							{!this.state.edit2 ?
-								<p>{this.props.user.address['street']} , {this.props.user.address['city']} {this.props.user.address['zip']}</p>
+								<p>{this.props.user.address['street']} , {this.props.user.address['city']} {this.props.user.address['zip']} {this.props.user.address['state']}</p>
 								:
 								<Editor.EditProfile2 action={this.editAttr2}/>
 							}
