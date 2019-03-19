@@ -38,7 +38,7 @@ class NavBar extends React.Component {
 
 							{ (this.props.user) &&
 								<li className="nav-item">
-									<a className="nav-link" href="#/availability">Schedule Availability</a>
+									<a className="nav-link" href="#/request">Request Sitting</a>
 								</li>
 							}
 

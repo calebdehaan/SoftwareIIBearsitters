@@ -64,39 +64,7 @@ export class LoginPage extends React.Component {
 	}
 }
 
-export class Availability extends React.Component {
-    /*constructor(props) {
-        super(props);
-        this.state = {
-            startDate: new Date()
-        };
-        this.handleChange = this.handlechange.bind(this);
-    }
-
-    handleChange(date) {
-        this.setState({
-            startDate: date
-        });
-    }
-
-    handleSubmit(e){
-        e.preventDefault();
-        let main = this.state.startDate;
-    }*/
-
-/*				<Form.js onSubmit={ this.handleSubmit }>
-                    <div className="Form.js-group">
-                        <label>Select Start Date: </label>
-                        *//*
-                        <DatePicker
-                            selected={this.state.startDate}
-                            onChange={this.handleChange}
-                         />*//*
-                    </div>
-                    <div className="Form.js-group">
-                        <button className="btn btn-success">Add Dates</button>
-                    </div>
-                </Form.js>*/
+export class Request extends React.Component {
 	render() {
 		return (
 			<div className="container padded">
