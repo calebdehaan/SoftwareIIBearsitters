@@ -49,7 +49,6 @@ export class RegisterPage extends React.Component {
 
 export class LoginPage extends React.Component {
 	render() {
-
 		return (
 			<div className="container padded">
                 <NavBarr.NavBar />
@@ -64,6 +63,7 @@ export class LoginPage extends React.Component {
 		);
 	}
 }
+
 export class Availability extends React.Component {
     /*constructor(props) {
         super(props);
