@@ -4,12 +4,14 @@ import * as Users from './users';
 import * as Bessemer from '../alloy/bessemer/components';
 import * as Validation from 'js/alloy/utils/validation';
 import * as ReduxForm from 'redux-form';
+import {stateOptions} from 'js/LoginRegister/form';
 
 class EditProfile1 extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
 			toggle:true,
+			state:null,
 		};
 
 	}
@@ -17,6 +19,8 @@ class EditProfile1 extends React.Component {
 	onSubmit = user => {
 		let userToUpdate = JSON.parse(JSON.stringify(user));
 		userToUpdate.principal = this.props.user.principal;
+		if(this.state.state != null)
+			userToUpdate.state = this.state.state;
 
 		if(this.props.user.roles.includes('OWNER')) userToUpdate.petOwner = true;
 		if(this.props.user.roles.includes('SITTER')) userToUpdate.petSitter = true;
@@ -26,6 +30,7 @@ class EditProfile1 extends React.Component {
 		if (userToUpdate.street == null) userToUpdate.street = this.props.user.address['street'];
 		if (userToUpdate.city == null) userToUpdate.city = this.props.user.address['city'];
 		if (userToUpdate.zip == null) userToUpdate.zip = this.props.user.address['zip'];
+		if (userToUpdate.state == null) userToUpdate.state = this.props.user.address['state'];
 		if (userToUpdate.roles == null) userToUpdate.roles = this.props.user.roles;
 		if(userToUpdate.pets == null){
 			let Pet;
@@ -82,12 +87,23 @@ class EditProfile2 extends React.Component {
 
 	constructor(props){
 		super(props);
-
+		this.state = {
+			state:null,
+		};
 	}
+
+	stateChange = e => {
+		if (e != null) {
+			this.state.state = e;
+			this.setState(this.state);
+		}
+	};
 
 	onSubmit = user => {
 		let userToUpdate = JSON.parse(JSON.stringify(user));
 		userToUpdate.principal = this.props.user.principal;
+		if(this.state.state != null)
+			userToUpdate.state = this.state.state;
 
 		if(this.props.user.roles.includes('OWNER')) userToUpdate.petOwner = true;
 		if(this.props.user.roles.includes('SITTER')) userToUpdate.petSitter = true;
@@ -97,6 +113,7 @@ class EditProfile2 extends React.Component {
 		if (userToUpdate.street == null) userToUpdate.street = this.props.user.address['street'];
 		if (userToUpdate.city == null) userToUpdate.city = this.props.user.address['city'];
 		if (userToUpdate.zip == null) userToUpdate.zip = this.props.user.address['zip'];
+		if (userToUpdate.state == null) userToUpdate.state = this.props.user.address['state'];
 		if (userToUpdate.roles == null) userToUpdate.roles = this.props.user.roles;
 		if(userToUpdate.pets == null){
 			let Pet;
@@ -130,6 +147,12 @@ class EditProfile2 extends React.Component {
 				<Bessemer.Field name='zip' friendlyName='Zipcode'
 								field={<input className="form-control" placeholder={this.props.user.address['zip']} />}
 								validators={[Validation.requiredValidator, Validation.zipValidator]}/>
+				<Bessemer.Select name={'state'}
+								 className='col-8' style={{backgroundColor:'black'}}
+								 friendlyName={'State'} placeholder="TX"
+								 validators={[Validation.requiredValidator]}
+								 options={stateOptions} value={this.state.state}
+								 onChange={opt => this.stateChange(opt)}/>
 				<Bessemer.Button loading={submitting}>Update</Bessemer.Button>
 			</form>
 		);
@@ -155,11 +178,17 @@ export { EditProfile2 };
 class EditProfile3 extends React.Component {
 	constructor(props){
 		super(props);
+		this.state = {
+			state:null,
+		};
 	}
 
 	onSubmit = user => {
 		let userToUpdate = JSON.parse(JSON.stringify(user));
 		userToUpdate.principal = this.props.user.principal;
+
+		if(this.state.state != null)
+			userToUpdate.state = this.state.state;
 
 		if(this.props.user.roles.includes('OWNER')) userToUpdate.petOwner = true;
 		if(this.props.user.roles.includes('SITTER')) userToUpdate.petSitter = true;
@@ -169,6 +198,7 @@ class EditProfile3 extends React.Component {
 		if (userToUpdate.street == null) userToUpdate.street = this.props.user.address['street'];
 		if (userToUpdate.city == null) userToUpdate.city = this.props.user.address['city'];
 		if (userToUpdate.zip == null) userToUpdate.zip = this.props.user.address['zip'];
+		if (userToUpdate.state == null) userToUpdate.state = this.props.user.address['state'];
 		if (userToUpdate.roles == null) userToUpdate.roles = this.props.user.roles;
 		if(userToUpdate.pets == null){
 			let Pet;
@@ -222,12 +252,16 @@ class EditProfile4 extends React.Component {
 
 	constructor(props){
 		super(props);
-
+		this.state = {
+			state:null,
+		};
 	}
 
 	onSubmit = user => {
 		let userToUpdate = JSON.parse(JSON.stringify(user));
 		if (userToUpdate.principal == null) userToUpdate.principal = this.props.user.principal;
+		if(this.state.state != null)
+			userToUpdate.state = this.state.state;
 
 		if(this.props.user.roles.includes('OWNER')) userToUpdate.petOwner = true;
 		if(this.props.user.roles.includes('SITTER')) userToUpdate.petSitter = true;
@@ -237,6 +271,7 @@ class EditProfile4 extends React.Component {
 		if (userToUpdate.street == null) userToUpdate.street = this.props.user.address['street'];
 		if (userToUpdate.city == null) userToUpdate.city = this.props.user.address['city'];
 		if (userToUpdate.zip == null) userToUpdate.zip = this.props.user.address['zip'];
+		if (userToUpdate.state == null) userToUpdate.state = this.props.user.address['state'];
 		if (userToUpdate.roles == null) userToUpdate.roles = this.props.user.roles;
 		if(userToUpdate.pets == null){
 			let Pet;
