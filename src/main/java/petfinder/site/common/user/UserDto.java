@@ -15,16 +15,18 @@ public class UserDto implements Momento<String> {
 	private Map<String, Object> attributes;
 	private Map<String, Object> address;
 	private List<String> pets;
+	private List<String> posts;
 	private UserDto() {
 
 	}
 
-	public UserDto(String principal, List<String> roles, Map<String, Object> attributes, Map<String, Object> address, List<String> pets) {
+	public UserDto(String principal, List<String> roles, Map<String, Object> attributes, Map<String, Object> address, List<String> pets, List<String> posts) {
 		this.principal = principal;
 		this.roles = roles;
 		this.attributes = attributes;
 		this.address = address;
 		this.pets = pets;
+		this.posts = posts;
 	}
 
 	public String getPrincipal() {
@@ -62,6 +64,21 @@ public class UserDto implements Momento<String> {
 		if (this.pets != null) {
 			this.pets.remove(id);
 		}
+	}
+
+	public List<String> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<String> posts) {
+		this.posts = posts;
+	}
+
+	public void addPost(String id) {
+		if (this.posts == null) {
+			this.posts = new ArrayList<>();
+		}
+		this.posts.add(id);
 	}
 
 	@JsonIgnore

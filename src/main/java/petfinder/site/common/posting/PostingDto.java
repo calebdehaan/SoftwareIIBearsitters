@@ -1,5 +1,4 @@
 package petfinder.site.common.posting;
-import alloy.util.Identifiable;
 import alloy.util.Momento;
 
 import java.util.List;
@@ -87,6 +86,6 @@ public class PostingDto implements Momento<String> {
 
 	@Override
 	public String getMomento() {
-		return null;
+		return id;
 	}
 }

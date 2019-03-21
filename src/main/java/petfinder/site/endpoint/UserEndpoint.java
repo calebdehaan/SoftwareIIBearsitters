@@ -107,4 +107,12 @@ public class UserEndpoint {
 			return userService.update(userDto);
 		}).orElse(null);
 	}
+
+	@PostMapping(value = "/posts/{id}")
+	public UserDto addSession(@PathVariable("id") String id) {
+		return getUserDetails().map(userDto -> {
+			userDto.addPost(id);
+			return userService.update(userDto);
+		}).orElse(null);
+	}
 }

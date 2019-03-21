@@ -13,6 +13,14 @@ export function addPet(pet) {
 	});
 }
 
+export function addPost(post){
+	console.log(JSON.stringify(post));
+	return axios.post('/api/posts', post).then(() => {
+		// Add the post ID to the users pet list
+		return axios.post('/api/user/posts/' + post.id);
+	});
+}
+
 export function authenticate(username, password) {
 	return axios(
 		{
@@ -44,6 +52,9 @@ export function getPets() {
 	return axios.get('/api/user/pet');
 }
 
+export function getPosts() {
+	return axios.get('/api/posts/all');
+}
 
 export function updateUser(user) {
 	return axios.post('/api/user/update', user);
@@ -52,13 +63,6 @@ export function updateUser(user) {
 export function updatePet(pet) {
 	console.log('Updating pet in elastic search\n\n\n');
 	return axios.post('/api/pets/update/', pet);
-}
-
-export function addPost(post){
-    return axios.post('/api/post', post).then(() => {
-		// Add the pet ID to the users pet list
-		return axios.post('/api/user/post/' + post.id);
-	});
 }
 
 let State = {};
@@ -75,6 +79,10 @@ State.getPets = state => {
 	return state.pets;
 };
 
+State.getPosts = state => {
+	return state.posts;
+};
+
 export { State };
 
 let Actions = {};
@@ -82,7 +90,8 @@ let Actions = {};
 Actions.Types = {
 	SET_AUTHENTICATION: 'SET_AUTHENTICATION',
 	SET_USER: 'SET_USER',
-	SET_PETS: 'SET_PETS'
+	SET_PETS: 'SET_PETS',
+	SET_POSTS: 'SET_POSTS',
 };
 
 Actions.register = user => {
@@ -150,6 +159,14 @@ Actions.fetchPets = () => {
 	};
 };
 
+Actions.fetchPosts = () => {
+	return (dispatch) => {
+		return getPosts().then(posts => {
+			return dispatch(Actions.setPosts(posts));
+		});
+	};
+};
+
 Actions.setPets = pets => {
 	if (pets != null) {
 		for (let pet = 0; pet < pets.length; pet++) {
@@ -171,6 +188,10 @@ Actions.addPost = post => {
 	return (dispatch) => {
 		return addPost(post);
 	};
+};
+
+Actions.setPosts = posts => {
+	return {type: Actions.Types.SET_POSTS, posts};
 };
 
 export { Actions };
@@ -206,6 +227,17 @@ Reducers.pets = (pets = [], action) => {
 		}
 		default: {
 			return pets;
+		}
+	}
+};
+
+Reducers.posts = (posts = [], action) => {
+	switch (action.type) {
+		case Actions.Types.SET_POSTS: {
+			return action.posts;
+		}
+		default: {
+			return posts;
 		}
 	}
 };

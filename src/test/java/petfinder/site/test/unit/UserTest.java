@@ -29,9 +29,10 @@ public class UserTest {
         Map<String, Object> attributes = new HashMap<>();
         Map<String, Object> address = new HashMap<>();
         List<String> pets = Arrays.asList("123","122");
+        List<String> posts = Arrays.asList("123222","122111");
 
         //call constructor
-        UserDto dto = new UserDto(principal, roles, attributes, address, pets);
+        UserDto dto = new UserDto(principal, roles, attributes, address, pets, posts);
 
         //verify values
         assertEquals(principal, dto.getPrincipal());
@@ -50,7 +51,7 @@ public class UserTest {
       void listExists() {
         String petId = "123";
         List<String> pets = new ArrayList<>();
-        UserDto dto = new UserDto(null, null, null, null, pets);
+        UserDto dto = new UserDto(null, null, null, null, pets, null);
         dto.addPet(petId);
         assertTrue(dto.getPets().contains(petId));
       }
@@ -59,7 +60,7 @@ public class UserTest {
       @Test
       void noList() {
         String petId = "122";
-        UserDto dto = new UserDto(null, null, null, null, null);
+        UserDto dto = new UserDto(null, null, null, null, null, null);
         dto.addPet(petId);
         assertTrue(dto.getPets().contains(petId));
       }
@@ -67,7 +68,7 @@ public class UserTest {
       @DisplayName("Pet id is null")
       @Test
       void nullPet() {
-        UserDto dto = new UserDto(null, null, null, null, null);
+        UserDto dto = new UserDto(null, null, null, null, null, null);
         dto.addPet(null);
         //TODO what should happen if you try to add null? Outside of the scope of this project
       }
@@ -82,7 +83,7 @@ public class UserTest {
         String petId = "123";
         List<String> pets = new ArrayList<>();
         pets.add(petId);
-        UserDto dto = new UserDto(null, null, null, null, pets);
+        UserDto dto = new UserDto(null, null, null, null, pets, null);
         dto.deletePet(petId);
       }
 
@@ -92,7 +93,7 @@ public class UserTest {
         List<String> pets = new ArrayList<>();
         pets.add("123");
         pets.add("122");
-        UserDto dto = new UserDto(null, null, null, null, pets);
+        UserDto dto = new UserDto(null, null, null, null, pets, null);
         dto.deletePet("12");
         //TODO what should happen if you try to delete a pet that doesn't exist?
       }
@@ -101,7 +102,7 @@ public class UserTest {
       @Test
       void noList() {
         String petId = "1222";
-        UserDto dto = new UserDto(null, null, null, null, null);
+        UserDto dto = new UserDto(null, null, null, null, null, null);
         dto.deletePet(petId);
       }
 
@@ -110,7 +111,7 @@ public class UserTest {
       void nullPet() {
         List<String> pets = new ArrayList<>();
         pets.add("1");
-        UserDto dto = new UserDto(null, null, null, null, pets);
+        UserDto dto = new UserDto(null, null, null, null, pets, null);
         dto.deletePet(null);
         //TODO what should happen if you try to delete null?
       }

@@ -1,6 +1,5 @@
 package petfinder.site.common.posting;
 
-import alloy.elasticsearch.ElasticSearchClientProvider;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;

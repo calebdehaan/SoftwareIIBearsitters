@@ -9,15 +9,15 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/sessions")
+@RequestMapping("/api/posts")
 public class PostingEndpoint {
 	// PetService contains our business logic for dealing with pets as well as saving/reading them
 	@Autowired
 	private PostingService postingService;
 
 	@PostMapping(produces = "application/json")
-	public void savePosting(@RequestBody PostingDto session) {
-		postingService.save(session);
+	public void savePosting(@RequestBody PostingDto post) {
+		postingService.save(post);
 	}
 
 	@GetMapping(value = "/{id}", produces = "application/json")
@@ -26,7 +26,7 @@ public class PostingEndpoint {
 	}
 
 	@GetMapping(value = "/all", produces = "application/json")
-	public List<Optional<PostingDto>> getSessions() {
+	public List<Optional<PostingDto>> getAllPostings() {
 		return postingService.findAllPostings();
 	}
 

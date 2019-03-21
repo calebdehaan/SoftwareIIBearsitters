@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import petfinder.site.common.pet.PetDto;
+import petfinder.site.common.posting.PostingDto;
 import petfinder.site.elasticsearch.PetElasticsearchRepository;
+import petfinder.site.elasticsearch.PostingElasticsearchRepository;
 import petfinder.site.elasticsearch.UserElasticSearchRepository;
 import petfinder.site.elasticsearch.UserPetElasticsearchRepository;
 
@@ -38,6 +40,9 @@ public class UserDao {
 
 	@Autowired
 	private ElasticSearchClientProvider eProvider;
+
+	@Autowired
+	private PostingElasticsearchRepository postingRepository;
 
 	public Optional<UserAuthenticationDto> findUserByPrincipal(String principal) {
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -66,6 +71,20 @@ public class UserDao {
 				.collect(Collectors.toList());
 	}
 
+	public List<Optional<PostingDto>> findPostings(UserDto user) {
+		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+
+		String queryString = String.format("userPrincipal=\"%s\"", user.getPrincipal().replace("\"", ""));
+		searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
+
+		List<String> userPosts = user.getPosts();
+		return userPosts.stream()
+				.map(id -> postingRepository.find(id))
+				.collect(Collectors.toList());
+	}
+
+
+
 	public UserPetDto save(UserPetDto userPetDto) {
 		return userPetRepository.save(userPetDto);
 	}
@@ -79,7 +98,7 @@ public class UserDao {
 		System.out.println("roles :" + user.getRoles());
 		System.out.println("address :" + user.getAddress());
 		System.out.println("pets :" + user.getPets());
-
+		System.out.println("posts :" + user.getPosts());
 
 		updateRequest.index("petfinder-users");
 		updateRequest.type("doc");
@@ -92,6 +111,7 @@ public class UserDao {
 				.field("roles", user.getRoles())
 				.field("address", user.getAddress())
 				.field("pets", user.getPets())
+				.field("posts", user.getPosts())
 				.endObject()
 				.endObject());
 

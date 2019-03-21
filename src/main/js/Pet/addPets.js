@@ -91,8 +91,6 @@ class PetList extends React.Component {
 					this.setState(this.state);
 				});
 			});
-
-			console.log('updated pet now\n\n\n\n');
 	};
 
 	editPet = (e, pet) => {
@@ -113,7 +111,7 @@ class PetList extends React.Component {
 					{this.props.pets.map(pet => (
 						_.isDefined(pet) && _.isDefined(pet.petName) &&
 						<div key={pet.petName + '_' + pet.id} className="card m-md-3" style={{backgroundColor: 'black'}}>
-							<form name={'PetList'} onSubmit={handleSubmit(form => this.updatePet(form, pet))}>
+							<div name={'PetList'} onSubmit={handleSubmit(form => this.updatePet(form, pet))}>
 								<ul className="list-group list-group-flush">
 									<li className="list-group-item" style={{backgroundColor: 'black'}}>
 										<div>
@@ -172,7 +170,7 @@ class PetList extends React.Component {
 								{pet.editing === true &&
 									<Bessemer.Button  loading={submitting}> Update </Bessemer.Button>
 								}
-							</form>
+							</div>
 						</div>
 					))}
 					{/* This displays if a user has no pets */}

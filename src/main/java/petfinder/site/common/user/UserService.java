@@ -28,7 +28,7 @@ public class UserService {
 	}
 
 	public UserDto constructUser(RegistrationRequest request) {
-		return new UserDto(request.getPrincipal(), request.getRoles(),request.getAttributes(), request.getAddress(), request.getPets());
+		return new UserDto(request.getPrincipal(), request.getRoles(),request.getAttributes(), request.getAddress(), request.getPets(), request.getPosts());
 	}
 
 	public UserDto update(UserDto user) {
@@ -53,6 +53,7 @@ public class UserService {
 		private String petSitter;
 		private String petOwner;
 		private List<String> pets;
+		private List<String> posts;
 
 		public String getPrincipal() {
 			return principal;
@@ -189,6 +190,14 @@ public class UserService {
 
 		public void setState(String state) {
 			this.state = state;
+		}
+
+		public List<String> getPosts() {
+			return posts;
+		}
+
+		public void setPosts(List<String> posts) {
+			this.posts = posts;
 		}
 	}
 

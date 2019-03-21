@@ -9,6 +9,6 @@ import petfinder.site.common.posting.PostingDto;
 @Service
 public class PostingElasticsearchRepository extends ElasticSearchJsonRepository<PostingDto, String> {
 	public PostingElasticsearchRepository(ElasticSearchClientProvider provider) {
-		super(new ElasticSearchIndex(provider, "petfinder-posting"), PostingDto.class);
+		super(new ElasticSearchIndex(provider, "petfinder-posts"), PostingDto.class);
 	}
 }
