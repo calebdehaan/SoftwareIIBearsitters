@@ -3,7 +3,7 @@ import * as Login from 'js/LoginRegister/login';
 import * as Register from 'js/LoginRegister/form';
 import * as NavBarr from 'js/Common/navBar';
 import * as Prof from 'js/User/profile';
-import * as Request from 'js/User/requestSitting';
+import * as Request from 'js/Post/requestSitting';
 import * as Post from 'js/Post/postings';
 //import DatePicker from 'react-datepicker';
 

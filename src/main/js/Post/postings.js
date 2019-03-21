@@ -50,7 +50,7 @@ class Posting extends React.Component {
 								</li>
 								<li className="list-group-item" style={{backgroundColor: 'black'}}>
 									<div>
-										<span className="text-muted">Submitted By  </span>{post.sitterPrincipal}
+										<span className="text-muted">Submitted By  </span>{post.ownerPrincipal}
 									</div>
 								</li>
 							</ul>
