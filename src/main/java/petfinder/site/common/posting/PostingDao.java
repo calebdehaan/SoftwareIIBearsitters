@@ -32,7 +32,7 @@ public class PostingDao {
 
 	public void save(PostingDto posting) {
 		if(posting.getSitterPrincipal() != null){
-			Optional<UserAuthenticationDto> optAuthUser = findUserByPrincipal(posting.getSitterPrincipal());
+			Optional<UserAuthenticationDto> optAuthUser = findUserByPrincipal(posting.getOwnerPrincipal());
 			if(optAuthUser.isPresent()){
 				UserAuthenticationDto authUser = optAuthUser.get();
 				UserDto user = authUser.getUser();

@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import petfinder.site.common.pet.PetDto;
+import petfinder.site.common.posting.PostingDto;
 import petfinder.site.common.user.UserDao;
 import petfinder.site.common.user.UserDto;
 import petfinder.site.common.user.UserPetDto;
@@ -106,6 +107,11 @@ public class UserEndpoint {
 			userDto.addPet(id);
 			return userService.update(userDto);
 		}).orElse(null);
+	}
+
+	@GetMapping(value = "/posts")
+	public List<Optional<PostingDto>> getPosts() {
+		return getUserDetails().map(userDto -> userService.findPosts(userDto)).orElse(null);
 	}
 
 	@PostMapping(value = "/posts/{id}")

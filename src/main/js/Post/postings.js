@@ -14,7 +14,7 @@ class MyPostings extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.fPosts().then(() => {
+		this.props.fUsersPosts().then(() => {
 			this.state.toggle = !this.state.toggle;
 			this.setState(this.state);
 		});
@@ -87,7 +87,7 @@ MyPostings = connect(
 		posts: Users.State.getPosts(state)
 	}),
 	dispatch => ({
-		fPosts: () => dispatch(Users.Actions.fetchPosts()),
+		fUsersPosts: () => dispatch(Users.Actions.fetchUsersPosts()),
 	})
 )(MyPostings);
 

@@ -15,23 +15,27 @@ class Request extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
 		this.state = {
 			postName: '',
-			postStartHour: 0,
+			postStartHour: 1,
 			postStartMinute: 0,
-			postEndHour: 0,
+			postEndHour: 1,
 			postEndMinute: 0,
-			postStartMonth: 0,
-			postEndMonth: 0,
-			postStartDay: 0,
-			postEndDay: 0,
-			postStartYear: 0,
-			postEndYear: 0,
+			postStartMonth: 1,
+			postEndMonth: 1,
+			postStartDay: 1,
+			postEndDay: 1,
+			postStartYear: 2019,
+			postEndYear: 2019,
 		};
     }
 
     onSubmit = posting => {
         let newPosting = JSON.parse(JSON.stringify(posting));
-        let startDate = new Date(this.state.postStartYear, this.state.postStartMonth,this.state.postStartDay, this.state.postStartHour, this.state.postStartMinute,0, 0);
-        let endDate = new Date(this.state.postEndYear, this.state.postEndMonth,this.state.postEndDay, this.state.postEndHour, this.state.postEndMinute,0, 0);
+        let startDate = new Date(this.state.postStartYear, this.state.postStartMonth-1,this.state.postStartDay, this.state.postStartHour, this.state.postStartMinute,0, 0);
+        let endDate = new Date(this.state.postEndYear, this.state.postEndMonth-1,this.state.postEndDay, this.state.postEndHour, this.state.postEndMinute,0, 0);
+
+        //TODO remove this
+        console.log('StartDate : ' + startDate + '\n\n\n');
+        console.log('EndDate : ' + endDate);
 
         newPosting.id = Math.round(Date.now() + Math.random() + Math.random()).toString();
         newPosting.ownerPrincipal = this.props.user.principal;
@@ -123,7 +127,7 @@ class Request extends React.Component {
 						<label> Year </label>
 						<Bessemer.Select style={{backgroundColor:'black'}} name="startYear"
 										 className='col-8'
-										 friendlyName="Post Start Year" placeholder="2018"
+										 friendlyName="Post Start Year" placeholder="2019"
 										 validators={[Validation.requiredValidator]}
 										 options={yearOptions} value={this.state.postStartYear}
 										 onChange={opt => this.yearStartChange(opt)}/>
@@ -137,7 +141,7 @@ class Request extends React.Component {
 										 options={dayOptions} value={this.state.postStartDay}
 										 onChange={opt => this.dayStartChange(opt)}/>
 					</div>
-					<div className="form-group col-sm-2">
+					<div className="form-group col-sm-3">
 						<label> Month </label>
 						<Bessemer.Select style={{backgroundColor:'black'}} name="startMonth"
 										 className='col-8'
@@ -173,7 +177,7 @@ class Request extends React.Component {
 						<label> Year </label>
 						<Bessemer.Select style={{backgroundColor:'black'}} name="endYear"
 										 className='col-8'
-										 friendlyName="Post End Year" placeholder="2018"
+										 friendlyName="Post End Year" placeholder="2019"
 										 validators={[Validation.requiredValidator]}
 										 options={yearOptions} value={this.state.postEndYear}
 										 onChange={opt => this.yearEndChange(opt)}/>
@@ -187,7 +191,7 @@ class Request extends React.Component {
 										 options={dayOptions} value={this.state.postEndDay}
 										 onChange={opt => this.dayStopChange(opt)}/>
 					</div>
-					<div className="form-group col-sm-2">
+					<div className="form-group col-sm-3">
 						<label> Month </label>
 						<Bessemer.Select style={{backgroundColor:'black'}} name="endMonth"
 										 className='col-8'
@@ -277,18 +281,18 @@ export const ampmOptions = [
 
 // Month options
 export const monthOptions = [
-	{label: '1', value: 1},
-	{label: '2', value: 2},
-	{label: '3', value: 3},
-	{label: '4', value: 4},
-	{label: '5', value: 5},
-	{label: '6', value: 6},
-	{label: '7', value: 7},
-	{label: '8', value: 8},
-	{label: '9', value: 9},
-	{label: '10', value: 10},
-	{label: '11', value: 11},
-	{label: '12', value: 12},
+	{label: 'January', value: 1},
+	{label: 'February', value: 2},
+	{label: 'March', value: 3},
+	{label: 'April', value: 4},
+	{label: 'May', value: 5},
+	{label: 'June', value: 6},
+	{label: 'July', value: 7},
+	{label: 'August', value: 8},
+	{label: 'September', value: 9},
+	{label: 'October', value: 10},
+	{label: 'November', value: 11},
+	{label: 'December', value: 12},
 ];
 
 // Day options

@@ -56,6 +56,10 @@ export function getPosts() {
 	return axios.get('/api/posts/all');
 }
 
+export function getPostsUser() {
+	return axios.get('/api/user/posts');
+}
+
 export function updateUser(user) {
 	return axios.post('/api/user/update', user);
 }
@@ -155,6 +159,14 @@ Actions.fetchPets = () => {
 	return (dispatch) => {
 		return getPets().then(pets => {
 			return dispatch(Actions.setPets(pets));
+		});
+	};
+};
+
+Actions.fetchUsersPosts = () => {
+	return (dispatch) => {
+		return getPostsUser().then(posts => {
+			return dispatch(Actions.setPosts(posts));
 		});
 	};
 };

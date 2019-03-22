@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import petfinder.site.common.pet.PetDto;
+import petfinder.site.common.posting.PostingDto;
 import petfinder.site.common.user.UserDto.UserType;
 
 /**
@@ -213,5 +214,9 @@ public class UserService {
 
 	public List<Optional<PetDto>> findPets(UserDto user) {
 		return userDao.findPets(user);
+	}
+
+	public List<Optional<PostingDto>> findPosts(UserDto user) {
+		return userDao.findPostings(user);
 	}
 }
