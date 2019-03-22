@@ -16,6 +16,18 @@ public class PostingDto implements Momento<String> {
 	private PostingDto() {
 	}
 
+	public PostingDto(String id, String ownerPrincipal, String sitterPrincipal, String startDate,
+			String endDate, String startTime, String endTime, List<Long> pets) {
+		setId(id);
+		setOwnerPrincipal(ownerPrincipal);
+		setSitterPrincipal(sitterPrincipal);
+		setStartDate(startDate);
+		setEndDate(endDate);
+		setStartTime(startTime);
+		setEndTime(endTime);
+		setPets(pets);
+	}
+
 	public String getId() {
 		return id;
 	}
