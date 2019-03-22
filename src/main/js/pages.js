@@ -90,6 +90,18 @@ export class Postings extends React.Component {
 	}
 }
 
+export class SitterPosts extends React.Component {
+	render() {
+		return (
+			<div className="container padded">
+				<NavBarr.NavBar />
+				These are all of the postings you have posted
+				<Post.MyPostings/>
+			</div>
+		);
+	}
+}
+
 export class Profile extends React.Component {
 	render() {
 		return (
