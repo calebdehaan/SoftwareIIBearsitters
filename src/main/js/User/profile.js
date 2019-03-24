@@ -6,6 +6,7 @@ import * as Owner from 'js/User/owner';
 import * as Sitter from 'js/User/sitter';
 import * as Bessemer from '../alloy/bessemer/components';
 import * as Editor from 'js/User/editProfile';
+import Redirect from 'react-router-dom/es/Redirect';
 
 class Profile extends React.Component {
 	seconds = 0;
@@ -59,7 +60,21 @@ class Profile extends React.Component {
 		clearInterval(this.seconds);
 	}
 
+	deleteUser = (e, id) => {
+		this.props.deleteUser(id).then(() => {
+			this.props.fetchUser().then(() => {
+				this.state.toggle = !this.state.toggle;
+				this.setState(this.state);
+			});
+		});
+	};
+
 	render() {
+
+		if (this.props.user == null) {
+			return <Redirect to='/'/>;
+		}
+
 		return (
 			<div className="container padded">
 				This is your profile page
@@ -113,6 +128,9 @@ class Profile extends React.Component {
 								<Editor.EditProfile4 action={this.editAttr4}/>
 							}
 							<br/>
+						<div className="profileHeader">Delete Account:                                                                      				 <br/></div>
+						<Bessemer.Button onClick={(e) => {this.deleteUser(e, this.props.user);}} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-trash'></i></Bessemer.Button>
+						<br/>
 					</div>
 				}
 
@@ -134,7 +152,8 @@ Profile = connect(
 		pets: Users.State.getPets(state),
 	}),
 	dispatch => ({
-		fetchUser: () => dispatch(Users.Actions.fetchUser())
+		fetchUser: () => dispatch(Users.Actions.fetchUser()),
+		deleteUser: user => dispatch(Users.Actions.deleteAccount(user))
 	})
 )(Profile);
 

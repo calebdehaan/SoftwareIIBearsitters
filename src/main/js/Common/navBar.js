@@ -2,7 +2,6 @@ import React from 'react';
 import * as Users from '../User/users';
 import {connect} from 'react-redux';
 import Favicon from 'react-favicon';
-import Redirect from 'react-router-dom/es/Redirect';
 
 
 class NavBar extends React.Component {
@@ -11,10 +10,7 @@ class NavBar extends React.Component {
 	}
 
 	LogoutClick = () => {
-		return this.props.logout().
-		then(
-			<Redirect to='/'/>
-			);
+		return this.props.logout();
 	};
 
 	render() {
@@ -36,25 +32,25 @@ class NavBar extends React.Component {
 							</li>
 
 
-							{ (this.props.user) && (this.props.user.roles.includes('OWNER')) &&
+							{ (this.props.user != null) && (this.props.user.roles != null) && (this.props.user.roles.includes('OWNER')) &&
 								<li className="nav-item">
 									<a className="nav-link" href="#/request">Request Sitting</a>
 								</li>
 							}
 
-							{ (this.props.user) && (this.props.user.roles.includes('OWNER')) &&
+							{ (this.props.user != null) && (this.props.user.roles != null) && (this.props.user.roles.includes('OWNER')) &&
 							<li className="nav-item">
 								<a className="nav-link" href="#/sittersPosts">Your Posts</a>
 							</li>
 							}
 
-							{ (this.props.user) && (this.props.user.roles.includes('SITTER')) &&
+							{ (this.props.user != null) && (this.props.user.roles != null) && (this.props.user.roles.includes('SITTER')) &&
 							<li className="nav-item">
 								<a className="nav-link" href="#/posting">Find Postings</a>
 							</li>
 							}
 
-							{ (this.props.user) &&
+							{ (this.props.user != null) && (this.props.user.firstName != null)  &&
 								<li className="nav-item" style={{float:'right'}}>
 									<a className="nav-link" href="#/profile" > Profile </a>
 								</li>
