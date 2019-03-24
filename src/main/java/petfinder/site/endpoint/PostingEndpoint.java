@@ -30,5 +30,10 @@ public class PostingEndpoint {
 		return postingService.findAllPostings();
 	}
 
+	@PostMapping(value = "/delete/{id}")
+	public void deletePost(@PathVariable("id") String id) {
+		postingService.deletePost(id);
+	}
+
 
 }

@@ -8,7 +8,6 @@ export function register(user) {
 export function addPet(pet) {
 	console.log(JSON.stringify(pet));
 	return axios.post('/api/pets', pet).then(() => {
-		// Add the pet ID to the users pet list
 		return axios.post('/api/user/pet/' + pet.id);
 	});
 }
@@ -16,7 +15,6 @@ export function addPet(pet) {
 export function addPost(post){
 	console.log(JSON.stringify(post));
 	return axios.post('/api/posts', post).then(() => {
-		// Add the post ID to the users pet list
 		return axios.post('/api/user/posts/' + post.id);
 	});
 }
@@ -47,7 +45,6 @@ export function getPetDetails(pet) {
 	return axios.get('/api/pets/' + pet.id);
 }
 
-
 export function getPets() {
 	return axios.get('/api/user/pet');
 }
@@ -65,8 +62,24 @@ export function updateUser(user) {
 }
 
 export function updatePet(pet) {
-	console.log('Updating pet in elastic search\n\n\n');
 	return axios.post('/api/pets/update/', pet);
+}
+
+export function deleteAccount() {
+	return axios.post('/api/user/delete');
+}
+
+export function deletePet(id) {
+	return axios.post('/api/pets/delete/' + id).then(() => {
+		return axios.post('/api/user/pet/delete/' + id);
+	});
+
+}
+
+export function deletePost(id) {
+	return axios.post('/api/posts/delete/' + id).then(() => {
+		return axios.post('/api/user/posts/delete/' + id);
+	});
 }
 
 let State = {};
@@ -119,6 +132,15 @@ Actions.authenticate = (username, password) => {
 		);
 	};
 };
+
+Actions.deleteAccount = user => {
+	return (dispatch) => {
+		return deleteAccount(user).then(() => {
+			return dispatch(Actions.logout());
+		});
+	};
+};
+
 
 Actions.logout = () => {
 	return (dispatch) => {
@@ -204,6 +226,26 @@ Actions.addPost = post => {
 
 Actions.setPosts = posts => {
 	return {type: Actions.Types.SET_POSTS, posts};
+};
+
+Actions.deletePost = (id) => {
+	return (dispatch) => {
+		return deletePost(id).then(() => {
+			return getPosts().then(posts => {
+				return dispatch(Actions.setPosts(posts));
+			});
+		});
+	};
+};
+
+Actions.deletePet = (id) => {
+	return (dispatch) => {
+		return deletePet(id).then(() => {
+			return getPets().then(pets => {
+				return dispatch(Actions.setPets(pets));
+			});
+		});
+	};
 };
 
 export { Actions };

@@ -81,6 +81,12 @@ public class UserDto implements Momento<String> {
 		this.posts.add(id);
 	}
 
+	public void deletePost(String id) {
+		if (this.posts != null) {
+			this.posts.remove(id);
+		}
+	}
+
 	@JsonIgnore
 	@Override
 	public String getMomento() {

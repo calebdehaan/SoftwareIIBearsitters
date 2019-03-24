@@ -43,4 +43,10 @@ public class PetEndpoint {
 	public void updatePet(@RequestBody PetDto pet) {
 		petService.save(pet);
 	}
+
+
+	@PostMapping(value = "/delete/{id}")
+	public void deletePet(@PathVariable("id") String id) {
+		petService.deletePet(id);
+	}
 }

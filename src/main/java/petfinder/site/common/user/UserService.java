@@ -208,6 +208,10 @@ public class UserService {
 		return userAuthentication.getUser();
 	}
 
+	public void delete(Optional<UserDto> user) {
+		user.ifPresent(userDto -> userDao.delete(userDto.getPrincipal()));
+	}
+
 	public UserPetDto save(UserPetDto userPetDto) {
 		return userDao.save(userPetDto);
 	}

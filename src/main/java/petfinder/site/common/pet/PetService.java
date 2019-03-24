@@ -22,4 +22,8 @@ public class PetService {
 	public void save(PetDto pet) {
 		petDao.save(pet);
 	}
+
+	public void deletePet(String id) {
+		petDao.delete(id);
+	}
 }

@@ -60,4 +60,8 @@ public class PostingDao {
 
 		return optPostingList;
 	}
+
+	public void delete(String id) {
+		postingElasticsearchRepository.delete(id);
+	}
 }

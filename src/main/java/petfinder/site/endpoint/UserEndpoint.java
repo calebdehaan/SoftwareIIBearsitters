@@ -101,10 +101,23 @@ public class UserEndpoint {
 		return userService.update(myUser);
 	}
 
+	@PostMapping(value = "/delete")
+	public void delete() {
+		userService.delete(getUserDetails());
+	}
+
 	@PostMapping(value = "/pet/{id}")
 	public UserDto addPet(@PathVariable("id") String id) {
 		return getUserDetails().map(userDto -> {
 			userDto.addPet(id);
+			return userService.update(userDto);
+		}).orElse(null);
+	}
+
+	@PostMapping(value = "/pet/delete/{id}")
+	public UserDto deletePet(@PathVariable("id") String id) {
+		return getUserDetails().map(userDto -> {
+			userDto.deletePet(id);
 			return userService.update(userDto);
 		}).orElse(null);
 	}
@@ -115,9 +128,17 @@ public class UserEndpoint {
 	}
 
 	@PostMapping(value = "/posts/{id}")
-	public UserDto addSession(@PathVariable("id") String id) {
+	public UserDto addPost(@PathVariable("id") String id) {
 		return getUserDetails().map(userDto -> {
 			userDto.addPost(id);
+			return userService.update(userDto);
+		}).orElse(null);
+	}
+
+	@PostMapping(value = "/posts/delete/{id}")
+	public UserDto deletePost(@PathVariable("id") String id) {
+		return getUserDetails().map(userDto -> {
+			userDto.deletePost(id);
 			return userService.update(userDto);
 		}).orElse(null);
 	}

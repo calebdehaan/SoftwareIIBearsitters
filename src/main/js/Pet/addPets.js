@@ -79,18 +79,18 @@ class PetList extends React.Component {
 		let petToUpdate = JSON.parse(JSON.stringify(form));
 		this.toggleAll();
 
-			petToUpdate.id = pet.id;
-			if (petToUpdate.petName == null) petToUpdate.petName = pet.petName;
-			if (petToUpdate.petSpecies == null) petToUpdate.petSpecies = this.state.petSpecies;
-			if (petToUpdate.petSex == null) petToUpdate.petSex = this.state.petSex;
-			if (petToUpdate.petAge == null) petToUpdate.petAge = this.state.petAge;
+		petToUpdate.id = pet.id;
+		if (petToUpdate.petName == null) petToUpdate.petName = pet.petName;
+		if (petToUpdate.petSpecies == null) petToUpdate.petSpecies = this.state.petSpecies;
+		if (petToUpdate.petSex == null) petToUpdate.petSex = this.state.petSex;
+		if (petToUpdate.petAge == null) petToUpdate.petAge = this.state.petAge;
 
-			Users.updatePet(petToUpdate).then(() => {
-				this.props.fPets().then(() => {
-					this.state.toggle = !this.state.toggle;
-					this.setState(this.state);
-				});
+		Users.updatePet(petToUpdate).then(() => {
+			this.props.fPets().then(() => {
+				this.state.toggle = !this.state.toggle;
+				this.setState(this.state);
 			});
+		});
 	};
 
 	editPet = (e, pet) => {
@@ -98,6 +98,15 @@ class PetList extends React.Component {
 			pet.editing = true;
 			this.state.toggle = !this.state.toggle;
 			this.setState(this.state);
+	};
+
+	deletePet = (e, id) => {
+		this.props.dPet(id).then(() => {
+			this.props.fPets().then(() => {
+				this.state.toggle = !this.state.toggle;
+				this.setState(this.state);
+			});
+		});
 	};
 
 	render() {
@@ -167,6 +176,9 @@ class PetList extends React.Component {
 								{pet.editing === false &&
 									<Bessemer.Button onClick={(e) => {this.editPet(e, pet);}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
 								}
+								{pet.editing === false &&
+									<Bessemer.Button onClick={(e) => {this.deletePet(e, pet.id);}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}><i className='fa fa-trash'></i></Bessemer.Button>
+								}
 								{pet.editing === true &&
 									<Bessemer.Button  loading={submitting}> Update </Bessemer.Button>
 								}
@@ -193,6 +205,7 @@ PetList = connect(
 	}),
 	dispatch => ({
 		fPets: () => dispatch(Users.Actions.fetchPets()),
+		dPet: pet => dispatch(Users.Actions.deletePet(pet))
 	})
 )(PetList);
 
@@ -299,6 +312,7 @@ Pets = connect(
 	dispatch => ({
 		addPet: (pet) => dispatch(Users.Actions.addPet(pet)),
 		fPets: () => dispatch(Users.Actions.fetchPets()),
+
 	})
 )(Pets);
 // Age options for each pet

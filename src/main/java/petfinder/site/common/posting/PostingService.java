@@ -22,6 +22,10 @@ public class PostingService {
 		return postingDao.findAllPostings();
 	}
 
+	public void deletePost(String id) {
+		postingDao.delete(id);
+	}
+
 	public static class PostingQuery {
 		private List<String> petSpecies;
 		private String dateRangeStart;

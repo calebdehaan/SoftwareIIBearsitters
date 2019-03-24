@@ -89,6 +89,10 @@ public class UserDao {
 		return userPetRepository.save(userPetDto);
 	}
 
+	public void delete(String principal) {
+		userRepository.delete(principal);
+	}
+
 	public void update(UserDto user) throws IOException {
 		// Helpful to understand
 		//https://www.elastic.co/guide/en/elasticsearch/client/java-api/current/java-docs-update.html

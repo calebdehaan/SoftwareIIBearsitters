@@ -41,6 +41,15 @@ class MyPostings extends React.Component {
 		}
 	};
 
+	deletePost = (e, id) => {
+		this.props.dUsersPosts(id).then(() => {
+			this.props.fUsersPosts().then(() => {
+				this.state.toggle = !this.state.toggle;
+				this.setState(this.state);
+			});
+		});
+	};
+
 	render() {
 		return (
 			<div>
@@ -60,13 +69,10 @@ class MyPostings extends React.Component {
 										<span className="text-muted">End </span>{this.displayDate(post.endDate)}
 									</div>
 								</li>
-								<li className="list-group-item" style={{backgroundColor: 'black'}}>
-									<div>
-										<span className="text-muted">Submitted By  </span>{post.ownerPrincipal}
-									</div>
-								</li>
 							</ul>
-							<Bessemer.Button style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}>Sign up <i className='fa fa-paper-plane '></i></Bessemer.Button>
+							<Bessemer.Button style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}> Choose Sitter <i className='fa fa-paper-plane '></i></Bessemer.Button>
+							<Bessemer.Button onClick={(e) => {this.deletePost(e, post.id);}}
+											 style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}> Delete Post <i className='fa fa-paper-plane '></i></Bessemer.Button>
 						</div>
 					))}
 				</div>
@@ -88,6 +94,7 @@ MyPostings = connect(
 	}),
 	dispatch => ({
 		fUsersPosts: () => dispatch(Users.Actions.fetchUsersPosts()),
+		dUsersPosts: post => dispatch(Users.Actions.deletePost(post))
 	})
 )(MyPostings);
 
