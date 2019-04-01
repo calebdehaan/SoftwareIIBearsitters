@@ -22,6 +22,10 @@ public class PostingService {
 		return postingDao.findAllPostings();
 	}
 
+	public List<Optional<PostingDto>> findRecommendedPostings() {
+		return postingDao.findRecommendedPostings();
+	}
+
 	public void deletePost(String id) {
 		postingDao.delete(id);
 	}

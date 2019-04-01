@@ -112,6 +112,7 @@ class Posting extends React.Component {
 	}
 
 	componentDidMount() {
+		//TODO change to recommended
 		this.props.fPosts().then(() => {
 			this.state.toggle = !this.state.toggle;
 			this.setState(this.state);
@@ -186,6 +187,7 @@ Posting = connect(
 	}),
 	dispatch => ({
 		fPosts: () => dispatch(Users.Actions.fetchPosts()),
+		fRecommendedPosts: () => dispatch(Users.Actions.fetchRecommendedPosts()),
 	})
 )(Posting);
 

@@ -49,6 +49,10 @@ export function getPets() {
 	return axios.get('/api/user/pet');
 }
 
+export function getRecommendedPosts() {
+	return axios.get('api/posts/recommended');
+}
+
 export function getPosts() {
 	return axios.get('/api/posts/all');
 }
@@ -196,6 +200,14 @@ Actions.fetchUsersPosts = () => {
 Actions.fetchPosts = () => {
 	return (dispatch) => {
 		return getPosts().then(posts => {
+			return dispatch(Actions.setPosts(posts));
+		});
+	};
+};
+
+Actions.fetchRecommendedPosts = () => {
+	return (dispatch) => {
+		return getRecommendedPosts().then(posts => {
 			return dispatch(Actions.setPosts(posts));
 		});
 	};

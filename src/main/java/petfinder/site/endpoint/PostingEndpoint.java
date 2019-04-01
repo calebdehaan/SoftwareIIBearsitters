@@ -25,6 +25,11 @@ public class PostingEndpoint {
 		return postingService.findPosting(id);
 	}
 
+	@GetMapping(value = "/recommended/", produces = "application/json")
+	public List<Optional<PostingDto>> getRecommended() {
+		return postingService.findRecommendedPostings();
+	}
+
 	@GetMapping(value = "/all", produces = "application/json")
 	public List<Optional<PostingDto>> getAllPostings() {
 		return postingService.findAllPostings();

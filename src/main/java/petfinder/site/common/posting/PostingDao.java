@@ -5,16 +5,22 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import petfinder.site.common.user.UserAuthenticationDto;
+import petfinder.site.common.user.UserDao;
 import petfinder.site.common.user.UserDto;
+import petfinder.site.common.user.UserService;
 import petfinder.site.elasticsearch.PostingElasticsearchRepository;
 import petfinder.site.elasticsearch.UserElasticSearchRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import petfinder.site.endpoint.UserEndpoint;
 
 @Repository
 public class PostingDao {
+	//maximum distance of a sitting appointment for it to be recommended
+	private static final int MAX_RECOMMEND_DISTANCE = 30;
+
 	@Autowired
 	private PostingElasticsearchRepository postingElasticsearchRepository;
 
@@ -45,6 +51,26 @@ public class PostingDao {
 
 	public Optional<PostingDto> findPosting(String id) {
 		return postingElasticsearchRepository.find(id);
+	}
+
+	public List<Optional<PostingDto>> findRecommendedPostings() {
+		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+		searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+		List<PostingDto> postingList = new ArrayList<>(postingElasticsearchRepository.search(searchSourceBuilder));
+		List<Optional<PostingDto>> optPostingList = new ArrayList<>();
+
+		Optional<UserDto> sitter = new UserEndpoint().getUserDetails();
+		int sitterZip = Integer.parseInt((String)(sitter.get().getAddress().get("zip")));
+
+		for(PostingDto s : postingList) {
+			Optional<UserDto> owner = new UserService().findUserByPrincipal(s.getOwnerPrincipal());
+			int ownerZip = Integer.parseInt((String)(owner.get().getAddress().get("zip")));
+			if(Math.abs(sitterZip - ownerZip) <= MAX_RECOMMEND_DISTANCE) {
+				optPostingList.add(Optional.ofNullable(s).filter(sf -> !sf.isEmpty()));
+			}
+		}
+
+		return optPostingList;
 	}
 
 	public List<Optional<PostingDto>> findAllPostings() {
