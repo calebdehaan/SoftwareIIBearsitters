@@ -17,6 +17,7 @@ class Profile extends React.Component {
 		this.editAttr2 = this.editAttr2.bind(this);
 		this.editAttr3 = this.editAttr3.bind(this);
 		this.editAttr4 = this.editAttr4.bind(this);
+		this.editAttr5 = this.editAttr5.bind(this);
 
 		this.state = {
 			petName: '',
@@ -27,6 +28,7 @@ class Profile extends React.Component {
 			edit2:false,
 			edit3:false,
 			edit4:false,
+			edit5:false,
 			toggle:false
 		};
 	}
@@ -47,6 +49,10 @@ class Profile extends React.Component {
 		this.state.edit4 = !this.state.edit4;
 		this.setState(this.state);
 	}
+	editAttr5(){
+        this.state.edit5 = !this.state.edit5;
+        this.setState(this.state);
+    }
 
 	componentDidMount() {
 		this.props.fetchUser().then(() => {
@@ -128,6 +134,15 @@ class Profile extends React.Component {
 								<Editor.EditProfile4 action={this.editAttr4}/>
 							}
 							<br/>
+
+						<div className="profileHeader">Owner Sitter Status: <br/></div>
+						    <Bessemer.Button onClick={this.editAttr5} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
+						    {!this.state.edit5 ?
+						        <p>{this.props.user.roles}</p>
+						        :
+						        <Editor.EditProfile5 action={this.editAttr5}/>
+						    }
+						    <br/>
 						<div className="profileHeader">Delete Account:                                                                      				 <br/></div>
 						<Bessemer.Button onClick={(e) => {this.deleteUser(e, this.props.user);}} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-trash'></i></Bessemer.Button>
 						<br/>

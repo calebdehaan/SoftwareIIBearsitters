@@ -5,6 +5,7 @@ import * as Bessemer from '../alloy/bessemer/components';
 import * as Validation from 'js/alloy/utils/validation';
 import * as ReduxForm from 'redux-form';
 import {stateOptions} from 'js/LoginRegister/form';
+import Checkbox from 'js/Common/checkBox';
 
 class EditProfile1 extends React.Component {
 	constructor(props){
@@ -321,3 +322,106 @@ EditProfile4 = connect(
 
 export { EditProfile4 };
 
+class EditProfile5 extends React.Component {
+
+	constructor(props){
+		super(props);
+		this.checkboxChange = this.checkboxChange.bind(this);
+		this.state = {
+		    items: new Map(),
+			state:null,
+		};
+		if(this.props.user.roles.includes('OWNER')){
+		    this.state.items.set('petOwner', true);
+		} else {
+		    this.state.items.set('petOwner', false);
+		}
+		if(this.props.user.roles.includes('SITTER')){
+            this.state.items.set('petSitter', true);
+        } else {
+            this.state.items.set('petSitter', false);
+        }
+	}
+
+    // Changes for checkboxes of roles of user
+    checkboxChange(e) {
+        this.state.items.set(e, !this.state.items.get(e));
+        this.setState(this.state);
+        console.log(e + ' set to ' + this.state.items.get(e));
+    }
+
+	onSubmit = user => {
+		let userToUpdate = JSON.parse(JSON.stringify(user));
+		if (userToUpdate.principal == null) userToUpdate.principal = this.props.user.principal;
+		if(this.state.state != null)
+			userToUpdate.state = this.state.state;
+
+        userToUpdate.petSitter = this.state.items.get('petSitter');
+        userToUpdate.petOwner = this.state.items.get('petOwner');
+//		if(this.props.user.roles.includes('OWNER')) userToUpdate.petOwner = true;
+//		if(this.props.user.roles.includes('SITTER')) userToUpdate.petSitter = true;
+		if (userToUpdate.firstName == null) userToUpdate.firstName = this.props.user.attributes['firstName'];
+		if (userToUpdate.lastName == null) userToUpdate.lastName = this.props.user.attributes['lastName'];
+		if (userToUpdate.phone == null) userToUpdate.phone = this.props.user.attributes['phone'];
+		if (userToUpdate.street == null) userToUpdate.street = this.props.user.address['street'];
+		if (userToUpdate.city == null) userToUpdate.city = this.props.user.address['city'];
+		if (userToUpdate.zip == null) userToUpdate.zip = this.props.user.address['zip'];
+		if (userToUpdate.state == null) userToUpdate.state = this.props.user.address['state'];
+		if (userToUpdate.roles == null) userToUpdate.roles = this.props.user.roles;
+		if(userToUpdate.pets == null){
+			let Pet;
+			let list = [];
+			for(Pet in this.props.pets){
+				list.push(this.props.pets[Pet].id);
+			}
+			userToUpdate.pets = list;
+		}
+
+		Users.updateUser(userToUpdate).then(() => {
+			this.props.fetchUser().then(() => {
+				this.props.dispatch(ReduxForm.reset('editProfile5'));
+				this.setState(this.state);
+				this.props.action();
+			});
+		});
+	};
+
+	render() {
+		let { handleSubmit, submitting } = this.props;
+		return (
+			<form name="editProfile5" onSubmit={handleSubmit(form => this.onSubmit(form))}>
+				<br/>
+				<Bessemer.Field name={'petOwner'}
+                                onChange={(e) => this.checkboxChange(e)}
+                                showLabel={false}
+                                field={<Checkbox label={'I am going to be a pet owner.'}
+                                                 checkboxChange={this.checkboxChange}
+                                                 name={'petOwner'}
+                                                 defaultCheck={this.state.items.get('petOwner')}/>}/>
+                <Bessemer.Field name={'petSitter'}
+                                onChange={(e) => this.checkboxChange(e)}
+                                showLabel={false}
+                                field={<Checkbox label={'I am going to be a pet sitter.'}
+                                                 checkboxChange={this.checkboxChange}
+                                                 name={'petSitter'}
+                                                 defaultCheck={this.state.items.get('petSitter')}/>}/>
+				<Bessemer.Button loading={submitting}>Update</Bessemer.Button>
+			</form>
+		);
+	}
+}
+
+EditProfile5 = ReduxForm.reduxForm({form: 'editProfile5'})(EditProfile5);
+
+EditProfile5 = connect(
+	state => ({
+		user: Users.State.getUser(state),
+		pets: Users.State.getPets(state),
+	}),
+	dispatch => ({
+		fetchUser: () => dispatch(Users.Actions.fetchUser()),
+		updateUser: user => dispatch(Users.Actions.updateUser(user)),
+	})
+)(EditProfile5);
+
+export { EditProfile5 };
