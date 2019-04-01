@@ -71,10 +71,6 @@ class Profile extends React.Component {
 
 	render() {
 
-		if (this.props.user == null) {
-			return <Redirect to='/'/>;
-		}
-
 		return (
 			<div className="container padded">
 				This is your profile page

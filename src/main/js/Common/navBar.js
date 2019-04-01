@@ -50,7 +50,7 @@ class NavBar extends React.Component {
 							</li>
 							}
 
-							{ (this.props.user != null) && (this.props.user.firstName != null)  &&
+							{ (this.props.user != null) && (this.props.user.attributes['firstName'] != null)  &&
 								<li className="nav-item" style={{float:'right'}}>
 									<a className="nav-link" href="#/profile" > Profile </a>
 								</li>
