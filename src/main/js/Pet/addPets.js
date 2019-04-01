@@ -6,6 +6,113 @@ import * as ReduxForm from 'redux-form';
 import * as Validation from 'js/alloy/utils/validation';
 import _ from 'lodash';
 
+class ChoosePetList extends React.Component{
+	seconds = 0;
+	trigger = 0;
+	constructor(props) {
+		super(props);
+		this.state = {
+			petName: '',
+			petSex: 'Male',
+			petSpecies: 'Dog',
+			petAge: 0,
+			toggle: false,
+		};
+	}
+
+	componentDidMount() {
+		this.props.fPets().then(() => {
+			this.state.toggle = !this.state.toggle;
+			this.setState(this.state);
+		});
+		this.seconds = setInterval(() => this.updatePets(), 1000);
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.seconds);
+	}
+
+	updatePets = () => {
+		this.props.fPets().then(() => {
+			this.state.toggle = !this.state.toggle;
+			this.setState(this.state);
+		});
+	};
+
+	choosePet = (e, pet) => {
+		pet.editing = true;
+		this.state.toggle = !this.state.toggle;
+		this.setState(this.state);
+	};
+
+
+	render(){
+		return (
+			<div>
+				{_.isDefined(this.props.pets) && this.props.pets.length !== 0 &&
+				<div className="d-md-flex flex-md-wrap justify-content-md-start">
+					{this.props.pets.map(pet => (
+						_.isDefined(pet) && _.isDefined(pet.petName) &&
+						<div key={pet.petName + '_' + pet.id} className="card m-md-3" style={{backgroundColor: 'black'}}>
+							<ul className="list-group list-group-flush">
+								<li className="list-group-item" style={{backgroundColor: 'black'}}>
+									<div>
+										<span className="text-muted">Pet Name: </span>{pet.petName}
+									</div>
+								</li>
+								<li className="list-group-item" style={{backgroundColor: 'black'}}>
+									<div>
+										<span className="text-muted">Species: </span>{pet.petSpecies}
+									</div>
+								</li>
+								<li className="list-group-item" style={{backgroundColor: 'black'}}>
+									<div>
+										<span className="text-muted">Sex: </span>{pet.petSex}
+									</div>
+								</li>
+								<li className="list-group-item" style={{backgroundColor: 'black'}}>
+									<div>
+										<span className="text-muted">Age: </span>{pet.petAge}
+									</div>
+								</li>
+							</ul>
+
+							<Bessemer.Button onClick={(e) => {
+								this.choosePet(e, pet);
+							}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}><i
+								className='fa fa-edit'></i></Bessemer.Button>
+
+							{pet.editing === true &&
+							<span>Pet Chosen</span>
+							}
+						</div>
+					))}
+				</div>
+				}
+				{(this.props.pets.length === 0 || !_.isDefined(this.props.pets) ) &&
+				<span> No pets yet. Add some !! </span>
+				}
+			</div>
+		);
+	}
+}
+
+ChoosePetList = connect(
+	state => ({
+		authentication: Users.State.getAuthentication(state),
+		user: Users.State.getUser(state),
+		pets: Users.State.getPets(state)
+	}),
+	dispatch => ({
+		fPets: () => dispatch(Users.Actions.fetchPets()),
+	})
+)(ChoosePetList);
+
+export { ChoosePetList };
+
+
+
+
 class PetList extends React.Component {
 	seconds = 0;
 
@@ -95,9 +202,9 @@ class PetList extends React.Component {
 
 	editPet = (e, pet) => {
 		this.toggleAll();
-			pet.editing = true;
-			this.state.toggle = !this.state.toggle;
-			this.setState(this.state);
+		pet.editing = true;
+		this.state.toggle = !this.state.toggle;
+		this.setState(this.state);
 	};
 
 	deletePet = (e, id) => {
@@ -174,13 +281,13 @@ class PetList extends React.Component {
 									</li>
 								</ul>
 								{pet.editing === false &&
-									<Bessemer.Button onClick={(e) => {this.editPet(e, pet);}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
+								<Bessemer.Button onClick={(e) => {this.editPet(e, pet);}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
 								}
 								{pet.editing === false &&
-									<Bessemer.Button onClick={(e) => {this.deletePet(e, pet.id);}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}><i className='fa fa-trash'></i></Bessemer.Button>
+								<Bessemer.Button onClick={(e) => {this.deletePet(e, pet.id);}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}><i className='fa fa-trash'></i></Bessemer.Button>
 								}
 								{pet.editing === true &&
-									<Bessemer.Button  loading={submitting}> Update </Bessemer.Button>
+								<Bessemer.Button  loading={submitting}> Update </Bessemer.Button>
 								}
 							</div>
 						</div>

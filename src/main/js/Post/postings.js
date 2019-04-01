@@ -32,9 +32,9 @@ class MyPostings extends React.Component {
 		let newDate = new Date(date);
 		if(newDate != null && _.isFunction(newDate.getMonth)) {
 			if(newDate.getMinutes() !== 0)
-				return months[newDate.getMonth()] + ' ' + newDate.getDay() + ' ' + newDate.getFullYear().toString() + ' \@ ' + newDate.getHours() + ':' + newDate.getMinutes();
+				return months[newDate.getMonth()] + ' ' + newDate.getDate() + ' ' + newDate.getFullYear().toString() + ' \@ ' + newDate.getHours() + ':' + newDate.getMinutes();
 			else
-				return months[newDate.getMonth()] + ' ' + newDate.getDay() + ' ' + newDate.getFullYear().toString() + ' \@ ' + newDate.getHours() + ':00';
+				return months[newDate.getMonth()] + ' ' + newDate.getDate() + ' ' + newDate.getFullYear().toString() + ' \@ ' + newDate.getHours() + ':00';
 		}
 		else {
 			return ' No date object';
@@ -78,9 +78,9 @@ class MyPostings extends React.Component {
 				</div>
 				}
 				{ !_.isDefined(this.props.posts) &&
-					<div >
-						No posts available! Check back later!!
-					</div>
+				<div >
+					No posts available! Check back later!!
+				</div>
 				}
 			</div>
 		);

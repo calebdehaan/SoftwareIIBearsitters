@@ -4,47 +4,53 @@ import { connect } from 'react-redux';
 import * as Users from '../User/users';
 import * as Bessemer from '../alloy/bessemer/components';
 import * as Validation from 'js/alloy/utils/validation';
-import {speciesOptions} from 'js/Pet/addPets';
+import * as addPets from 'js/Pet/addPets';
 import Redirect from 'react-router-dom/es/Redirect';
 
 
 class Request extends React.Component {
-    // Default constructor for props
-    constructor(props) {
-        super(props);
-        this.onSubmit = this.onSubmit.bind(this);
+	// Default constructor for props
+	constructor(props) {
+		super(props);
+		this.onSubmit = this.onSubmit.bind(this);
 		this.state = {
 			postName: '',
 			postStartHour: 1,
 			postStartMinute: 0,
 			postEndHour: 1,
 			postEndMinute: 0,
-			postStartMonth: 1,
-			postEndMonth: 1,
+			postStartMonth: 0,
+			postEndMonth: 0,
 			postStartDay: 1,
 			postEndDay: 1,
 			postStartYear: 2019,
 			postEndYear: 2019,
+			postStartAMPM: 'AM',
+			postEndAMPM: 'AM',
 		};
-    }
+	}
 
-    onSubmit = posting => {
-        let newPosting = JSON.parse(JSON.stringify(posting));
-        let startDate = new Date(this.state.postStartYear, this.state.postStartMonth-1,this.state.postStartDay, this.state.postStartHour, this.state.postStartMinute,0, 0);
-        let endDate = new Date(this.state.postEndYear, this.state.postEndMonth-1,this.state.postEndDay, this.state.postEndHour, this.state.postEndMinute,0, 0);
+	onSubmit = posting => {
+		let newPosting = JSON.parse(JSON.stringify(posting));
+		let postStartHour = this.state.postStartHour;
+		let postEndHour = this.state.postEndHour;
 
-        //TODO remove this
-        console.log('StartDate : ' + startDate + '\n\n\n');
-        console.log('EndDate : ' + endDate);
+		if(this.state.postStartAMPM === 'PM')
+			postStartHour += 12;
+		if(this.state.postEndAMPM === 'PM')
+			postEndHour += 12;
 
-        newPosting.id = Math.round(Date.now() + Math.random() + Math.random()).toString();
-        newPosting.ownerPrincipal = this.props.user.principal;
-        newPosting.sitterPrincipal = '';
-        newPosting.startDate = startDate;
-        newPosting.endDate = endDate;
+		let startDate = new Date(this.state.postStartYear, this.state.postStartMonth,this.state.postStartDay, postStartHour, this.state.postStartMinute,0, 0);
+		let endDate = new Date(this.state.postEndYear, this.state.postEndMonth,this.state.postEndDay, postEndHour, this.state.postEndMinute,0,0);
 
-        this.props.addPost(newPosting);
-    };
+		newPosting.id = Math.round(Date.now() + Math.random() + Math.random()).toString();
+		newPosting.ownerPrincipal = this.props.user.principal;
+		newPosting.sitterPrincipal = '';
+		newPosting.startDate = startDate;
+		newPosting.endDate = endDate;
+
+		this.props.addPost(newPosting);
+	};
 
 	minuteStartChange = e => {
 		if (e != null) {
@@ -77,6 +83,13 @@ class Request extends React.Component {
 	yearStartChange = e => {
 		if (e != null) {
 			this.state.postStartYear = e;
+			this.setState(this.state);
+		}
+	};
+
+	ampmStartChange = e => {
+		if (e != null) {
+			this.state.postStartAMPM = e;
 			this.setState(this.state);
 		}
 	};
@@ -116,11 +129,18 @@ class Request extends React.Component {
 		}
 	};
 
+	ampmStopChange = e => {
+		if (e != null) {
+			this.state.postEndAMPM = e;
+			this.setState(this.state);
+		}
+	};
+
 	render() {
-	    let { handleSubmit, submitting } = this.props;
+		let { handleSubmit, submitting } = this.props;
 
 		return (
-            <form name='posting' onSubmit={handleSubmit(form => this.onSubmit(form))}>
+			<form name='posting' onSubmit={handleSubmit(form => this.onSubmit(form))}>
 				<label> Start Sitting </label>
 				<div className="form-row">
 					<div className="form-group col-sm-2">
@@ -151,7 +171,7 @@ class Request extends React.Component {
 										 onChange={opt => this.monthStartChange(opt)}/>
 
 					</div>
-					<div className="form-group col-sm-2">
+					<div className="form-group col-sm-1">
 						<label> Hour </label>
 						<Bessemer.Select style={{backgroundColor:'black'}} name="startHour"
 										 className='col-8'
@@ -160,7 +180,7 @@ class Request extends React.Component {
 										 options={hourOptions} value={this.state.postStartHour}
 										 onChange={opt => this.hourStartChange(opt)}/>
 					</div>
-					<div className="form-group col-sm-2">
+					<div className="form-group col-sm-1">
 						<label> Minute </label>
 						<Bessemer.Select style={{backgroundColor:'black'}} name="startMinute"
 										 className='col-8'
@@ -168,6 +188,15 @@ class Request extends React.Component {
 										 validators={[Validation.requiredValidator]}
 										 options={minuteOptions} value={this.state.postStartMinute}
 										 onChange={opt => this.minuteStartChange(opt)}/>
+					</div>
+					<div className="form-group col-sm-2">
+						<label> AM/PM </label>
+						<Bessemer.Select style={{backgroundColor:'black'}} name="startAMPM"
+										 className='col-8'
+										 friendlyName="Post Start AMPM" placeholder="AM"
+										 validators={[Validation.requiredValidator]}
+										 options={ampmOptions} value={this.state.postStartAMPM}
+										 onChange={opt => this.ampmStartChange(opt)}/>
 					</div>
 				</div>
 
@@ -201,7 +230,7 @@ class Request extends React.Component {
 										 onChange={opt => this.monthStopChange(opt)}/>
 
 					</div>
-					<div className="form-group col-sm-2">
+					<div className="form-group col-sm-1">
 						<label> Hour </label>
 						<Bessemer.Select style={{backgroundColor:'black'}} name="stopHour"
 										 className='col-8'
@@ -210,7 +239,7 @@ class Request extends React.Component {
 										 options={hourOptions} value={this.state.postEndHour}
 										 onChange={opt => this.hourStopChange(opt)}/>
 					</div>
-					<div className="form-group col-sm-2">
+					<div className="form-group col-sm-1">
 						<label> Minute </label>
 						<Bessemer.Select style={{backgroundColor:'black'}} name="endMinute"
 										 className='col-8'
@@ -219,10 +248,22 @@ class Request extends React.Component {
 										 options={minuteOptions} value={this.state.postEndMinute}
 										 onChange={opt => this.minuteStopChange(opt)}/>
 					</div>
+					<div className="form-group col-sm-2">
+						<label> AM/PM </label>
+						<Bessemer.Select style={{backgroundColor:'black'}} name="endAMPM"
+										 className='col-8'
+										 friendlyName="Post End AMPM" placeholder="AM"
+										 validators={[Validation.requiredValidator]}
+										 options={ampmOptions} value={this.state.postEndAMPM}
+										 onChange={opt => this.ampmStopChange(opt)}/>
+					</div>
 				</div>
+				<br/>
 
-                <Bessemer.Button loading={submitting}>Add Sitting Request</Bessemer.Button>
-            </form>
+				<br/>
+
+				<Bessemer.Button loading={submitting}>Add Sitting Request</Bessemer.Button>
+			</form>
 		);
 	}
 }
@@ -275,24 +316,24 @@ export const minuteOptions = [
 
 // AM or PM options
 export const ampmOptions = [
-	{label: 'AM', value: 'AM'},
-	{label: 'PM', value: 'PM'},
+	{label: 'AM', value: 0},
+	{label: 'PM', value: 12},
 ];
 
 // Month options
 export const monthOptions = [
-	{label: 'January', value: 1},
-	{label: 'February', value: 2},
-	{label: 'March', value: 3},
-	{label: 'April', value: 4},
-	{label: 'May', value: 5},
-	{label: 'June', value: 6},
-	{label: 'July', value: 7},
-	{label: 'August', value: 8},
-	{label: 'September', value: 9},
-	{label: 'October', value: 10},
-	{label: 'November', value: 11},
-	{label: 'December', value: 12},
+	{label: 'January', value: 0},
+	{label: 'February', value: 1},
+	{label: 'March', value: 2},
+	{label: 'April', value: 3},
+	{label: 'May', value: 4},
+	{label: 'June', value: 5},
+	{label: 'July', value: 6},
+	{label: 'August', value: 7},
+	{label: 'September', value: 8},
+	{label: 'October', value: 9},
+	{label: 'November', value: 10},
+	{label: 'December', value: 11},
 ];
 
 // Day options
