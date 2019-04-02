@@ -489,5 +489,10 @@ export const speciesOptions = [
 	{label: 'Fish', value: 'Fish'},
 	{label: 'Mouse', value: 'Mouse'},
 	{label: 'Squirrel', value: 'Squirrel'},
+	{label: 'Grizzly Bear', value: 'Grizzly Bear'},
+	{label: 'Brown Bear', value: 'Brown Bear'},
+	{label: 'Polar Bear', value: 'Polar Bear'},
+	{label: 'Baylor Bear', value: 'Baylor Bear'},
+	{label: 'Panda Bear', value: 'Panda Bear'},
 ];
 export { Pets };
