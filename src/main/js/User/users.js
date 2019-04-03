@@ -49,8 +49,9 @@ export function getPets() {
 	return axios.get('/api/user/pet');
 }
 
-export function getRecommendedPosts() {
-	return axios.get('api/posts/recommended');
+export function getRecommendedPosts(userName) {
+	let name = encodeURI('api/posts/recommended/'+userName);
+	return axios.get(  name);
 }
 
 export function getPosts() {
@@ -122,6 +123,13 @@ Actions.register = user => {
 		});
 	};
 };
+
+Actions.getPetDetails = pet =>{
+	return (dispatch) => {
+		return getPetDetails(pet);
+	};
+};
+
 
 Actions.authenticate = (username, password) => {
 	return (dispatch) => {
@@ -205,9 +213,9 @@ Actions.fetchPosts = () => {
 	};
 };
 
-Actions.fetchRecommendedPosts = () => {
+Actions.fetchRecommendedPosts = (userName) => {
 	return (dispatch) => {
-		return getRecommendedPosts().then(posts => {
+		return getRecommendedPosts(userName).then(posts => {
 			return dispatch(Actions.setPosts(posts));
 		});
 	};

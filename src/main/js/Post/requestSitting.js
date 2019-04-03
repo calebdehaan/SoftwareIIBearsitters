@@ -1,11 +1,10 @@
 import React from 'react';
+import _ from 'lodash';
 import * as ReduxForm from 'redux-form';
 import { connect } from 'react-redux';
 import * as Users from '../User/users';
 import * as Bessemer from '../alloy/bessemer/components';
 import * as Validation from 'js/alloy/utils/validation';
-import * as addPets from 'js/Pet/addPets';
-import Redirect from 'react-router-dom/es/Redirect';
 
 
 class Request extends React.Component {
@@ -27,13 +26,33 @@ class Request extends React.Component {
 			postEndYear: 2019,
 			postStartAMPM: 'AM',
 			postEndAMPM: 'AM',
+			unselectedPets: [],
+			selectedPets: [],
 		};
 	}
+
+	componentDidMount() {
+		this.props.fPets().then(() => {
+			if (_.isDefined(this.props.pets) && !_.isEmpty(this.props.pets)) {
+				this.props.pets.map(pet => {
+					this.state.unselectedPets.push(pet);
+				});
+				this.setState(this.state);
+			}
+		});
+	}
+
 
 	onSubmit = posting => {
 		let newPosting = JSON.parse(JSON.stringify(posting));
 		let postStartHour = this.state.postStartHour;
 		let postEndHour = this.state.postEndHour;
+		let listOfPets = [];
+		this.state.selectedPets.map(pet => {
+			if(pet != null && pet.id != null){
+				listOfPets.push(pet.id.toString());
+			}
+		});
 
 		if(this.state.postStartAMPM === 'PM')
 			postStartHour += 12;
@@ -48,6 +67,7 @@ class Request extends React.Component {
 		newPosting.sitterPrincipal = '';
 		newPosting.startDate = startDate;
 		newPosting.endDate = endDate;
+		newPosting.pets = listOfPets;
 
 		this.props.addPost(newPosting);
 	};
@@ -134,6 +154,26 @@ class Request extends React.Component {
 			this.state.postEndAMPM = e;
 			this.setState(this.state);
 		}
+	};
+
+
+	selectPet = (e, pet) => {
+		this.state.selectedPets.push(pet);
+		let index = this.state.unselectedPets.indexOf(pet);
+		if (index > -1) {
+			this.state.unselectedPets.splice(index, 1);
+		}
+		this.setState(this.state);
+	};
+
+
+	unselectPet = (e, pet) => {
+		this.state.unselectedPets.push(pet);
+		let index = this.state.selectedPets.indexOf(pet);
+		if (index > -1) {
+			this.state.selectedPets.splice(index, 1);
+		}
+		this.setState(this.state);
 	};
 
 	render() {
@@ -260,6 +300,57 @@ class Request extends React.Component {
 				</div>
 				<br/>
 
+				<h5>Select Pets for this Session</h5>
+				<h6>Available Pets</h6>
+				<div>
+					<div>
+						{_.isEmpty(this.state.unselectedPets) &&
+						<p>No pets available!</p>
+						}
+						{this.state.unselectedPets !== null && this.state.unselectedPets.map(pet => (
+							_.isDefined(pet) && _.isDefined(pet.petName) &&
+							<div key={pet.petName + '_' + pet.id}
+								 style={{width: '20rem', marginBottom: 20}}>
+								<div style={{backgroundColor:'black'}}>
+									<div className="d-inline ml-3">
+										<span >Pet Name: </span>{pet.petName}
+										<Bessemer.Button
+												onClick={(e) => {
+													this.selectPet(e, pet);
+												}}>Select
+										</Bessemer.Button>
+									</div>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+
+				<h6>Currently Selected Pets</h6>
+				{_.isEmpty(this.state.selectedPets) &&
+				<p>No pets selected!</p>
+				}
+				{this.state.selectedPets != null &&
+				<div>
+					{this.state.selectedPets.map(pet => (
+						_.isDefined(pet) && _.isDefined(pet.petName) &&
+						<div key={pet.petName + '_' + pet.id}
+							 style={{width: '20rem', marginBottom: 10}}>
+							<div style={{backgroundColor:'black'}}>
+								<div className="d-inline ml-3">
+									<span >Pet Name: {pet.petName}</span>
+									<Bessemer.Button
+											onClick={(e) => {
+												this.unselectPet(e, pet);
+											}}>Unselect
+									</Bessemer.Button>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+				}
+
 				<br/>
 
 				<Bessemer.Button loading={submitting}>Add Sitting Request</Bessemer.Button>
@@ -273,10 +364,12 @@ Request = ReduxForm.reduxForm({form: 'posting'})(Request);
 
 Request = connect(
 	state => ({
-		user: Users.State.getUser(state)
+		pets: Users.State.getPets(state),
+		user: Users.State.getUser(state),
 	}),
 	dispatch => ({
-		addPost: user => dispatch(Users.Actions.addPost(user))
+		fPets: () => dispatch(Users.Actions.fetchPets()),
+		addPost: user => dispatch(Users.Actions.addPost(user)),
 	})
 )(Request);
 

@@ -10,22 +10,16 @@ class MyPostings extends React.Component {
 		this.displayDate = this.displayDate.bind(this);
 		this.state = {
 			toggle: false,
+			hasLoaded:false,
 		};
 	}
 
 	componentDidMount() {
 		this.props.fUsersPosts().then(() => {
-			this.state.toggle = !this.state.toggle;
+			this.state.hasLoaded = true;
 			this.setState(this.state);
 		});
 
-		if(this.props.posts != null) {
-			this.props.posts.map(post => {
-				if (_.isDefined(post) && _.isDefined(post.id)) {
-					console.log(post.startDate.getMonth);
-				}
-			});
-		}
 	}
 
 	displayDate = date =>{
@@ -50,18 +44,27 @@ class MyPostings extends React.Component {
 		});
 	};
 
+	displayName = pet =>{
+		return pet.petName;
+	};
+
+	displaySpecies = pet =>{
+		console.log(pet.id);
+		return pet.petSpecies;
+	};
+
 	render() {
 		return (
 			<div>
-				{/* This displays all the posts of a user */}
 				{_.isDefined(this.props.posts) && this.props.posts.length !== 0 &&
 				<div className="d-md-flex flex-md-wrap justify-content-md-start">
-					{this.props.posts.map(post => ( _.isDefined(post) && _.isDefined(post.id) &&
+					{this.props.posts.map(post => (_.isDefined(post) && _.isDefined(post.id) &&
 						<div key={post.id} className="card m-sm-0" style={{backgroundColor: 'black'}}>
 							<ul className="list-group list-group-flush">
 								<li className="list-group-item" style={{backgroundColor: 'black'}}>
 									<div>
-										<span className="text-muted">Start </span>{this.displayDate(post.startDate)}
+										<span
+											className="text-muted">Start </span>{this.displayDate(post.startDate)}
 									</div>
 								</li>
 								<li className="list-group-item" style={{backgroundColor: 'black'}}>
@@ -69,17 +72,48 @@ class MyPostings extends React.Component {
 										<span className="text-muted">End </span>{this.displayDate(post.endDate)}
 									</div>
 								</li>
+								<li>
+									{_.isDefined(post.pets) && post.pets.length !== 0 &&
+									<div>
+										{post.pets.map((petID) => (_.isDefined( this.props.getPet(petID)) &&
+											<div key={petID} className="card m-sm-0"
+												 style={{backgroundColor: 'black'}}>
+												<ul className="list-group list-group-flush">
+													<li className="list-group-item"
+														style={{backgroundColor: 'black'}}>
+														<div>
+													<span
+														className="text-muted">Name </span>{petID.petName}
+														</div>
+													</li>
+													<li className="list-group-item"
+														style={{backgroundColor: 'black'}}>
+														<div>
+													<span
+														className="text-muted">Species </span>{this.displaySpecies(petID)}
+														</div>
+													</li>
+												</ul>
+											</div>
+										))}
+									</div>
+									}
+								</li>
 							</ul>
-							<Bessemer.Button style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}> Choose Sitter <i className='fa fa-paper-plane '></i></Bessemer.Button>
-							<Bessemer.Button onClick={(e) => {this.deletePost(e, post.id);}}
-											 style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}> Delete Post <i className='fa fa-paper-plane '></i></Bessemer.Button>
+							<Bessemer.Button
+								style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}> Choose
+								Sitter <i className='fa fa-paper-plane '></i></Bessemer.Button>
+							<Bessemer.Button onClick={(e) => {
+								this.deletePost(e, post.id);
+							}}
+											 style={{
+												 backgroundColor: 'black',
+												 borderColor: 'black',
+												 float: 'right'
+											 }}> Delete Post <i
+								className='fa fa-paper-plane '></i></Bessemer.Button>
 						</div>
 					))}
-				</div>
-				}
-				{ !_.isDefined(this.props.posts) &&
-				<div >
-					No posts available! Check back later!!
 				</div>
 				}
 			</div>
@@ -94,7 +128,8 @@ MyPostings = connect(
 	}),
 	dispatch => ({
 		fUsersPosts: () => dispatch(Users.Actions.fetchUsersPosts()),
-		dUsersPosts: post => dispatch(Users.Actions.deletePost(post))
+		dUsersPosts: post => dispatch(Users.Actions.deletePost(post)),
+		getPet: pet => dispatch(Users.Actions.getPetDetails(pet)),
 	})
 )(MyPostings);
 
@@ -113,7 +148,7 @@ class Posting extends React.Component {
 
 	componentDidMount() {
 		//TODO change to recommended
-		this.props.fPosts().then(() => {
+		this.props.fRecommendedPosts(this.props.user.principal).then(() => {
 			this.state.toggle = !this.state.toggle;
 			this.setState(this.state);
 		});
@@ -164,6 +199,24 @@ class Posting extends React.Component {
 										<span className="text-muted">Submitted By  </span>{post.ownerPrincipal}
 									</div>
 								</li>
+								<li>
+								{this.props.posts.petSpecies != null && this.props.posts.petSpecies.map(pet => ( _.isDefined(pet) && _.isDefined(pet.id) &&
+									<div key={pet.id} className="card m-sm-0" style={{backgroundColor: 'black'}}>
+										<ul className="list-group list-group-flush">
+											<li className="list-group-item" style={{backgroundColor: 'black'}}>
+												<div>
+													<span className="text-muted">Name </span>{pet.petName}
+												</div>
+											</li>
+											<li className="list-group-item" style={{backgroundColor: 'black'}}>
+												<div>
+													<span className="text-muted">Species </span>{pet.petSpecies}
+												</div>
+											</li>
+										</ul>
+									</div>
+								))}
+								</li>
 							</ul>
 							<Bessemer.Button style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}>Sign up <i className='fa fa-paper-plane '></i></Bessemer.Button>
 						</div>
@@ -187,7 +240,7 @@ Posting = connect(
 	}),
 	dispatch => ({
 		fPosts: () => dispatch(Users.Actions.fetchPosts()),
-		fRecommendedPosts: () => dispatch(Users.Actions.fetchRecommendedPosts()),
+		fRecommendedPosts: userName => dispatch(Users.Actions.fetchRecommendedPosts(userName)),
 	})
 )(Posting);
 

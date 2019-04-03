@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import petfinder.site.common.posting.PostingDto;
 import petfinder.site.common.posting.PostingService;
+import petfinder.site.common.user.UserDto;
 
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +27,11 @@ public class PostingEndpoint {
 		return postingService.findPosting(id);
 	}
 
-	@GetMapping(value = "/recommended/", produces = "application/json")
-	public List<Optional<PostingDto>> getRecommended() {
-		return postingService.findRecommendedPostings();
+	@GetMapping(value = "/recommended/{userName:.+}")
+	public List<Optional<PostingDto>> getRecommended(@PathVariable String userName) {
+		String user = URLDecoder.decode(userName);
+		System.out.println(user);
+		return postingService.findRecommendedPostings(user);
 	}
 
 	@GetMapping(value = "/all", produces = "application/json")

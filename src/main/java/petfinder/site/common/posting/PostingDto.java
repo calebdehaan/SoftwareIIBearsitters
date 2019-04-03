@@ -11,13 +11,13 @@ public class PostingDto implements Momento<String> {
 	private String endDate;
 	private String startTime;
 	private String endTime;
-	private List<Long> pets;
+	private List<String> pets;
 
 	private PostingDto() {
 	}
 
 	public PostingDto(String id, String ownerPrincipal, String sitterPrincipal, String startDate,
-			String endDate, String startTime, String endTime, List<Long> pets) {
+			String endDate, String startTime, String endTime, List<String> pets) {
 		setId(id);
 		setOwnerPrincipal(ownerPrincipal);
 		setSitterPrincipal(sitterPrincipal);
@@ -68,11 +68,11 @@ public class PostingDto implements Momento<String> {
 		this.endDate = endDate;
 	}
 
-	public List<Long> getPets() {
+	public List<String> getPets() {
 		return pets;
 	}
 
-	public void setPets(List<Long> pets) {
+	public void setPets(List<String> pets) {
 		this.pets = pets;
 	}
 

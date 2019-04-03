@@ -53,20 +53,29 @@ public class PostingDao {
 		return postingElasticsearchRepository.find(id);
 	}
 
-	public List<Optional<PostingDto>> findRecommendedPostings() {
+	public List<Optional<PostingDto>> findRecommendedPostings(String userName) {
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 		searchSourceBuilder.query(QueryBuilders.matchAllQuery());
 		List<PostingDto> postingList = new ArrayList<>(postingElasticsearchRepository.search(searchSourceBuilder));
 		List<Optional<PostingDto>> optPostingList = new ArrayList<>();
 
-		Optional<UserDto> sitter = new UserEndpoint().getUserDetails();
-		int sitterZip = Integer.parseInt((String)(sitter.get().getAddress().get("zip")));
+		Optional<UserAuthenticationDto> optAuthUser = findUserByPrincipal(userName);
 
-		for(PostingDto s : postingList) {
-			Optional<UserDto> owner = new UserService().findUserByPrincipal(s.getOwnerPrincipal());
-			int ownerZip = Integer.parseInt((String)(owner.get().getAddress().get("zip")));
-			if(Math.abs(sitterZip - ownerZip) <= MAX_RECOMMEND_DISTANCE) {
-				optPostingList.add(Optional.ofNullable(s).filter(sf -> !sf.isEmpty()));
+		if(optAuthUser.isPresent()) {
+			UserAuthenticationDto authUser = optAuthUser.get();
+			UserDto user = authUser.getUser();
+			int sitterZip = Integer.parseInt((String) (user.getAddress().get("zip")));
+
+			for (PostingDto s : postingList) {
+				Optional<UserAuthenticationDto> optOwnerUser = findUserByPrincipal(s.getOwnerPrincipal());
+				if(optOwnerUser.isPresent()) {
+					UserAuthenticationDto authOwner = optOwnerUser.get();
+					UserDto owner = authOwner.getUser();
+					int ownerZip = Integer.parseInt((String) (owner.getAddress().get("zip")));
+					if (Math.abs(sitterZip - ownerZip) <= MAX_RECOMMEND_DISTANCE) {
+						optPostingList.add(Optional.ofNullable(s).filter(sf -> !sf.isEmpty()));
+					}
+				}
 			}
 		}
 
