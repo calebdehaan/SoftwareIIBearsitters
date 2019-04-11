@@ -103,6 +103,8 @@ public class UserDao {
 		System.out.println("address :" + user.getAddress());
 		System.out.println("pets :" + user.getPets());
 		System.out.println("posts :" + user.getPosts());
+		System.out.println("ratings :" + user.getRatings());
+
 
 		updateRequest.index("petfinder-users");
 		updateRequest.type("doc");
@@ -116,6 +118,7 @@ public class UserDao {
 				.field("address", user.getAddress())
 				.field("pets", user.getPets())
 				.field("posts", user.getPosts())
+				.field("ratings", user.getRatings())
 				.endObject()
 				.endObject());
 
