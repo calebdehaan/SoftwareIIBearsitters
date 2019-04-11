@@ -1,6 +1,7 @@
 package petfinder.site.common.posting;
 import alloy.util.Momento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostingDto implements Momento<String> {
@@ -12,12 +13,13 @@ public class PostingDto implements Momento<String> {
 	private String startTime;
 	private String endTime;
 	private List<String> pets;
+	private List<String> possibleSitters;
 
 	private PostingDto() {
 	}
 
 	public PostingDto(String id, String ownerPrincipal, String sitterPrincipal, String startDate,
-			String endDate, String startTime, String endTime, List<String> pets) {
+			String endDate, String startTime, String endTime, List<String> pets, List<String> possibleSitters) {
 		setId(id);
 		setOwnerPrincipal(ownerPrincipal);
 		setSitterPrincipal(sitterPrincipal);
@@ -26,6 +28,7 @@ public class PostingDto implements Momento<String> {
 		setStartTime(startTime);
 		setEndTime(endTime);
 		setPets(pets);
+		setPossibleSitters(possibleSitters);
 	}
 
 	public String getId() {
@@ -78,6 +81,21 @@ public class PostingDto implements Momento<String> {
 
 	public String getStartTime() {
 		return startTime;
+	}
+
+	public List<String> getPossibleSitters() {
+		return possibleSitters;
+	}
+
+	public void setPossibleSitters(List<String> possibleSitters) {
+		this.possibleSitters = possibleSitters;
+	}
+
+	public void addPossibleSitter(String principal){
+		if(this.possibleSitters == null){
+			this.possibleSitters = new ArrayList<>();
+		}
+		this.possibleSitters.add(principal);
 	}
 
 	public void setStartTime(String startTime) {
