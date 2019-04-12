@@ -12,7 +12,7 @@ public class PostingTest {
   @DisplayName("Posting Dto")
   @Nested
   class PostingDtoTest {
-    PostingDto dto = new PostingDto(null, null, null, null, null, null, null, null);
+    PostingDto dto = new PostingDto(null, null, null, null, null, null, null, null, null);
     @DisplayName("Setters")
     @Nested
     class Setters {

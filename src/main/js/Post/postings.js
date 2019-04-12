@@ -186,6 +186,11 @@ class Posting extends React.Component {
 		}
 	};
 
+    addSitter = (e, sitterPrincipal, post) =>{
+        post.addSitter(sitterPrincipal);
+        post.update();
+    }
+
 	render() {
 		return (
 			<div>
@@ -229,7 +234,7 @@ class Posting extends React.Component {
 								))}
 								</li>
 							</ul>
-							<Bessemer.Button style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}>Sign up <i className='fa fa-paper-plane '></i></Bessemer.Button>
+							<Bessemer.Button onClick={(e) => {this.addSitter(e, this.props.user.principal, post);}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}>Sign up <i className='fa fa-paper-plane '></i></Bessemer.Button>
 						</div>
 					))}
 				</div>
