@@ -11,6 +11,7 @@ class MyPostings extends React.Component {
 		this.state = {
 			toggle: false,
 			hasLoaded:false,
+			pets:[],
 		};
 	}
 
@@ -18,8 +19,18 @@ class MyPostings extends React.Component {
 		this.props.fUsersPosts().then(() => {
 			this.state.hasLoaded = true;
 			this.setState(this.state);
-		});
-
+		}).then(() => {
+				if (this.props.post != null) {
+					this.props.post.map((post) => {
+							post.pets.map((petID) => {
+									this.pets[petID] = this.props.getPet(petID);
+								}
+							);
+						}
+					);
+				}
+			}
+		);
 	}
 
 	displayDate = date =>{
@@ -45,12 +56,12 @@ class MyPostings extends React.Component {
 	};
 
 	displayName = pet =>{
-		return pet.petName;
+		let rv = 'No pet';
+		return rv;
 	};
 
 	displaySpecies = pet =>{
-		console.log(pet.id);
-		return pet.petSpecies;
+
 	};
 
 	render() {
@@ -75,27 +86,27 @@ class MyPostings extends React.Component {
 								<li>
 									{_.isDefined(post.pets) && post.pets.length !== 0 &&
 									<div>
-										{post.pets.map((petID) => (_.isDefined( this.props.getPet(petID)) &&
-											<div key={petID} className="card m-sm-0"
-												 style={{backgroundColor: 'black'}}>
-												<ul className="list-group list-group-flush">
-													<li className="list-group-item"
-														style={{backgroundColor: 'black'}}>
-														<div>
+										{post.pets.map((petID) => (
+												<div key={petID} className="card m-sm-0"
+													 style={{backgroundColor: 'black'}}>
+													<ul className="list-group list-group-flush">
+														<li className="list-group-item"
+															style={{backgroundColor: 'black'}}>
+															<div>
 													<span
-														className="text-muted">Name </span>{petID.petName}
-														</div>
-													</li>
-													<li className="list-group-item"
-														style={{backgroundColor: 'black'}}>
-														<div>
+														className="text-muted">Name </span>{this.displayName(petID)}
+															</div>
+														</li>
+														<li className="list-group-item"
+															style={{backgroundColor: 'black'}}>
+															<div>
 													<span
-														className="text-muted">Species </span>{this.displaySpecies(petID)}
-														</div>
-													</li>
-												</ul>
-											</div>
-										))}
+														className="text-muted">Species </span>
+															</div>
+														</li>
+													</ul>
+												</div>
+											))}
 									</div>
 									}
 								</li>
