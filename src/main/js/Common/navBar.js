@@ -41,6 +41,7 @@ class NavBar extends React.Component {
 
 
 
+
 							{ (this.props.user != null) && (this.props.user.roles != null) && (this.props.user.roles.includes('OWNER')) &&
 							<li className="nav-item">
 								<a className="nav-link" href="#/request">Request Sitting</a>
