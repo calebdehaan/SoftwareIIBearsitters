@@ -96,6 +96,7 @@ export class SitterPosts extends React.Component {
 				<NavBarr.NavBar />
 				These are all of the postings you have posted
 				<Post.MyPostings/>
+                <img style={{position:'absolute',  top:'50%', left:'05%'}} src={'statics/walkingBear.png'} alt="the bear will walk" title="the bear will walk"/>
 			</div>
 		);
 	}
