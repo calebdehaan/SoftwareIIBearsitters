@@ -5,10 +5,9 @@ import * as NavBarr from 'js/Common/navBar';
 import * as Prof from 'js/User/profile';
 import * as Request from 'js/Post/requestSitting';
 import * as Post from 'js/Post/postings';
-//import DatePicker from 'react-datepicker';
+import {toast} from 'react-toastify';
 
-//import 'react-datepicker/dist/react-datepicker.css'
-
+toast.configure();
 export class Home extends React.Component {
 	constructor(props){
 		super(props);
@@ -97,6 +96,7 @@ export class SitterPosts extends React.Component {
 				<NavBarr.NavBar />
 				These are all of the postings you have posted
 				<Post.MyPostings/>
+                <img style={{position:'absolute',  top:'50%', left:'05%'}} src={'statics/walkingBear.png'} alt="the bear will walk" title="the bear will walk"/>
 			</div>
 		);
 	}

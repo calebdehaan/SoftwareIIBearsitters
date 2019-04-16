@@ -51,7 +51,7 @@ export function getPets() {
 
 export function getRecommendedPosts(userName) {
 	let name = encodeURI('api/posts/recommended/'+userName);
-	return axios.get(  name);
+	return axios.get(name);
 }
 
 export function getPosts() {
