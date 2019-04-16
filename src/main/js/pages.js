@@ -5,10 +5,9 @@ import * as NavBarr from 'js/Common/navBar';
 import * as Prof from 'js/User/profile';
 import * as Request from 'js/Post/requestSitting';
 import * as Post from 'js/Post/postings';
-//import DatePicker from 'react-datepicker';
+import {toast} from 'react-toastify';
 
-//import 'react-datepicker/dist/react-datepicker.css'
-
+toast.configure();
 export class Home extends React.Component {
 	constructor(props){
 		super(props);
