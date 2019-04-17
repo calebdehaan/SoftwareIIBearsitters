@@ -72,7 +72,7 @@ export class RequestSitting extends React.Component {
                 <NavBarr.NavBar />
                 This is request a sitting page. Enter the start and end date you want your pet sat.
                 <Request.Request/>
-                <img style={{position:'absolute',  top:'50%', left:'05%'}} src={'statics/circleBear.png'} alt="bear in a circle" title="bear in a circle"/>
+                <img style={{position:'absolute',  top:'50%', left:'35%'}} src={'statics/standingBrea.jpg'} alt="bear in a circle" title="bear in a circle"/>
 			</div>
 		);
 	}
