@@ -50,7 +50,12 @@ class Request extends React.Component {
 		let listOfPets = [];
 		this.state.selectedPets.map(pet => {
 			if(pet != null && pet.id != null){
-				listOfPets.push(pet.id.toString());
+				let newPet = 'PetName:'+ pet.petName + ' '
+					   + '\tPetSpecies:' + pet.petSpecies + ' '
+					   + '\tPetAge:' + pet.petAge + ' '
+					   + '\tPetSex:' + pet.petSex;
+
+				listOfPets.push(newPet);
 			}
 		});
 

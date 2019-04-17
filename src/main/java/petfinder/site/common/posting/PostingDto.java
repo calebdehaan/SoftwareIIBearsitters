@@ -1,5 +1,6 @@
 package petfinder.site.common.posting;
 import alloy.util.Momento;
+import petfinder.site.common.pet.PetDto;
 
 import java.util.ArrayList;
 import java.util.List;

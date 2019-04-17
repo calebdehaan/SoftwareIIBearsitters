@@ -5,9 +5,7 @@ import * as NavBarr from 'js/Common/navBar';
 import * as Prof from 'js/User/profile';
 import * as Request from 'js/Post/requestSitting';
 import * as Post from 'js/Post/postings';
-import {toast} from 'react-toastify';
 
-toast.configure();
 export class Home extends React.Component {
 	constructor(props){
 		super(props);
@@ -72,7 +70,7 @@ export class RequestSitting extends React.Component {
                 <NavBarr.NavBar />
                 This is request a sitting page. Enter the start and end date you want your pet sat.
                 <Request.Request/>
-                <img style={{position:'absolute',  top:'50%', left:'35%'}} src={'statics/standingBrea.jpg'} alt="bear in a circle" title="bear in a circle"/>
+
 			</div>
 		);
 	}
@@ -97,7 +95,6 @@ export class SitterPosts extends React.Component {
 				<NavBarr.NavBar />
 				These are all of the postings you have posted
 				<Post.MyPostings/>
-                <img style={{position:'absolute',  top:'50%', left:'05%'}} src={'statics/walkingBear.png'} alt="the bear will walk" title="the bear will walk"/>
 			</div>
 		);
 	}

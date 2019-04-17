@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as Users from '../User/users';
 import _ from 'lodash';
+
 import * as Bessemer from 'js/alloy/bessemer/components';
 
 class MyPostings extends React.Component {
@@ -15,22 +16,11 @@ class MyPostings extends React.Component {
 		};
 	}
 
-	componentDidMount() {
+	 componentDidMount() {
 		this.props.fUsersPosts().then(() => {
 			this.state.hasLoaded = true;
 			this.setState(this.state);
-		}).then(() => {
-				if (this.props.post != null) {
-					this.props.post.map((post) => {
-							post.pets.map((petID) => {
-									this.pets[petID] = this.props.getPet(petID);
-								}
-							);
-						}
-					);
-				}
-			}
-		);
+		});
 	}
 
 	displayDate = date =>{
@@ -55,13 +45,10 @@ class MyPostings extends React.Component {
 		});
 	};
 
-	displayName = pet =>{
-		let rv = 'No pet';
-		return rv;
-	};
-
-	displaySpecies = pet =>{
-
+	displayThePet = pet =>{
+		return pet.split(/(\s+)/).filter(function (e) {
+			return e.trim().length > 0;
+		});
 	};
 
 	render() {
@@ -87,26 +74,18 @@ class MyPostings extends React.Component {
 									{_.isDefined(post.pets) && post.pets.length !== 0 &&
 									<div>
 										{post.pets.map((petID) => (
-												<div key={petID} className="card m-sm-0"
-													 style={{backgroundColor: 'black'}}>
-													<ul className="list-group list-group-flush">
-														<li className="list-group-item"
-															style={{backgroundColor: 'black'}}>
-															<div>
-													<span
-														className="text-muted">Name </span>{this.displayName(petID)}
-															</div>
+											<div key={petID} className="card m-sm-0"
+												 style={{backgroundColor: 'black'}}>
+												<ul className="list-group list-group-flush"style={{maxHeight:'140px'}}>
+													{this.displayThePet(petID).map((pet) => (
+														<li key={pet} className="list-group-item" style={{backgroundColor: 'black',textAlign:'center',maxHeight:'35px'}}>
+															<span style={{fontSize:'13px'}} >{pet}</span>
 														</li>
-														<li className="list-group-item"
-															style={{backgroundColor: 'black'}}>
-															<div>
-													<span
-														className="text-muted">Species </span>
-															</div>
-														</li>
-													</ul>
-												</div>
-											))}
+													))}
+													<br/>
+												</ul>
+											</div>
+										))}
 									</div>
 									}
 								</li>
@@ -189,7 +168,7 @@ class Posting extends React.Component {
     addSitter = (e, sitterPrincipal, post) =>{
         post.addSitter(sitterPrincipal);
         post.update();
-    }
+    };
 
 	render() {
 		return (

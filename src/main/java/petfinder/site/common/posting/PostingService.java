@@ -2,8 +2,10 @@ package petfinder.site.common.posting;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import petfinder.site.common.pet.PetDto;
 import petfinder.site.common.user.UserDto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

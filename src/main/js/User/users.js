@@ -125,9 +125,7 @@ Actions.register = user => {
 };
 
 Actions.getPetDetails = pet =>{
-	return (dispatch) => {
-		return getPetDetails(pet);
-	};
+	return getPetDetails(pet);
 };
 
 

@@ -74,4 +74,15 @@ public class PetDto implements Momento<String> {
 	public void setPetAge(Long petAge) {
 		this.petAge = petAge;
 	}
+
+	@Override
+	public String toString() {
+		return "PetDto{" +
+				"ID=" + id +
+				", petName='" + petName + '\'' +
+				", petAge='" + petAge + '\'' +
+				", petSpecies='" + petSpecies + '\'' +
+				", petSex='" + petSex + '\'' +
+				'}';
+	}
 }
