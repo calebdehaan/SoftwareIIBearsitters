@@ -70,6 +70,10 @@ export function updatePet(pet) {
 	return axios.post('/api/pets/update/', pet);
 }
 
+export function updatePost(post) {
+	return axios.post('/api/posts/update/', post);
+}
+
 export function deleteAccount() {
 	return axios.post('/api/user/delete');
 }

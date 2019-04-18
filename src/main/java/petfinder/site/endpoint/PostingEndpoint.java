@@ -22,6 +22,11 @@ public class PostingEndpoint {
 		postingService.save(post);
 	}
 
+	@PostMapping(value = "/update")
+	public void updatePet(@RequestBody PostingDto post) {
+		postingService.save(post);
+	}
+
 	@GetMapping(value = "/{id}", produces = "application/json")
 	public Optional<PostingDto> getPosting(@PathVariable("id") String id) {
 		return postingService.findPosting(id);

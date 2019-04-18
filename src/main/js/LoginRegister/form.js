@@ -73,12 +73,15 @@ class RegistrationForm extends React.Component {
 								validators={[Validation.requiredValidator]}/>
 				<Bessemer.Field name='city' friendlyName='City' field={<input className="form-control" placeholder={'City'} />}
 								validators={[Validation.requiredValidator]}/>
-				<Bessemer.Select name={'state'}
-								 className='col-8' style={{backgroundColor:'black'}}
-								 friendlyName={'State'} placeholder="TX"
-								 validators={[Validation.requiredValidator]}
-								 options={stateOptions} value={this.state.state}
-								 onChange={opt => this.stateChange(opt)}/>
+				<span className="row align-content-center mb-3">
+                                <label className={'col-4 d-inline-block'}>State{<span>*</span>}</label>
+					<Bessemer.Select name={'state'}
+									 className='col-8' style={{backgroundColor:'black'}}
+									 friendlyName={'State'} placeholder="TX"
+									 validators={[Validation.requiredValidator]}
+									 options={stateOptions} value={this.state.state}
+									 onChange={opt => this.stateChange(opt)}/>
+				</span>
 				<Bessemer.Field name='zip' friendlyName='Zipcode' field={<input className="form-control" placeholder={'Zipcode'} />}
 								validators={[Validation.requiredValidator, Validation.zipValidator]}/>
 				<Bessemer.Field name={'petOwner'}

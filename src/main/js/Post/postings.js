@@ -12,7 +12,6 @@ class MyPostings extends React.Component {
 		this.state = {
 			toggle: false,
 			hasLoaded:false,
-			pets:[],
 		};
 	}
 
@@ -84,6 +83,7 @@ class MyPostings extends React.Component {
 													))}
 													<br/>
 												</ul>
+												<br/>
 											</div>
 										))}
 									</div>
@@ -137,7 +137,6 @@ class Posting extends React.Component {
 	}
 
 	componentDidMount() {
-		//TODO change to recommended
 		this.props.fRecommendedPosts(this.props.user.principal).then(() => {
 			this.state.toggle = !this.state.toggle;
 			this.setState(this.state);
@@ -165,9 +164,37 @@ class Posting extends React.Component {
 		}
 	};
 
-    addSitter = (e, sitterPrincipal, post) =>{
-        post.addSitter(sitterPrincipal);
-        post.update();
+	displayThePet = pet =>{
+		return pet.split(/(\s+)/).filter(function (e) {
+			return e.trim().length > 0;
+		});
+	};
+
+
+	addSitter = (form, post, sitterPrincipal) =>{
+		let possSitter = post.possibleSitters;
+		let postToUpdate = post;
+
+		postToUpdate.chosen = true;
+
+		if(possSitter == null){
+			let list = [];
+			list.push(sitterPrincipal);
+
+			possSitter = list;
+		}
+		else
+			possSitter.push(sitterPrincipal);
+
+        postToUpdate.possibleSitters = possSitter;
+
+		Users.updatePost(postToUpdate).then(() => {
+			this.props.fRecommendedPosts().then(() => {
+				this.state.toggle = !this.state.toggle;
+				this.setState(this.state);
+			});
+		});
+
     };
 
 	render() {
@@ -195,25 +222,23 @@ class Posting extends React.Component {
 									</div>
 								</li>
 								<li>
-								{this.props.posts.petSpecies != null && this.props.posts.petSpecies.map(pet => ( _.isDefined(pet) && _.isDefined(pet.id) &&
-									<div key={pet.id} className="card m-sm-0" style={{backgroundColor: 'black'}}>
-										<ul className="list-group list-group-flush">
-											<li className="list-group-item" style={{backgroundColor: 'black'}}>
-												<div>
-													<span className="text-muted">Name </span>{pet.petName}
-												</div>
-											</li>
-											<li className="list-group-item" style={{backgroundColor: 'black'}}>
-												<div>
-													<span className="text-muted">Species </span>{pet.petSpecies}
-												</div>
-											</li>
-										</ul>
-									</div>
-								))}
+									{post.pets.map((petID) => (
+										<div key={petID} className="card m-sm-0"
+											 style={{backgroundColor: 'black'}}>
+											<ul className="list-group list-group-flush"style={{maxHeight:'140px'}}>
+												{this.displayThePet(petID).map((pet) => (
+													<li key={pet} className="list-group-item" style={{backgroundColor: 'black',textAlign:'center',maxHeight:'35px'}}>
+														<span style={{fontSize:'13px'}} >{pet}</span>
+													</li>
+												))}
+												<br/>
+											</ul>
+											<br/>
+										</div>
+									))}
 								</li>
 							</ul>
-							<Bessemer.Button onClick={(e) => {this.addSitter(e, this.props.user.principal, post);}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}>Sign up <i className='fa fa-paper-plane '></i></Bessemer.Button>
+							<Bessemer.Button onClick={(e) => {this.addSitter(e, post, this.props.user.principal);}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}>Sign up <i className='fa fa-paper-plane '></i></Bessemer.Button>
 						</div>
 					))}
 				</div>
