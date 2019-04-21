@@ -59,12 +59,6 @@ public class PostingTest {
           assertEquals(endDate, dto.getEndDate());
         }
 
-        @DisplayName("Pets (List)")
-        @Test
-        void pets() {
-
-        }
-
         @DisplayName("Start Time")
         @Test
         void startTime() {
@@ -79,58 +73,6 @@ public class PostingTest {
           String endTime = "01:02:03 PM";
           dto.setEndTime(endTime);
           assertEquals(endTime, dto.getEndTime());
-        }
-      }
-
-      @DisplayName("Invalid Values")
-      @Nested
-      class Invalid {
-        @DisplayName("ID")
-        @Test
-        void id() {
-
-        }
-
-        @DisplayName("Owner Principal")
-        @Test
-        void ownerPrincipal() {
-
-        }
-
-        @DisplayName("Sitter Principal")
-        @Test
-        void sitterPrincipal() {
-
-        }
-
-        @DisplayName("Start Date")
-        @Test
-        void startDate() {
-
-        }
-
-        @DisplayName("End Date")
-        @Test
-        void endDate() {
-
-        }
-
-        @DisplayName("Pets (List)")
-        @Test
-        void pets() {
-
-        }
-
-        @DisplayName("Start Time")
-        @Test
-        void startTime() {
-
-        }
-
-        @DisplayName("End Time")
-        @Test
-        void endTime() {
-
         }
       }
     }

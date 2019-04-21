@@ -71,7 +71,6 @@ public class UserTest {
       void nullPet() {
         UserDto dto = new UserDto(null, null, null, null, null, null, null);
         dto.addPet(null);
-        //TODO what should happen if you try to add null? Outside of the scope of this project
       }
     }
 
@@ -96,7 +95,6 @@ public class UserTest {
         pets.add("122");
         UserDto dto = new UserDto(null, null, null, null, pets, null, null);
         dto.deletePet("12");
-        //TODO what should happen if you try to delete a pet that doesn't exist?
       }
 
       @DisplayName("List is null")
@@ -114,7 +112,6 @@ public class UserTest {
         pets.add("1");
         UserDto dto = new UserDto(null, null, null, null, pets, null, null);
         dto.deletePet(null);
-        //TODO what should happen if you try to delete null?
       }
     }
   }
