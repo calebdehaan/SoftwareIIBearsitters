@@ -1,6 +1,6 @@
 //Caleb DeHaan 14 april 2019
 
-import React, { Component } from 'react';
+import React from 'react';
 import { toast } from 'react-toastify';
 
 const newSitterNotif = () => toast.success('A sitter has applied to your listing');
