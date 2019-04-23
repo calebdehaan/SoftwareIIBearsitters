@@ -2,12 +2,14 @@ import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 
 import * as Pages from 'js/pages';
+import {ToastContainer} from 'react-toastify';
 
 export default class Index extends React.Component {
 	render() {
 		return (
 			<HashRouter>
 				<div>
+                    <ToastContainer/>
 					<Route exact path="/" component={Pages.Home} />
 					<Route exact path="/register" component={Pages.RegisterPage} />
 					<Route exact path="/login" component={Pages.LoginPage} />

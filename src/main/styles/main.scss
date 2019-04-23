@@ -4,16 +4,33 @@ $fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome.scss";
 
 .navbar-brand{
-    font-size:31px;
+    font-size: 31px;
+}
+
+.placeHolder{
+    -webkit-text-fill-color: gray;
+}
+
+.logo{
+    padding-right: 10px;
+}
+
+.welcome{
+    text-align: center;
+    font-size: 30px;
+}
+
+.valueProp{
+    text-align: center;
+}
+
+.registerButton{
+    text-align: center;
 }
 
 body{
     background-color: black;
     -webkit-text-fill-color: white;
-}
-
-h1{
-    -webkit-text-fill-color: darkgoldenrod;
 }
 
 .nav-item:hover{

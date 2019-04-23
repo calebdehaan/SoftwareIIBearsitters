@@ -4,6 +4,7 @@ import * as Users from '../User/users';
 import _ from 'lodash';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
+import {applyNotif} from '../Common/notification';
 
 class MyPostings extends React.Component {
 	constructor(props) {
@@ -274,7 +275,7 @@ class Posting extends React.Component {
 
         postToUpdate.possibleSitters = possSitter;
 
-		Users.updatePost(postToUpdate);
+		Users.updatePost(postToUpdate).then(applyNotif());
     };
 
 	render() {

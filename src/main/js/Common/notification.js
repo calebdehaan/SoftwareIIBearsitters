@@ -1,20 +1,24 @@
 //Caleb DeHaan 14 april 2019
 
 import React from 'react';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
-const newSitterNotif = () => toast.success('A sitter has applied to your listing');
-const acceptSitterNotif = () => toast.success('You have accepted the new sitter');
-const cancelPostNotif = () => toast.error('You have cancelled the post');
-const addPetNotif = () => toast.success('You have added the new pet to your pets');
-const updateProfileNotif = () => toast.success('You have updated your profile');
-const newPostNotif = () => toast.success('You have created your listing');
-const sittingRatingNotif = () => toast.info('You have received a new rating');
-const removePetNotif = () => toast.done('You have removed the pet from your pets');
-const createAccountNotif = () => toast.success('Your account has been created');
-const deleteAccountNotif = () => toast.error('Your account has been deleted');
-export { newSitterNotif,
-    acceptSitterNotif,
+const applyNotif = () => toast.success('You have applied to the listing.');
+const updatePostNotif = () => toast.success('The post has been updated.');
+const cancelPostNotif = () => toast.error('You have canceled the listing.');
+const addPetNotif = (pet) => toast.success('You have added ' + pet.petName + ' to your pets.');
+const updateProfileNotif = () => toast.success('You have updated your profile.');
+const newPostNotif = () => toast.success('You have created your listing.');
+const sittingRatingNotif = () => toast.info('You have received a new rating.');
+const removePetNotif = () => toast.done('You have removed the pet from your account.');
+const createAccountNotif = () => toast.success('Glad to have you on board!');
+const deleteAccountNotif = () => toast.error('We\'re sorry to see you go. Hope to see you rejoin us in the future!');
+const loginNotif = (user) => toast.success('Welcome back, ' + user + '!');
+const logoutNotif = () => toast.success('Hope you see you soon!');
+export {
+    applyNotif,
+    logoutNotif,
+    updatePostNotif,
     cancelPostNotif,
     addPetNotif,
     updateProfileNotif,
@@ -22,7 +26,9 @@ export { newSitterNotif,
     sittingRatingNotif,
     removePetNotif,
     createAccountNotif,
-    deleteAccountNotif };
+    deleteAccountNotif,
+    loginNotif
+};
 
 /*
 owner gets a new sitter

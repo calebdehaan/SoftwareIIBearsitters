@@ -19,7 +19,13 @@ class NavBar extends React.Component {
 			<div>
 				<Favicon url="https://img.icons8.com/ios/50/000000/bear-footprint-filled.png" />
 				<nav className="navbar navbar-expand-lg navbar-dark bg-dark" >
-					<a className="navbar-brand" href="#">BearSitters</a>
+
+					<a href="#">
+						<img src="https://img.icons8.com/ios/50/000000/bear-footprint-filled.png" className="logo" />
+						<div className="navbar-brand logoName">
+							BearSitters
+						</div>
+					</a>
 					<button className="navbar-toggler" type="button" data-toggle="collapse"
 							data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 							aria-expanded="false" aria-label="Toggle navigation">
