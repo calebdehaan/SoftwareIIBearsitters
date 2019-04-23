@@ -133,17 +133,19 @@ export class Profile extends React.Component {
 	}
 }
 
-
-
-export class PublicProfile extends React.Component {
-    render() {
-        return (
-            <div className="container padded">
-                <NavBarr.NavBar />
-                <PublicProf.PublicProfile />
-            </div>
-        );
-    }
+export class PublProfile extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+	render() {
+		return (
+			<div className="container padded">
+				<div className="row">
+					<PublicProf.PublicProfile match={this.props.match}/>
+				</div>
+			</div>
+		);
+	}
 }
 
 Home = connect(

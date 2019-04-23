@@ -52,8 +52,12 @@ export function getUserDetails() {
 	return axios.get('/api/user');
 }
 
+export function getPublicUser(principal) {
+	return axios.get('/api/user/public/' + principal);
+}
+
 export function getPetDetails(pet) {
-	return axios.get('/api/pets/' + pet.id);
+	return axios.get('/api/pets/' + pet);
 }
 
 export function getPets() {
