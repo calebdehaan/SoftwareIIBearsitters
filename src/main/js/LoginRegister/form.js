@@ -30,6 +30,7 @@ class RegistrationForm extends React.Component {
 
 		newUser.petSitter = this.state.items.get('petSitter');
 		newUser.petOwner = this.state.items.get('petOwner');
+		newUser.email = this.state.items.get('email');
 		newUser.state = this.state.state;
 
 
@@ -100,10 +101,13 @@ class RegistrationForm extends React.Component {
 												 checkboxChange={this.checkboxChange}
 												 name={'petSitter'}
 												 defaultCheck={this.state.items.get('petSitter')}/>}/>
-
-
-
-
+				<Bessemer.Field name={'email'}
+								onChange={(e) => this.checkboxChange(e)}
+								showLabel={false}
+								field={<Checkbox label={'I want to receive email notifications.'}
+												 checkboxChange={this.checkboxChange}
+												 name={'email'}
+												 defaultCheck={this.state.items.get('email')}/>}/>
 				<Bessemer.Button loading={submitting}>Register</Bessemer.Button>
 			</form>
 		);

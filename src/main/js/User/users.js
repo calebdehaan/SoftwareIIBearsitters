@@ -56,6 +56,10 @@ export function getPublicUser(principal) {
 	return axios.get('/api/user/public/' + principal);
 }
 
+export function sendEmailRegister() {
+	return axios.post('/api/user/sendEmailRegister');
+}
+
 export function getPetDetails(pet) {
 	return axios.get('/api/pets/' + pet);
 }
@@ -139,7 +143,9 @@ Actions.register = user => {
 	return (dispatch) => {
 		return register(user).then(() => {
             createAccountNotif();
-			return dispatch(Actions.authenticate(user.principal, user.password));
+			return dispatch(Actions.authenticate(user.principal, user.password)).then(() => {
+				return sendEmailRegister();
+			});
 		});
 	};
 };

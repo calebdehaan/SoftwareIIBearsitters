@@ -53,6 +53,7 @@ public class UserService {
 		private String state;
 		private String petSitter;
 		private String petOwner;
+		private String email;
 		private List<String> pets;
 		private List<String> posts;
 		private List<String> ratings;
@@ -78,6 +79,7 @@ public class UserService {
 			theAttributes.put("firstName", this.firstName);
 			theAttributes.put("lastName", this.lastName);
 			theAttributes.put("phone", this.phone);
+			theAttributes.put("email", this.email.equals("true"));
 
 			return theAttributes;
 		}
@@ -208,6 +210,13 @@ public class UserService {
 
 		public void setRatings(List<String> ratings) {
 			this.ratings = ratings;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
+		}
+		public String getEmail() {
+			return email;
 		}
 	}
 

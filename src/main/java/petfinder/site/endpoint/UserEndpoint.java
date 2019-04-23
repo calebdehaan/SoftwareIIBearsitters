@@ -1,20 +1,23 @@
 package petfinder.site.endpoint;
 
-import java.net.URLDecoder;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
 import petfinder.site.common.pet.PetDto;
 import petfinder.site.common.posting.PostingDto;
-import petfinder.site.common.user.*;
+import petfinder.site.common.user.UserDto;
+import petfinder.site.common.user.UserPublicDto;
+import petfinder.site.common.user.UserService;
 import petfinder.site.common.user.UserService.RegistrationRequest;
+
+import java.net.URLDecoder;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * This is a controller endpoint which is intended to manage users and their association with pets. Because the class
@@ -152,4 +155,40 @@ public class UserEndpoint {
 			return null;
 		}
 	}
+
+	@PostMapping(value = "/sendEmailRegister")
+	public void sendEmailReg() throws UnirestException {
+		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+		UserDto user = userService.findUserByPrincipal(principal).get();
+		String subject = "Welcome to The BearSitters";
+		String text = "Hey " + user.getAttributes().get("fname") + "!\nThank you for registering for The BearSitters. We hope you will love our pet care service as it offers all of the services you need for all of your pets and busy life.\n";
+
+		if (user.getRoles().contains("SITTER") && user.getRoles().contains("OWNER"))
+			text += "As a sitter and owner, be sure to schedule your pets' sessions as soon as you need to. You can find sessions to sit for as well. We greatly appreciate your dedication as a pet enthusiast and are glad you are joining us in this pet loving journey!";
+		else if (user.getRoles().contains("OWNER"))
+			text += "As a sitter, be sure to check out the currently available sessions to sit for near you.";
+		else if (user.getRoles().contains("SITTER"))
+			text += "As a pet owner, be sure to schedule your pet service with us soon so sitters can bid and and take care of your pet as fast as possible.";
+
+		text += "\n\nWe greatly appreciate your dedication as a pet enthusiast and are glad you are joining us in this pet journey!\n\n Sincerely,\n The BearSitters";
+
+		System.out.println(MGEmail.sendSimpleMessage(subject, text, user.getPrincipal()));
+	}
+
+}
+
+class MGEmail {
+
+	public static String sendSimpleMessage(String subject, String text, String to) throws UnirestException {
+		HttpResponse<String> request = Unirest.post("https://api.mailgun.net/v3/mg.michaelibanez.org/messages")
+				.basicAuth("api", "9d8cee7e65b579a52d1e37783f58abdf-a3d67641-58a139e2")
+				.queryString("from", "donotreply@bearsitters.com")
+				.queryString("to", to)
+				.queryString("subject", subject)
+				.queryString("text", text)
+				.asString();
+		// Or as .asJSon(), using string for readability purposes
+		return request.getBody();
+	}
+
 }
