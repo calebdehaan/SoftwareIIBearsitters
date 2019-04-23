@@ -22,6 +22,6 @@ public class NotificationEndpoint {
 
   @GetMapping(value = "/{userName}", produces = "application/json")
   public List<Optional<NotificationDto>> getUserNotification(@PathVariable("userName") String userName) {
-    return notificationService.getUserNotification(userName);
+    return notificationService.getUserNotification(URLDecoder.decode(userName));
   }
 }
