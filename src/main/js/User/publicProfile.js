@@ -1,8 +1,7 @@
-import * as Users from 'js/User/Users';
+import * as Users from './users';
 import React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import _ from 'lodash';
-import {getPetDetails} from 'js/User/Users';
 
 class PublicProfile extends React.Component {
 
@@ -35,7 +34,7 @@ class PublicProfile extends React.Component {
 	fillPets(pets,resolve) {
 		let list = [];
 		pets.forEach(pet => {
-			this.state.pets[pet] = getPetDetails(pet).then(resolve => {
+			this.state.pets[pet] = Users.getPetDetails(pet).then(resolve => {
 				this.setState(this.state);
 			});
 		});
