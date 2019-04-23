@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import petfinder.site.common.notification.NotificationDto;
 import petfinder.site.common.notification.NotificationService;
-import petfinder.site.common.pet.PetDto;
 
 @RestController
 @RequestMapping("/api/notification")
@@ -23,5 +22,10 @@ public class NotificationEndpoint {
   @GetMapping(value = "/{userName}", produces = "application/json")
   public List<Optional<NotificationDto>> getUserNotification(@PathVariable("userName") String userName) {
     return notificationService.getUserNotification(URLDecoder.decode(userName));
+  }
+
+  @PostMapping(produces = "application/json")
+  public void saveNotification(@RequestBody NotificationDto notification) {
+    notificationService.save(notification);
   }
 }
