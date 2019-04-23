@@ -17,7 +17,7 @@ public class NotificationDao {
 
   public List<Optional<NotificationDto>> getUserNotifications(String userName) {
     SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-    
+
     searchSourceBuilder.query(QueryBuilders.matchQuery("recipientUserName", userName));
     List<NotificationDto> notifications = notificationElasticSearchRepository.search(searchSourceBuilder);
     List<Optional<NotificationDto>> finalNotifications = new ArrayList<>();
