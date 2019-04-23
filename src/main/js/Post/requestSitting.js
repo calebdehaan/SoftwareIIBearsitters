@@ -74,6 +74,8 @@ class Request extends React.Component {
 		newPosting.endDate = endDate;
 		newPosting.pets = listOfPets;
 
+		this.props.dispatch(ReduxForm.reset('posting'));
+
 		this.props.addPost(newPosting);
 	};
 

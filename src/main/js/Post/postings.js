@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as Users from '../User/users';
 import _ from 'lodash';
-
+import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 
 class MyPostings extends React.Component {
@@ -12,6 +12,8 @@ class MyPostings extends React.Component {
 		this.state = {
 			toggle: false,
 			hasLoaded:false,
+			choosingSitter:false,
+			sitterChosen:'',
 		};
 	}
 
@@ -50,6 +52,39 @@ class MyPostings extends React.Component {
 		});
 	};
 
+	getPeople = (people) => {
+		let list = [];
+		let i;
+		if(people !== null ) {
+			for (i = 0; i < people.length; i++) {
+				list.push({label: people[i], value: people[i]});
+			}
+		}
+
+		return list;
+	};
+
+	choosingSitter = e => {
+		if (e != null) {
+			this.state.choosingSitter = e;
+			this.setState(this.state);
+		}
+	};
+
+	handleSitterChoice = e => {
+		if (e != null) {
+			this.state.sitterChosen = e;
+			this.setState(this.state);
+		}
+	};
+
+	chooseSitter = (post) => {
+		post.sitterPrincipal = this.state.sitterChosen;
+		post.possibleSitters.splice(post.possibleSitters.indexOf(this.state.sitterChosen), 1);
+
+		this.props.updatePost(post);
+	};
+
 	render() {
 		return (
 			<div>
@@ -75,7 +110,7 @@ class MyPostings extends React.Component {
 										{post.pets.map((petID) => (
 											<div key={petID} className="card m-sm-0"
 												 style={{backgroundColor: 'black'}}>
-												<ul className="list-group list-group-flush"style={{maxHeight:'140px'}}>
+												<ul className="list-group list-group-flush" style={{maxHeight:'140px'}}>
 													{this.displayThePet(petID).map((pet) => (
 														<li key={pet} className="list-group-item" style={{backgroundColor: 'black',textAlign:'center',maxHeight:'35px'}}>
 															<span style={{fontSize:'13px'}} >{pet}</span>
@@ -89,10 +124,42 @@ class MyPostings extends React.Component {
 									</div>
 									}
 								</li>
+								{(post.sitterPrincipal === '') && !_.isEmpty(post.possibleSitters) &&
+								<li className="list-group-item" style={{backgroundColor: 'black'}}>
+									<div>
+										<div>
+											<span style={{backgroundColor: 'black'}}>
+												<Bessemer.Select style={{backgroundColor: 'black'}}
+																 name="sitter_choice"
+																 className={'col-12 d-inline-block'}
+																 friendlyName="Choose Sitter"
+																 placeholder="Choose a Sitter"
+																 validators={[Validation.requiredValidator]}
+																 options={this.getPeople(post.possibleSitters)}
+																 value={this.state.sitterChosen}
+																 onChange={choice => this.handleSitterChoice(choice)}/>
+											</span>
+										</div>
+										{!_.isBlank(this.state.sitterChosen) &&
+										<div className={'container-fluid'}>
+											<div style={{textAlign: 'center'}}
+												 className={'row justify-content-center'}>
+												<button className={'btn btn-danger '}
+														onClick={() => this.chooseSitter(post)}>Confirm Sitter
+													Choice
+												</button>
+											</div>
+										</div>
+										}
+									</div>
+								</li>
+								}
+								{!_.isEmpty(post.sitterPrincipal) &&
+								<li className="list-group-item" style={{backgroundColor: 'black'}} >
+									<span> Sitter is {post.sitterPrincipal}</span>
+								</li>
+								}
 							</ul>
-							<Bessemer.Button
-								style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}> Choose
-								Sitter <i className='fa fa-paper-plane '></i></Bessemer.Button>
 							<Bessemer.Button onClick={(e) => {
 								this.deletePost(e, post.id);
 							}}
@@ -119,7 +186,8 @@ MyPostings = connect(
 	dispatch => ({
 		fUsersPosts: () => dispatch(Users.Actions.fetchUsersPosts()),
 		dUsersPosts: post => dispatch(Users.Actions.deletePost(post)),
-		getPet: pet => dispatch(Users.Actions.getPetDetails(pet)),
+		updatePost: post => dispatch(Users.Actions.updatePost(post)),
+
 	})
 )(MyPostings);
 
@@ -180,21 +248,21 @@ class Posting extends React.Component {
 		if(possSitter == null){
 			let list = [];
 			list.push(sitterPrincipal);
-
 			possSitter = list;
 		}
-		else
-			possSitter.push(sitterPrincipal);
+		else {
+			let flag = true;
+			possSitter.map(post=>{
+				if(post === sitterPrincipal)
+					flag = false;
+			});
+			if(flag)
+				possSitter.push(sitterPrincipal);
+		}
 
         postToUpdate.possibleSitters = possSitter;
 
-		Users.updatePost(postToUpdate).then(() => {
-			this.props.fRecommendedPosts().then(() => {
-				this.state.toggle = !this.state.toggle;
-				this.setState(this.state);
-			});
-		});
-
+		Users.updatePost(postToUpdate);
     };
 
 	render() {
@@ -222,7 +290,7 @@ class Posting extends React.Component {
 									</div>
 								</li>
 								<li>
-									{post.pets.map((petID) => (
+									{ _.isDefined(post.pets) && post.pets.map((petID) => (
 										<div key={petID} className="card m-sm-0"
 											 style={{backgroundColor: 'black'}}>
 											<ul className="list-group list-group-flush"style={{maxHeight:'140px'}}>
@@ -238,7 +306,17 @@ class Posting extends React.Component {
 									))}
 								</li>
 							</ul>
-							<Bessemer.Button onClick={(e) => {this.addSitter(e, post, this.props.user.principal);}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}>Sign up <i className='fa fa-paper-plane '></i></Bessemer.Button>
+							{_.isEmpty(post.sitterPrincipal) &&
+							<Bessemer.Button onClick={(e) => {
+								this.addSitter(e, post, this.props.user.principal);
+							}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}>Sign up <i
+								className='fa fa-paper-plane '></i></Bessemer.Button>
+							}
+							{!_.isEmpty(post.sitterPrincipal) &&
+							<li className="list-group-item" style={{backgroundColor: 'black',textAlign:'center',maxHeight:'15px'}}>
+								<span> Sitter has been chosen </span>
+							</li>
+							}
 						</div>
 					))}
 				</div>

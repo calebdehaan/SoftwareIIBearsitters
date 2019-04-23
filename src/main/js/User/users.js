@@ -270,6 +270,16 @@ Actions.deletePet = (id) => {
 	};
 };
 
+Actions.updatePost = (post) => {
+	return (dispatch) => {
+		return updatePost(post).then(() => {
+			return getPosts().then(posts => {
+				return dispatch(Actions.setPosts(posts));
+			});
+		});
+	};
+};
+
 export { Actions };
 
 let Reducers = {};
