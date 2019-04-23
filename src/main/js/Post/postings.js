@@ -28,9 +28,9 @@ class MyPostings extends React.Component {
 		let newDate = new Date(date);
 		if(newDate != null && _.isFunction(newDate.getMonth)) {
 			if(newDate.getMinutes() !== 0)
-				return months[newDate.getMonth()] + ' ' + newDate.getDate() + ' ' + newDate.getFullYear().toString() + ' \@ ' + newDate.getHours() + ':' + newDate.getMinutes();
+				return days[newDate.getDay()-1] + ' ' + months[newDate.getMonth()] + ' ' + newDate.getDate() + ' ' + newDate.getFullYear().toString() + ' \@ ' + newDate.getHours() + ':' + newDate.getMinutes();
 			else
-				return months[newDate.getMonth()] + ' ' + newDate.getDate() + ' ' + newDate.getFullYear().toString() + ' \@ ' + newDate.getHours() + ':00';
+				return days[newDate.getDay()-1] + ' ' + months[newDate.getMonth()] + ' ' + newDate.getDate() + ' ' + newDate.getFullYear().toString() + ' \@ ' + newDate.getHours() + ':00';
 		}
 		else {
 			return ' No date object';
@@ -223,9 +223,9 @@ class Posting extends React.Component {
 		let newDate = new Date(date);
 		if(newDate != null && _.isFunction(newDate.getMonth)) {
 			if(newDate.getMinutes() !== 0)
-				return months[newDate.getMonth()] + ' ' + newDate.getDay() + ' ' + newDate.getFullYear().toString() + ' \@ ' + newDate.getHours() + ':' + newDate.getMinutes();
+				return days[newDate.getDay()-1] + ' ' + months[newDate.getMonth()] + ' ' + newDate.getDate() + ' ' + newDate.getFullYear().toString() + ' \@ ' + newDate.getHours() + ':' + newDate.getMinutes();
 			else
-				return months[newDate.getMonth()] + ' ' + newDate.getDay() + ' ' + newDate.getFullYear().toString() + ' \@ ' + newDate.getHours() + ':00';
+				return days[newDate.getDay()-1] + ' ' + months[newDate.getMonth()] + ' ' + newDate.getDate() + ' ' + newDate.getFullYear().toString() + ' \@ ' + newDate.getHours() + ':00';
 		}
 		else {
 			return ' No date object';
@@ -236,6 +236,18 @@ class Posting extends React.Component {
 		return pet.split(/(\s+)/).filter(function (e) {
 			return e.trim().length > 0;
 		});
+	};
+
+	checkIfUserAlreadySignedUp = (post,principal) => {
+		let flag = false;
+		if(post.possibleSitters !== null){
+			post.possibleSitters.map(post =>{
+				if(principal === post)
+					flag = true;
+			});
+		}
+
+		return flag;
 	};
 
 
@@ -306,11 +318,18 @@ class Posting extends React.Component {
 									))}
 								</li>
 							</ul>
-							{_.isEmpty(post.sitterPrincipal) &&
+							{_.isEmpty(post.sitterPrincipal) && !_.isNull(this.props.user) && !this.checkIfUserAlreadySignedUp(post,this.props.user.principal) &&
 							<Bessemer.Button onClick={(e) => {
 								this.addSitter(e, post, this.props.user.principal);
 							}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}>Sign up <i
 								className='fa fa-paper-plane '></i></Bessemer.Button>
+							}
+							{_.isEmpty(post.sitterPrincipal) && !_.isNull(this.props.user) && this.checkIfUserAlreadySignedUp(post,this.props.user.principal) &&
+							<li className="list-group-item" style={{backgroundColor: 'black',textAlign:'center',maxHeight:'35px'}} >
+								<div>
+									<span className="text-muted" >You already signed up! </span>
+								</div>
+							</li>
 							}
 							{!_.isEmpty(post.sitterPrincipal) &&
 							<li className="list-group-item" style={{backgroundColor: 'black',textAlign:'center',maxHeight:'15px'}}>
