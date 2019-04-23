@@ -8,6 +8,8 @@ import Redirect from 'react-router-dom/es/Redirect';
 import Checkbox from 'js/Common/checkBox';
 import {ageOptions} from 'js/Pet/addPets';
 
+import {createAccountNotif} from '../Common/notification';
+
 class RegistrationForm extends React.Component {
 
 	// Default constructor for props

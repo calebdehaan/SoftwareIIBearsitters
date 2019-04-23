@@ -8,6 +8,7 @@ import * as Bessemer from '../alloy/bessemer/components';
 import * as Editor from 'js/User/editProfile';
 import Redirect from 'react-router-dom/es/Redirect';
 
+
 class Profile extends React.Component {
 	seconds = 0;
 
@@ -76,7 +77,6 @@ class Profile extends React.Component {
 	};
 
 	render() {
-
 		return (
 			<div className="container padded">
 				This is your profile page

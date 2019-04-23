@@ -6,6 +6,11 @@ import * as Prof from 'js/User/profile';
 import * as PublicProf from 'js/User/publicProfile';
 import * as Request from 'js/Post/requestSitting';
 import * as Post from 'js/Post/postings';
+import * as NotificationCenter from 'js/Common/notificationCenter';
+import connect from 'react-redux/es/connect/connect';
+import * as Users from './User/users';
+import * as Bessemer from 'js/alloy/bessemer/components';
+
 
 export class Home extends React.Component {
 	constructor(props){
@@ -22,8 +27,24 @@ export class Home extends React.Component {
 		return (
 			<div className="container padded">
                 <NavBarr.NavBar />
-				{this.state.message}Welcome to the BearSitters!<br/>
-				<img style={{position:'absolute',  top:'40%', left:'35%'}} src={'statics/bearsitting.png'} alt="the bear will sit" title="the bear will sit"/>
+				<NotificationCenter.NotificationCenter/>
+				{this.state.message}
+				<p className="welcome">Welcome to the BearSitters!</p><br/>
+                <img style={{display: 'block', margin: 'auto'}} src={'statics/bearsitting.png'} alt="the bear will sit" title="the bear will sit"/>
+                { (!this.props.user) &&
+                <div className="valueProp">
+                    We are a group which seeks to allow pet owners to travel with ease. Our website allows pet
+                    owners and pet sitters to be linked up to make getting pets sat during periods of travel much easier.
+                </div>
+                }
+                <br/>
+                { (!this.props.user)  &&
+                <div className="registerButton">
+                    <a href = "#/register">
+                        <Bessemer.Button> Register for free! </Bessemer.Button>
+                    </a>
+                </div>
+                }
 			</div>
 		);
 	}
@@ -112,13 +133,23 @@ export class Profile extends React.Component {
 	}
 }
 
-export class PublicProfile extends React.Component {
-    render() {
-        return (
-            <div className="container padded">
-                <NavBarr.NavBar />
-                <PublicProf.PublicProfile />
-            </div>
-        );
-    }
+export class PublProfile extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+	render() {
+		return (
+			<div className="container padded">
+				<div className="row">
+					<PublicProf.PublicProfile match={this.props.match}/>
+				</div>
+			</div>
+		);
+	}
 }
+
+Home = connect(
+    state => ({
+        user: Users.State.getUser(state),
+    })
+)(Home);

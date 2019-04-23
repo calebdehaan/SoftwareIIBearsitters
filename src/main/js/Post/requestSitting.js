@@ -54,10 +54,15 @@ class Request extends React.Component {
 					   + '\tPetSpecies:' + pet.petSpecies + ' '
 					   + '\tPetAge:' + pet.petAge + ' '
 					   + '\tPetSex:' + pet.petSex;
-
 				listOfPets.push(newPet);
 			}
 		});
+
+		this.props.pets.map(pet => {
+			this.state.unselectedPets.push(pet);
+		});
+		this.state.selectedPets = [];
+		this.setState(this.state);
 
 		if(this.state.postStartAMPM === 'PM')
 			postStartHour += 12;
@@ -76,7 +81,10 @@ class Request extends React.Component {
 
 		this.props.dispatch(ReduxForm.reset('posting'));
 
-		this.props.addPost(newPosting);
+		if(newPosting.pets !== null)
+			this.props.addPost(newPosting);
+		else
+			return;
 	};
 
 	minuteStartChange = e => {

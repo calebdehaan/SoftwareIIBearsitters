@@ -1,76 +1,90 @@
-import React from 'react';
 import * as Users from './users';
-import * as Owner from 'js/User/owner';
-import * as Sitter from 'js/User/sitter';
-import * as Pet from 'js/Pet/addPets';
+import React from 'react';
+import connect from 'react-redux/es/connect/connect';
 import _ from 'lodash';
-import {connect} from 'react-redux';
 
 class PublicProfile extends React.Component {
-	seconds = 0;
 
-	constructor(props){
+	constructor(props) {
 		super(props);
-
 		this.state = {
+			publicUser: null,
+			pets:[],
 		};
 	}
 
-	componentDidMount() {
-		this.props.fetchUser().then(() => {
-			this.state.toggle = !this.state.toggle;
-			this.setState(this.state);
+	async componentDidMount() {
+		let promise = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				Users.getPublicUser(this.props.match.params.id).then(async user => {
+					await this.fillPets(user.pets,resolve);
+					this.state.publicUser = user;
+					this.setState(this.state);
+			}, 4000); // resolve
+			});
 		});
-		this.seconds = setInterval(() => this.props.fetchUser(), 1000);
+
+		// wait for the promise to resolve
+		let result = await promise;
+
+		// console log the result (true)
+		console.log(result);
 	}
 
-	componentWillUnmount() {
-		clearInterval(this.seconds);
+	fillPets(pets,resolve) {
+		let list = [];
+		pets.forEach(pet => {
+			this.state.pets[pet] = Users.getPetDetails(pet).then(resolve => {
+				this.setState(this.state);
+			});
+		});
 	}
+
+	displayRoles = () => {
+		let rolesStr = 'No role';
+
+		let len = this.state.publicUser.roles.length;
+		if(len === 1){
+			if(this.state.publicUser.roles[0] === 'OWNER'){
+				rolesStr = 'Pet Owner';
+			} else if(this.state.publicUser.roles[0] === 'SITTER'){
+				rolesStr = 'Pet Sitter';
+			}
+		} else if(len === 2){
+			rolesStr = 'Pet Owner/Sitter';
+		}
+
+		return rolesStr;
+	};
 
 	render() {
 		return (
-			<div className="container padded">
-				This is {this.props.user.attributes['firstName']}'s public profile page
-				{ !_.isNil(this.props.user) && this.props.user.roles != null &&
-					<div> They're a
-						{ (this.props.user.roles.length === 2) &&
-						<span> Petsitter and Petowner! </span>
-						}
-						{(this.props.user.roles.length === 1) && this.props.user.roles.includes('OWNER') &&
-						<span> Petowner! </span>
-						}
-						{(this.props.user.roles.length === 1) && this.props.user.roles.includes('SITTER') &&
-						<span> Petsitter! </span>
-						}
-					<br/></div>
-				}
-
-				{ !_.isNil(this.props.user) &&
+			<div>
+				{(_.isEmpty(this.state.publicUser) && _.isEmpty(this.state.pets))?
 					<div>
-						<div className="profileHeader">Full Name: <br/></div>
-						<p>{this.props.user.attributes['firstName']} {this.props.user.attributes['lastName']} </p>
+						<h1>The user {this.props.match.params.id} does not exist! </h1>
+					</div>
+					:
+					<div>
+						<h1>{this.state.publicUser.attributes['firstName']} {this.state.publicUser.attributes['lastName']} - {this.displayRoles()}</h1>
+						<h3>Contact Information</h3>
+						<h4>Email</h4>
+						<p>{this.state.publicUser.principal}</p>
+						<h4>Phone</h4>
+						<p>{this.state.publicUser.attributes['phone']}</p>
+						{this.state.publicUser.roles.includes('OWNER') && !_.isNull(this.state.publicUser.pets) &&
+						<div className="d-md-flex flex-md-wrap justify-content-md-start">
+							{this.state.publicUser.pets.map(pet => ( _.isDefined(this.state.pets[pet]) &&
+								<li key={pet} > {this.state.pets[pet].petName} </li>
+							))}
+						</div>
+						}
 
-						<div className="profileHeader">Street Address: <br/></div>
-						<p>{this.props.user.address['street']} , {this.props.user.address['city']} {this.props.user.address['zip']} {this.props.user.address['state']}</p>
-
-						<div className="profileHeader">Phone Number: <br/></div>
-						<p>{this.props.user.attributes['phone']}</p>
-
-						<div className="profileHeader">Email: <br/></div>
-						<p>{this.props.user.principal}</p>
-
-						<div className="profileHeader">Owner Sitter Status: <br/></div>
-						<p>{this.props.user.roles}</p>
+						{this.state.publicUser.roles.includes('SITTER') &&
+						<h4>Ratings</h4>
+						}
 					</div>
 				}
-
-				{/* Owner profile settings */}
-				{ !_.isNil(this.props.user) && this.props.user.roles != null && this.props.user.roles.includes('OWNER') && <Pet.PetList/> }
-
-				{/* Sitter profile settings */}
-				{/* !_.isNil(this.props.user) && this.props.user.roles != null && this.props.user.roles.includes('SITTER') && <Sitter.Sitter/> */}
-
 			</div>
 		);
 	}
@@ -78,11 +92,7 @@ class PublicProfile extends React.Component {
 
 PublicProfile = connect(
 	state => ({
-	    user: Users.State.getUser(state),
-    	pets: Users.State.getPets(state),
-	}),
-	dispatch => ({
-		fetchUser: () => dispatch(Users.Actions.fetchUser()),
+		user: Users.State.getUser(state),
 	})
 )(PublicProfile);
 

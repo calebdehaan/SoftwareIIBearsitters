@@ -8,6 +8,7 @@ import * as Bessemer from '../alloy/bessemer/components';
 import * as Users from '../User/users';
 import Redirect from 'react-router-dom/es/Redirect';
 
+
 class LoginForm extends React.Component {
 	constructor(props) {
 		super(props);
@@ -15,7 +16,7 @@ class LoginForm extends React.Component {
 
 	onSubmit = ({principal, password}) => {
 		return this.props.authenticate(principal, password);
-	};
+    };
 
 	render() {
 		let { handleSubmit, submitting } = this.props;

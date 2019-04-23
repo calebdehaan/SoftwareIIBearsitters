@@ -6,6 +6,7 @@ import * as Validation from 'js/alloy/utils/validation';
 import * as ReduxForm from 'redux-form';
 import {stateOptions} from 'js/LoginRegister/form';
 import Checkbox from 'js/Common/checkBox';
+import {updateProfileNotif} from '../Common/notification';
 
 class EditProfile1 extends React.Component {
 	constructor(props){
@@ -44,6 +45,7 @@ class EditProfile1 extends React.Component {
 
 		Users.updateUser(userToUpdate).then(() => {
 			this.props.fetchUser().then(() => {
+				updateProfileNotif();
 				this.state.toggle = !this.state.toggle;
 				this.setState(this.state);
 				this.props.action();

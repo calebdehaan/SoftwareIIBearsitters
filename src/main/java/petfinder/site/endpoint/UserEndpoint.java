@@ -1,5 +1,6 @@
 package petfinder.site.endpoint;
 
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -12,10 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import petfinder.site.common.pet.PetDto;
 import petfinder.site.common.posting.PostingDto;
-import petfinder.site.common.user.UserDao;
-import petfinder.site.common.user.UserDto;
-import petfinder.site.common.user.UserPetDto;
-import petfinder.site.common.user.UserService;
+import petfinder.site.common.user.*;
 import petfinder.site.common.user.UserService.RegistrationRequest;
 
 /**
@@ -141,5 +139,17 @@ public class UserEndpoint {
 			userDto.deletePost(id);
 			return userService.update(userDto);
 		}).orElse(null);
+	}
+
+	@GetMapping(value = "/public/{userName:.+}", produces = "application/json")
+	public UserPublicDto getUserr(@PathVariable String userName) {
+		String user = URLDecoder.decode(userName);
+		Optional<UserDto> optUser = userService.findUserByPrincipal(user);
+		if (optUser.isPresent()) {
+			UserDto pubUser = optUser.get();
+			return new UserPublicDto(pubUser);
+		} else {
+			return null;
+		}
 	}
 }
