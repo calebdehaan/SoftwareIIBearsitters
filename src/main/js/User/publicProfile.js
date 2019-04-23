@@ -13,11 +13,11 @@ class PublicProfile extends React.Component {
 		};
 	}
 
-	async componentDidMount() {
+	componentDidMount() {
 		let promise = new Promise((resolve, reject) => {
 			setTimeout(() => {
-				Users.getPublicUser(this.props.match.params.id).then(async user => {
-					await this.fillPets(user.pets,resolve);
+				Users.getPublicUser(this.props.match.params.id).then(user => {
+					this.fillPets(user.pets,resolve);
 					this.state.publicUser = user;
 					this.setState(this.state);
 			}, 4000); // resolve
@@ -25,7 +25,7 @@ class PublicProfile extends React.Component {
 		});
 
 		// wait for the promise to resolve
-		let result = await promise;
+		let result = promise;
 
 		// console log the result (true)
 		console.log(result);
