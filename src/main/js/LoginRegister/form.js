@@ -100,7 +100,6 @@ class RegistrationForm extends React.Component {
 												 checkboxChange={this.checkboxChange}
 												 name={'petSitter'}
 												 defaultCheck={this.state.items.get('petSitter')}/>}/>
-<<<<<<< HEAD
 				<Bessemer.Field name={'email'}
 								onChange={(e) => this.checkboxChange(e)}
 								showLabel={false}
@@ -108,16 +107,6 @@ class RegistrationForm extends React.Component {
 												 checkboxChange={this.checkboxChange}
 												 name={'email'}
 												 defaultCheck={this.state.items.get('email')}/>}/>
-=======
-                <Bessemer.Field name={'emailNotif'}
-                								onChange={(e) => this.checkboxChange(e)}
-                								showLabel={false}
-                								field={<Checkbox label={'I want email notifications.'}
-                												 checkboxChange={this.checkboxChange}
-                												 name={'emailNotif'}
-                												 defaultCheck={this.state.items.get('emailNotif')}/>}/>
-
->>>>>>> be0f9a05aebd54d3e2edc3338ca744534704ef59
 				<Bessemer.Button loading={submitting}>Register</Bessemer.Button>
 			</form>
 		);
