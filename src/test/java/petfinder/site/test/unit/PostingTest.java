@@ -12,7 +12,7 @@ public class PostingTest {
   @DisplayName("Posting Dto")
   @Nested
   class PostingDtoTest {
-    PostingDto dto = new PostingDto(null, null, null, null, null, null, null, null, null);
+    PostingDto dto = new PostingDto(null, null, null, null, null, null, null);
     @DisplayName("Setters")
     @Nested
     class Setters {
@@ -57,22 +57,6 @@ public class PostingTest {
           String endDate = "01/02/1970";
           dto.setEndDate(endDate);
           assertEquals(endDate, dto.getEndDate());
-        }
-
-        @DisplayName("Start Time")
-        @Test
-        void startTime() {
-          String startTime = "01:02:03 PM";
-          dto.setStartTime(startTime);
-          assertEquals(startTime, dto.getStartTime());
-        }
-
-        @DisplayName("End Time")
-        @Test
-        void endTime() {
-          String endTime = "01:02:03 PM";
-          dto.setEndTime(endTime);
-          assertEquals(endTime, dto.getEndTime());
         }
       }
     }

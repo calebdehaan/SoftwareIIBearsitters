@@ -37,8 +37,6 @@ public class PostingService {
 		private List<String> pets;
 		private String dateRangeStart;
 		private String dateRangeEnd;
-		private String timeRangeStart;
-		private String timeRangeEnd;
 
 		public List<String> getPets() {
 			return pets;
@@ -63,22 +61,5 @@ public class PostingService {
 		public void setDateRangeEnd(String dateRangeEnd) {
 			this.dateRangeEnd = dateRangeEnd;
 		}
-
-		public String getTimeRangeStart() {
-			return timeRangeStart;
-		}
-
-		public void setTimeRangeStart(String timeRangeStart) {
-			this.timeRangeStart = timeRangeStart;
-		}
-
-		public String getTimeRangeEnd() {
-			return timeRangeEnd;
-		}
-
-		public void setTimeRangeEnd(String timeRangeEnd) {
-			this.timeRangeEnd = timeRangeEnd;
-		}
-
 	}
 }

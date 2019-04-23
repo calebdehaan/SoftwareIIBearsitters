@@ -11,8 +11,6 @@ public class PostingDto implements Momento<String> {
 	private String sitterPrincipal;
 	private String startDate;
 	private String endDate;
-	private String startTime;
-	private String endTime;
 	private List<String> pets;
 	private List<String> possibleSitters;
 
@@ -20,14 +18,12 @@ public class PostingDto implements Momento<String> {
 	}
 
 	public PostingDto(String id, String ownerPrincipal, String sitterPrincipal, String startDate,
-			String endDate, String startTime, String endTime, List<String> pets, List<String> possibleSitters) {
+			String endDate, List<String> pets, List<String> possibleSitters) {
 		setId(id);
 		setOwnerPrincipal(ownerPrincipal);
 		setSitterPrincipal(sitterPrincipal);
 		setStartDate(startDate);
 		setEndDate(endDate);
-		setStartTime(startTime);
-		setEndTime(endTime);
 		setPets(pets);
 		setPossibleSitters(possibleSitters);
 	}
@@ -80,10 +76,6 @@ public class PostingDto implements Momento<String> {
 		this.pets = pets;
 	}
 
-	public String getStartTime() {
-		return startTime;
-	}
-
 	public List<String> getPossibleSitters() {
 		return possibleSitters;
 	}
@@ -97,18 +89,6 @@ public class PostingDto implements Momento<String> {
 			this.possibleSitters = new ArrayList<>();
 		}
 		this.possibleSitters.add(principal);
-	}
-
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-
-	public String getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
 	}
 
 	public boolean isEmpty() {
