@@ -144,7 +144,10 @@ Actions.register = user => {
 		return register(user).then(() => {
             createAccountNotif();
 			return dispatch(Actions.authenticate(user.principal, user.password)).then(() => {
-				return sendEmailRegister();
+				getUserDetails().then((user) => {
+					if(user.attributes['email'] === true)
+						return sendEmailRegister();
+				});
 			});
 		});
 	};

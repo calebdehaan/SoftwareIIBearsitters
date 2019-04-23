@@ -18,6 +18,9 @@ export default class Index extends React.Component {
 					<Route exact path="/sittersPosts" component={Pages.SitterPosts} />
 					<Route exact path="/profile" component={Pages.Profile} />
 					<Route exact path='/publicProfile/:id' component={Pages.PublProfile}/>
+					<Route exact path="/faq" component={Pages.FAQ} />
+					<Route exact path="/support" component={Pages.Support} />
+					<Route exact path="/aboutUs" component={Pages.AboutUs} />
 				</div>
 			</HashRouter>
 		);

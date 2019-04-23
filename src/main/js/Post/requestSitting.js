@@ -84,7 +84,7 @@ class Request extends React.Component {
 		this.props.dispatch(ReduxForm.reset('posting'));
 
 		if(newPosting.pets !== null)
-			this.props.addPost(newPosting).then;
+			this.props.addPost(newPosting);
 		else
 			return;
 	};

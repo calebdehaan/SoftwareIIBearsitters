@@ -2,6 +2,7 @@ import React from 'react';
 import * as Login from 'js/LoginRegister/login';
 import * as Register from 'js/LoginRegister/form';
 import * as NavBarr from 'js/Common/navBar';
+import * as Footer from 'js/Common/footer';
 import * as Prof from 'js/User/profile';
 import * as PublicProf from 'js/User/publicProfile';
 import * as Request from 'js/Post/requestSitting';
@@ -45,6 +46,7 @@ export class Home extends React.Component {
                     </a>
                 </div>
                 }
+				<Footer.Footer/>
 			</div>
 		);
 	}
@@ -128,6 +130,39 @@ export class Profile extends React.Component {
 			<div className="container padded">
 				<NavBarr.NavBar />
 				<Prof.Profile/>
+			</div>
+		);
+	}
+}
+
+export class FAQ extends React.Component {
+	render() {
+		return (
+			<div className="container padded">
+				<NavBarr.NavBar />
+				<span> Our FAQ page </span>
+			</div>
+		);
+	}
+}
+
+export class Support extends React.Component {
+	render() {
+		return (
+			<div className="container padded">
+				<NavBarr.NavBar />
+				<span> Our Support page </span>
+			</div>
+		);
+	}
+}
+
+export class AboutUs extends React.Component {
+	render() {
+		return (
+			<div className="container padded">
+				<NavBarr.NavBar />
+				<span> Our About Us page </span>
 			</div>
 		);
 	}
