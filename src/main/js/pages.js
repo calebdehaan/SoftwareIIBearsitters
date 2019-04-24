@@ -140,7 +140,50 @@ export class FAQ extends React.Component {
 		return (
 			<div className="container padded">
 				<NavBarr.NavBar />
+
+
+				<div className="registerButton">
+                	<a href = "#/AboutUs">
+                		<Bessemer.Button> Ask a Question! </Bessemer.Button>
+                	</a>
+                </div>
+
+               <button class="accordion">Section 1</button>
+               <div class="panel">
+                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+               </div>
+
+               <button class="accordion">Section 2</button>
+               <div class="panel">
+                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+               </div>
+
+               <button class="accordion">Section 3</button>
+               <div class="panel">
+                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+               </div>
+
+               <html>
+               <body>
+
+               <h2>An unordered HTML list</h2>
+
+               <ul>
+                 <li>Coffee</li>
+                 <li>Tea</li>
+                 <li>Milk</li>
+               </ul>
+
+               </body>
+               </html>
+
+
+
+
+
 				<span> Our FAQ page </span>
+
+
 			</div>
 		);
 	}
