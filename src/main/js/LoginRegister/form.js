@@ -6,9 +6,6 @@ import * as Bessemer from '../alloy/bessemer/components';
 import * as Users from '../User/users';
 import Redirect from 'react-router-dom/es/Redirect';
 import Checkbox from 'js/Common/checkBox';
-import {ageOptions} from 'js/Pet/addPets';
-
-import {createAccountNotif} from '../Common/notification';
 
 class RegistrationForm extends React.Component {
 
@@ -40,7 +37,6 @@ class RegistrationForm extends React.Component {
 	checkboxChange(e) {
 		this.state.items.set(e, !this.state.items.get(e));
 		this.setState(this.state);
-		console.log(e + ' set to ' + this.state.items.get(e));
 	}
 
 	stateChange = e => {

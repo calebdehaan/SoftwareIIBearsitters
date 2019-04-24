@@ -210,14 +210,6 @@ class Posting extends React.Component {
 			this.state.toggle = !this.state.toggle;
 			this.setState(this.state);
 		});
-
-		if(this.props.posts != null) {
-			this.props.posts.map(post => {
-				if (_.isDefined(post) && _.isDefined(post.id)) {
-					console.log(post.startDate.getMonth);
-				}
-			});
-		}
 	}
 
 	displayDate = date =>{
@@ -273,10 +265,10 @@ class Posting extends React.Component {
 				possSitter.push(sitterPrincipal);
 		}
 
-        postToUpdate.possibleSitters = possSitter;
+		postToUpdate.possibleSitters = possSitter;
 
 		Users.updatePost(postToUpdate).then(applyNotif());
-    };
+	};
 
 	render() {
 		return (

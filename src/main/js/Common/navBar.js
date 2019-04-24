@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import * as Users from '../User/users';
 import {connect} from 'react-redux';
 import Favicon from 'react-favicon';

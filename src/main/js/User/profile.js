@@ -6,8 +6,6 @@ import * as Owner from 'js/User/owner';
 import * as Sitter from 'js/User/sitter';
 import * as Bessemer from '../alloy/bessemer/components';
 import * as Editor from 'js/User/editProfile';
-import Redirect from 'react-router-dom/es/Redirect';
-
 
 class Profile extends React.Component {
 	seconds = 0;
@@ -51,9 +49,9 @@ class Profile extends React.Component {
 		this.setState(this.state);
 	}
 	editAttr5(){
-        this.state.edit5 = !this.state.edit5;
-        this.setState(this.state);
-    }
+		this.state.edit5 = !this.state.edit5;
+		this.setState(this.state);
+	}
 
 	componentDidMount() {
 		this.props.fetchUser().then(() => {
@@ -132,13 +130,13 @@ class Profile extends React.Component {
 							<br/>
 
 						<div className="profileHeader">Owner Sitter Status: <br/></div>
-						    <Bessemer.Button onClick={this.editAttr5} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
-						    {!this.state.edit5 ?
-						        <p>{this.props.user.roles}</p>
-						        :
-						        <Editor.EditProfile5 action={this.editAttr5}/>
-						    }
-						    <br/>
+							<Bessemer.Button onClick={this.editAttr5} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-edit'></i></Bessemer.Button>
+							{!this.state.edit5 ?
+								<p>{this.props.user.roles}</p>
+								:
+								<Editor.EditProfile5 action={this.editAttr5}/>
+							}
+							<br/>
 						<div className="profileHeader">Delete Account:                                                                      				 <br/></div>
 						<Bessemer.Button onClick={(e) => {this.deleteUser(e, this.props.user);}} style={{backgroundColor:'black', borderColor:'black', float:'right'}}><i className='fa fa-trash'></i></Bessemer.Button>
 						<br/>

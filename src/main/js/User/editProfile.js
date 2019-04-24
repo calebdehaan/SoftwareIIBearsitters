@@ -330,27 +330,26 @@ class EditProfile5 extends React.Component {
 		super(props);
 		this.checkboxChange = this.checkboxChange.bind(this);
 		this.state = {
-		    items: new Map(),
+			items: new Map(),
 			state:null,
 		};
 		if(this.props.user.roles.includes('OWNER')){
-		    this.state.items.set('petOwner', true);
+			this.state.items.set('petOwner', true);
 		} else {
-		    this.state.items.set('petOwner', false);
+			this.state.items.set('petOwner', false);
 		}
 		if(this.props.user.roles.includes('SITTER')){
-            this.state.items.set('petSitter', true);
-        } else {
-            this.state.items.set('petSitter', false);
-        }
+			this.state.items.set('petSitter', true);
+		} else {
+			this.state.items.set('petSitter', false);
+		}
 	}
 
-    // Changes for checkboxes of roles of user
-    checkboxChange(e) {
-        this.state.items.set(e, !this.state.items.get(e));
-        this.setState(this.state);
-        console.log(e + ' set to ' + this.state.items.get(e));
-    }
+	// Changes for checkboxes of roles of user
+	checkboxChange(e) {
+		this.state.items.set(e, !this.state.items.get(e));
+		this.setState(this.state);
+	}
 
 	onSubmit = user => {
 		let userToUpdate = JSON.parse(JSON.stringify(user));
@@ -358,8 +357,8 @@ class EditProfile5 extends React.Component {
 		if(this.state.state != null)
 			userToUpdate.state = this.state.state;
 
-        userToUpdate.petSitter = this.state.items.get('petSitter');
-        userToUpdate.petOwner = this.state.items.get('petOwner');
+		userToUpdate.petSitter = this.state.items.get('petSitter');
+		userToUpdate.petOwner = this.state.items.get('petOwner');
 //		if(this.props.user.roles.includes('OWNER')) userToUpdate.petOwner = true;
 //		if(this.props.user.roles.includes('SITTER')) userToUpdate.petSitter = true;
 		if (userToUpdate.firstName == null) userToUpdate.firstName = this.props.user.attributes['firstName'];
@@ -394,19 +393,19 @@ class EditProfile5 extends React.Component {
 			<form name="editProfile5" onSubmit={handleSubmit(form => this.onSubmit(form))}>
 				<br/>
 				<Bessemer.Field name={'petOwner'}
-                                onChange={(e) => this.checkboxChange(e)}
-                                showLabel={false}
-                                field={<Checkbox label={'I am going to be a pet owner.'}
-                                                 checkboxChange={this.checkboxChange}
-                                                 name={'petOwner'}
-                                                 defaultCheck={this.state.items.get('petOwner')}/>}/>
-                <Bessemer.Field name={'petSitter'}
-                                onChange={(e) => this.checkboxChange(e)}
-                                showLabel={false}
-                                field={<Checkbox label={'I am going to be a pet sitter.'}
-                                                 checkboxChange={this.checkboxChange}
-                                                 name={'petSitter'}
-                                                 defaultCheck={this.state.items.get('petSitter')}/>}/>
+								onChange={(e) => this.checkboxChange(e)}
+								showLabel={false}
+								field={<Checkbox label={'I am going to be a pet owner.'}
+												 checkboxChange={this.checkboxChange}
+												 name={'petOwner'}
+												 defaultCheck={this.state.items.get('petOwner')}/>}/>
+				<Bessemer.Field name={'petSitter'}
+								onChange={(e) => this.checkboxChange(e)}
+								showLabel={false}
+								field={<Checkbox label={'I am going to be a pet sitter.'}
+												 checkboxChange={this.checkboxChange}
+												 name={'petSitter'}
+												 defaultCheck={this.state.items.get('petSitter')}/>}/>
 				<Bessemer.Button loading={submitting}>Update</Bessemer.Button>
 			</form>
 		);

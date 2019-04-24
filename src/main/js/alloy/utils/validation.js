@@ -28,12 +28,3 @@ export const phoneNumberValidator = new Validator(isPhoneNumber, (details, value
 export const isZip = (val) => (!val) || val.match(/^\d{5}$/);
 export const zipValidator = new Validator(isZip, () => 'Please enter in a 5 digit ZIP code.');
 
-function isEmpty(obj) {
-	for (let key in obj) {
-		if (obj.hasOwnProperty(key))
-			return false;
-	}
-	return true;
-}
-
-

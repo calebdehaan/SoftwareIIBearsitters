@@ -1,12 +1,12 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import {
-    addPetNotif,
-    createAccountNotif,
-    loginNotif,
-    newPostNotif,
-    deleteAccountNotif,
-    cancelPostNotif,
+	addPetNotif,
+	createAccountNotif,
+	loginNotif,
+	newPostNotif,
+	deleteAccountNotif,
+	cancelPostNotif,
 	removePetNotif,
 	updatePostNotif,
 	logoutNotif
@@ -17,14 +17,12 @@ export function register(user) {
 }
 
 export function addPet(pet) {
-	console.log(JSON.stringify(pet));
 	return axios.post('/api/pets', pet).then(() => {
 		return axios.post('/api/user/pet/' + pet.id);
 	});
 }
 
 export function addPost(post){
-	console.log(JSON.stringify(post));
 	return axios.post('/api/posts', post).then(() => {
 		return axios.post('/api/user/posts/' + post.id);
 	});
@@ -142,7 +140,7 @@ Actions.Types = {
 Actions.register = user => {
 	return (dispatch) => {
 		return register(user).then(() => {
-            createAccountNotif();
+			createAccountNotif();
 			return dispatch(Actions.authenticate(user.principal, user.password)).then(() => {
 				getUserDetails().then((user) => {
 					if(user.attributes['email'] === true)
@@ -164,7 +162,7 @@ Actions.authenticate = (username, password) => {
 			authentication => {
 				dispatch(Actions.setAuthentication(authentication));
 				return getUserDetails().then(user => {
-                    loginNotif(user.attributes['firstName']);
+					loginNotif(user.attributes['firstName']);
 					dispatch(Actions.setUser(user));
 				});
 			}
@@ -176,13 +174,13 @@ Actions.deleteAccount = user => {
 	return (dispatch) => {
 		return deleteAccount(user).then(() => {
 			deleteAccountNotif(user.attributes['firstName']);
-            const cookies = new Cookies();
-            cookies.remove('authentication');
-            cookies.remove('user');
+			const cookies = new Cookies();
+			cookies.remove('authentication');
+			cookies.remove('user');
 
-            dispatch(Actions.setPets(null));
-            dispatch(Actions.setAuthentication(null));
-            dispatch(Actions.setUser(null));
+			dispatch(Actions.setPets(null));
+			dispatch(Actions.setAuthentication(null));
+			dispatch(Actions.setUser(null));
 		});
 	};
 };
@@ -268,17 +266,15 @@ Actions.setPets = pets => {
 Actions.addPet = pet => {
 	return (dispatch) => {
 		return addPet(pet).then(() => {
-            addPetNotif(pet);
+			addPetNotif(pet);
 			return dispatch(Actions.fetchPets());
 		});
 	};
 };
 
 Actions.addPost = post => {
-	return (dispatch) => {
-		newPostNotif();
-		return addPost(post);
-	};
+	newPostNotif();
+	return addPost(post);
 };
 
 Actions.setPosts = posts => {

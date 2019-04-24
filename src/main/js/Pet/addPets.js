@@ -6,8 +6,6 @@ import * as ReduxForm from 'redux-form';
 import * as Validation from 'js/alloy/utils/validation';
 import _ from 'lodash';
 
-import {addPetNotif} from '../Common/notification';
-
 class ChoosePetList extends React.Component{
 	seconds = 0;
 	trigger = 0;

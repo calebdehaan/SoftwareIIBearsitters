@@ -27,25 +27,25 @@ export class Home extends React.Component {
 	render() {
 		return (
 			<div className="container padded">
-                <NavBarr.NavBar />
+				<NavBarr.NavBar />
 				<NotificationCenter.NotificationCenter/>
 				{this.state.message}
 				<p className="welcome">Welcome to the BearSitters!</p><br/>
-                <img style={{display: 'block', margin: 'auto'}} src={'statics/bearsitting.png'} alt="the bear will sit" title="the bear will sit"/>
-                { (!this.props.user) &&
-                <div className="valueProp">
-                    We are a group which seeks to allow pet owners to travel with ease. Our website allows pet
-                    owners and pet sitters to be linked up to make getting pets sat during periods of travel much easier.
-                </div>
-                }
-                <br/>
-                { (!this.props.user)  &&
-                <div className="registerButton">
-                    <a href = "#/register">
-                        <Bessemer.Button> Register for free! </Bessemer.Button>
-                    </a>
-                </div>
-                }
+				<img style={{display: 'block', margin: 'auto'}} src={'statics/bearsitting.png'} alt="the bear will sit" title="the bear will sit"/>
+				{ (!this.props.user) &&
+				<div className="valueProp">
+					We are a group which seeks to allow pet owners to travel with ease. Our website allows pet
+					owners and pet sitters to be linked up to make getting pets sat during periods of travel much easier.
+				</div>
+				}
+				<br/>
+				{ (!this.props.user)  &&
+				<div className="registerButton">
+					<a href = "#/register">
+						<Bessemer.Button> Register for free! </Bessemer.Button>
+					</a>
+				</div>
+				}
 				<Footer.Footer/>
 			</div>
 		);
@@ -57,7 +57,7 @@ export class RegisterPage extends React.Component {
 
 		return (
 			<div className="container padded">
-                <NavBarr.NavBar />
+				<NavBarr.NavBar />
 				<div className="row">
 					<div className="col-6 offset-md-3">
 						<h2>Register</h2>
@@ -74,7 +74,7 @@ export class LoginPage extends React.Component {
 	render() {
 		return (
 			<div className="container padded">
-                <NavBarr.NavBar />
+				<NavBarr.NavBar />
 				<div className="row">
 					<div className="col-6 offset-md-3">
 						<h2>Login</h2>
@@ -91,9 +91,9 @@ export class RequestSitting extends React.Component {
 	render() {
 		return (
 			<div className="container padded">
-                <NavBarr.NavBar />
-                This is request a sitting page. Enter the start and end date you want your pet sat.
-                <Request.Request/>
+				<NavBarr.NavBar />
+				This is request a sitting page. Enter the start and end date you want your pet sat.
+				<Request.Request/>
 
 			</div>
 		);
@@ -184,7 +184,7 @@ export class PublProfile extends React.Component {
 }
 
 Home = connect(
-    state => ({
-        user: Users.State.getUser(state),
-    })
+	state => ({
+		user: Users.State.getUser(state),
+	})
 )(Home);

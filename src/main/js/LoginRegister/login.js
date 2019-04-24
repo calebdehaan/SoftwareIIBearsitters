@@ -16,7 +16,7 @@ class LoginForm extends React.Component {
 
 	onSubmit = ({principal, password}) => {
 		return this.props.authenticate(principal, password);
-    };
+	};
 
 	render() {
 		let { handleSubmit, submitting } = this.props;

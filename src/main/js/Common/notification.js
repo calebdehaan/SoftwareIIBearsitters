@@ -1,7 +1,5 @@
 //Caleb DeHaan 14 april 2019
-
-import React from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast} from 'react-toastify';
 
 const applyNotif = () => toast.success('You have applied to the listing.');
 const updatePostNotif = () => toast.success('The post has been updated.');
