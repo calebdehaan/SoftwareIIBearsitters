@@ -3,6 +3,16 @@
 $fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome.scss";
 
+.footer{
+    border-top : 1px solid rgb(155, 155, 155);
+    padding-top: 0;
+    position: absolute;
+    bottom: 0;
+}
+
+h4{
+    text-align: center;
+}
 .navbar-brand{
     font-size: 31px;
 }
@@ -31,6 +41,7 @@ $fa-font-path: "~font-awesome/fonts";
 body{
     background-color: black;
     -webkit-text-fill-color: white;
+    margin-bottom: 80px;
 }
 
 .nav-item:hover{
@@ -111,12 +122,44 @@ input.form-control, input.form-control:focus{
 	margin-top: 0px;
 }
 
-.memberPic{
+.memberPicMichael{
     background: url(https://raw.githubusercontent.com/Michael-ibanez/PersonalWebsite/master/img/me.jpg) no-repeat !important;
     background-size: cover!important;
     background-position: center center !important;
     box-shadow: none !important;
     height: 300px;
+}
+
+.memberPicCaleb{
+  background: url(https://avatars0.githubusercontent.com/u/23562049?s=400&u=18581f78f1dcea0170d41af2bfc2b1277bc113b6&v=4) no-repeat !important;
+  background-size: cover!important;
+  background-position: center center !important;
+  box-shadow: none !important;
+  height: 300px;
+}
+
+.memberPicNeil{
+  background: url(https://media.licdn.com/dms/image/C4E03AQE6cPFfEgJv5w/profile-displayphoto-shrink_800_800/0?e=1561593600&v=beta&t=3bINdbHwsWj6OdrkfGYCZtLC85sjKiglnbQQA7L171M) no-repeat !important;
+  background-size: cover!important;
+  background-position: center center !important;
+  box-shadow: none !important;
+  height: 300px;
+}
+
+.memberPicAlli{
+  background: url(https://media.licdn.com/dms/image/C5603AQEPiV4FkNoAZA/profile-displayphoto-shrink_800_800/0?e=1561593600&v=beta&t=DClfKtbtJ3rTn_pFnzxpasoC_c67_V9QAfzty5oP8K0) no-repeat !important;
+  background-size: cover!important;
+  background-position: center center !important;
+  box-shadow: none !important;
+  height: 300px;
+}
+
+.memberPicWyatt{
+  background: url(http://www.urbancircus.co.uk/sitebuildercontent/sitebuilderpictures/webassets/unicyclist_unicycle.jpg) no-repeat !important;
+  background-size: cover!important;
+  background-position: center center !important;
+  box-shadow: none !important;
+  height: 300px;
 }
 
 .memberAbout{

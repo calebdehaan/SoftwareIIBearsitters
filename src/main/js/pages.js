@@ -68,6 +68,7 @@ export class RegisterPage extends React.Component {
 						<Register.RegistrationForm />
 					</div>
 				</div>
+                <Footer.Footer/>
 			</div>
 		);
 	}
@@ -85,6 +86,7 @@ export class LoginPage extends React.Component {
 						<Login.LoginForm />
 					</div>
 				</div>
+                <Footer.Footer/>
 			</div>
 		);
 	}
@@ -97,6 +99,7 @@ export class RequestSitting extends React.Component {
 				<NavBarr.NavBar />
 				This is request a sitting page. Enter the start and end date you want your pet sat.
 				<Request.Request/>
+                <Footer.Footer/>
 
 			</div>
 		);
@@ -110,6 +113,7 @@ export class Postings extends React.Component {
 				<NavBarr.NavBar />
 				These are all of the postings available.
 				<Post.Posting/>
+                <Footer.Footer/>
 			</div>
 		);
 	}
@@ -122,6 +126,7 @@ export class SitterPosts extends React.Component {
 				<NavBarr.NavBar />
 				These are all of the postings you have posted
 				<Post.MyPostings/>
+                <Footer.Footer/>
 			</div>
 		);
 	}
@@ -133,6 +138,7 @@ export class Profile extends React.Component {
 			<div className="container padded">
 				<NavBarr.NavBar />
 				<Prof.Profile/>
+                <Footer.Footer/>
 			</div>
 		);
 	}
@@ -144,6 +150,7 @@ export class FAQ extends React.Component {
 			<div className="container padded">
 				<NavBarr.NavBar />
 				<FAQPage/>
+                <Footer.Footer/>
 			</div>
 		);
 	}
@@ -155,6 +162,7 @@ export class Support extends React.Component {
 			<div className="container padded">
 				<NavBarr.NavBar />
 				<SupportPage/>
+                <Footer.Footer/>
 			</div>
 		);
 	}
@@ -166,6 +174,7 @@ export class AboutUs extends React.Component {
 			<div className="container padded">
 				<NavBarr.NavBar />
 				<AboutUsPage/>
+                <Footer.Footer/>
 			</div>
 		);
 	}
@@ -181,6 +190,7 @@ export class PublProfile extends React.Component {
 				<div className="row">
 					<PublicProf.PublicProfile match={this.props.match}/>
 				</div>
+                <Footer.Footer/>
 			</div>
 		);
 	}

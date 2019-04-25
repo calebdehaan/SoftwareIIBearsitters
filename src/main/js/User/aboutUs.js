@@ -28,7 +28,7 @@ class AboutUsPage extends React.Component {
 				<div className="row" style={{paddingTop:'0px', paddingBottom:'40px'}} >
 					<div className="col-lg-3 memberCard" style={{textAlign:'center',paddingRight:'0px',paddingLeft:'0px',float:'left'}}>
 						<a className="no--underline block" href="http://michaelibanez.org/">
-							<div className="memberPic" ></div>
+							<div className="memberPicMichael" ></div>
 						</a>
 						<div className="memberInfo ">
 							<h4> Michael Ibanez </h4>
@@ -46,38 +46,38 @@ class AboutUsPage extends React.Component {
 						</div>
 					</div>
 					<div className="col-lg-3 memberCard" style={{textAlign:'center',paddingRight:'0px',paddingLeft:'0px'}}>
-						<a className="no--underline block" href="">
-							<div className="memberPic" ></div>
+						<a className="no--underline block" href="https://www.calebdehaan.com/">
+							<div className="memberPicCaleb" ></div>
 						</a>
 						<div className="memberInfo ">
-							<h4> Michael Ibanez </h4>
+							<h4> Caleb DeHaan </h4>
 							<h6>Student at Baylor University </h6>
 							<div className="memberAbout" >
-								<a href="" style={{marginRight:'4px',display:'inline'}}> About </a> |
+								<a href="https://www.calebdehaan.com/" style={{marginRight:'4px',display:'inline'}}> About </a> |
 								<h6 style={{marginLeft:'2px',display:'inline'}}> Connect: </h6>
-								<a className="memberSocial" href="" target="_blank">
+								<a className="memberSocial" href="https://www.linkedin.com/in/calebdehaan/" target="_blank">
 									<i className="fa fa-linkedin"></i>
 								</a>
-								<a className="memberSocial" href="" target="_blank">
+								<a className="memberSocial" href="https://github.com/calebdehaan" target="_blank">
 									<i className="fa fa-github"></i>
 								</a>
 							</div>
 						</div>
 					</div>
 					<div className="col-lg-3 memberCard" style={{textAlign:'center',paddingRight:'0px',paddingLeft:'0px',marginRight:'0%'}}>
-						<a className="no--underline block" href="">
-							<div className="memberPic" ></div>
+						<a className="no--underline block" href="http://neilwilcoxson.com/">
+							<div className="memberPicNeil" ></div>
 						</a>
 						<div className="memberInfo ">
-							<h4> Michael Ibanez </h4>
+							<h4> Neil Wilcoxson </h4>
 							<h6>Student at Baylor University </h6>
 							<div className="memberAbout" >
-								<a href="" style={{marginRight:'4px',display:'inline'}}> About </a> |
+								<a href="http://neilwilcoxson.com/" style={{marginRight:'4px',display:'inline'}}> About </a> |
 								<h6 style={{marginLeft:'2px',display:'inline'}}> Connect: </h6>
-								<a className="memberSocial" href="" target="_blank">
+								<a className="memberSocial" href="https://www.linkedin.com/in/neilwilcoxson/" target="_blank">
 									<i className="fa fa-linkedin"></i>
 								</a>
-								<a className="memberSocial" href="" target="_blank">
+								<a className="memberSocial" href="https://github.com/neilwilcoxson" target="_blank">
 									<i className="fa fa-github"></i>
 								</a>
 							</div>
@@ -85,19 +85,19 @@ class AboutUsPage extends React.Component {
 					</div>
 
 					<div className="col-lg-3 memberCard memBot" style={{textAlign:'center',paddingRight:'0px',paddingLeft:'0px'}}>
-						<a className="no--underline block" href="">
-							<div className="memberPic" ></div>
+						<a className="no--underline block" href="https://www.linkedin.com/in/allijones/">
+							<div className="memberPicAlli" ></div>
 						</a>
 						<div className="memberInfo ">
-							<h4> Michael Ibanez </h4>
+							<h4> Alli Jones </h4>
 							<h6>Student at Baylor University </h6>
 							<div className="memberAbout" >
-								<a href="" style={{marginRight:'4px',display:'inline'}}> About </a> |
+								<a href="https://www.linkedin.com/in/allijones/" style={{marginRight:'4px',display:'inline'}}> About </a> |
 								<h6 style={{marginLeft:'2px',display:'inline'}}> Connect: </h6>
-								<a className="memberSocial" href="" target="_blank">
+								<a className="memberSocial" href="https://www.linkedin.com/in/allijones/" target="_blank">
 									<i className="fa fa-linkedin"></i>
 								</a>
-								<a className="memberSocial" href="" target="_blank">
+								<a className="memberSocial" href="https://github.com/allijones" target="_blank">
 									<i className="fa fa-github"></i>
 								</a>
 							</div>
@@ -105,10 +105,10 @@ class AboutUsPage extends React.Component {
 					</div>
 					<div className="col-lg-3 memberCard memBot" style={{textAlign:'center',paddingRight:'0px',paddingLeft:'0px'}}>
 						<a className="no--underline block" href="">
-							<div className="memberPic" ></div>
+							<div className="memberPicWyatt" ></div>
 						</a>
 						<div className="memberInfo ">
-							<h4> Michael Ibanez </h4>
+							<h4> Wyatt Snyder </h4>
 							<h6>Student at Baylor University </h6>
 							<div className="memberAbout" >
 								<a href="" style={{marginRight:'4px',display:'inline'}}> About </a> |
@@ -116,7 +116,7 @@ class AboutUsPage extends React.Component {
 								<a className="memberSocial" href="" target="_blank">
 									<i className="fa fa-linkedin"></i>
 								</a>
-								<a className="memberSocial" href="" target="_blank">
+								<a className="memberSocial" href="https://github.com/WyattSnyder" target="_blank">
 									<i className="fa fa-github"></i>
 								</a>
 							</div>
