@@ -14,11 +14,9 @@ class FAQPage extends React.Component {
 				<br/>
 				<h1>BearSitters FAQ</h1>
 				<br/>
-				<h2>What does Tempetūrs mean?</h2>
+				<h2>Tempetūrs</h2>
 				<div className="panel">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-						eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-						nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					<p>Tempetūrs is our sponsor
 					</p>
 				</div>
 
@@ -51,6 +49,27 @@ class FAQPage extends React.Component {
 						</dl>
 					</p>
 				</div>
+
+				<h2>Is there a limit to how many pets I can have?</h2>
+                <div className="panel">
+                    <p>No, there is no limit! You can add as many pets as you would like.  You can also delete pet
+                    entries if you need to.
+                    </p>
+                </div>
+
+                <h2>What if there are no pet sitters near me?</h2>
+                <div className="panel">
+                    <p>We find pet-sitters for you within a set range; you cannot manually change it.  If there are no
+                    pet sitters near you, we recommend changing your address to be in the nearest urban area to you so that you can
+                    find sitters, and communicate your rural address to them after you contact them.
+                    </p>
+                </div>
+
+                <h2>Can all pet owners on this site see my pet-sitter rating?</h2>
+                <div className="panel">
+                    <p>Yes!
+                    </p>
+                </div>
 
                 <h4>Do you have a question you'd like to ask us? Click the link for our contact info</h4>
 

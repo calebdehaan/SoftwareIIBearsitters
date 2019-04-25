@@ -322,8 +322,10 @@ class Request extends React.Component {
 				<div>
 					<div>
 						{_.isEmpty(this.state.unselectedPets) &&
-						<p>No pets available!</p>
+						<p>No pets available! </p>
+
 						}
+
 						{this.state.unselectedPets !== null && this.state.unselectedPets.map(pet => (
 							_.isDefined(pet) && _.isDefined(pet.petName) &&
 							<div key={pet.petName + '_' + pet.id}

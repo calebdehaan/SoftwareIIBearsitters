@@ -97,7 +97,7 @@ export class RequestSitting extends React.Component {
 		return (
 			<div className="container padded">
 				<NavBarr.NavBar />
-				This is request a sitting page. Enter the start and end date you want your pet sat.
+				<h5>Enter the start and end date of your trip so we can find you a pet sitter!</h5>
 				<Request.Request/>
                 <Footer.Footer/>
 
@@ -124,7 +124,12 @@ export class SitterPosts extends React.Component {
 		return (
 			<div className="container padded">
 				<NavBarr.NavBar />
-				These are all of the postings you have posted
+				Click here to add a posting!
+				<div className="registerButton">
+                    <a href = "#/request">
+                        <Bessemer.Button>Find a Sitter! </Bessemer.Button>
+                    </a>
+                </div>
 				<Post.MyPostings/>
                 <Footer.Footer/>
 			</div>
