@@ -8,7 +8,8 @@ class SupportPage extends React.Component {
 	}
 	render() {
 		return (
-			<div> hi
+            <div className="container padded horizontal-center">
+				If you need any support, please feel free to contact us!
 			</div>
 		);
 	}

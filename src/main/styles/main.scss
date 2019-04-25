@@ -6,13 +6,16 @@ $fa-font-path: "~font-awesome/fonts";
 .footer{
     border-top : 1px solid rgb(155, 155, 155);
     padding-top: 0;
-    position: absolute;
     bottom: 0;
+    height: 50px;
 }
 
 h4{
     text-align: center;
 }
+
+
+
 .navbar-brand{
     font-size: 31px;
 }
@@ -41,7 +44,7 @@ h4{
 body{
     background-color: black;
     -webkit-text-fill-color: white;
-    margin-bottom: 80px;
+    overflow: auto;
 }
 
 .nav-item:hover{
