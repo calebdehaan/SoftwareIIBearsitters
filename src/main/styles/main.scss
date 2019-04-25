@@ -75,6 +75,63 @@ input.form-control, input.form-control:focus{
 #main > div > div > div:nth-child(2) > div > div > ul > li:nth-child(4) > div > div > span > div > div.Select-menu-outer {
 	background-color:black;
 }
+.titreCarre {
+    position: relative;
+    margin-bottom: 2rem;
+    width: 75%;
+    padding-bottom: -moz-calc(75% - 1rem);
+    padding-bottom: calc(75% - 1rem);
+    height: 0;
+    border: .5rem solid currentColor;
+    color: #fff;
+    text-align: left;
+}
+
+.insideTeam .titreCarre {
+    margin-bottom: 0;
+}
+
+.titreCarre-internal {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    color: currentColor;
+}
+
+.memberCard{
+	display:inline;
+	background-color:grey;
+	margin-bottom:3%;
+	margin-right:12.5%;
+}
+
+.memberInfo{
+	margin-top: 0px;
+}
+
+.memberPic{
+    background: url(https://raw.githubusercontent.com/Michael-ibanez/PersonalWebsite/master/img/me.jpg) no-repeat !important;
+    background-size: cover!important;
+    background-position: center center !important;
+    box-shadow: none !important;
+    height: 300px;
+}
+
+.memberAbout{
+    margin-top: 8px !important;
+}
+
+.memBot{
+	margin-left:18.8%;
+	margin-right:-7%;
+}
+
+.memberSocial{
+	display:inline;
+	margin-right:5px;
+}
 
 
 
