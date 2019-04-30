@@ -10,7 +10,7 @@ class Sitter extends React.Component {
 	render() {
 		return (
 			<div>
-				This is for sitters
+
 			</div>
 		);
 	}

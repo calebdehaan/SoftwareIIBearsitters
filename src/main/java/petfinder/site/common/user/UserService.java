@@ -56,7 +56,7 @@ public class UserService {
 		private String email;
 		private List<String> pets;
 		private List<String> posts;
-		private List<String> ratings;
+		private List<Double> ratings;
 
 		public String getPrincipal() {
 			return principal;
@@ -79,7 +79,13 @@ public class UserService {
 			theAttributes.put("firstName", this.firstName);
 			theAttributes.put("lastName", this.lastName);
 			theAttributes.put("phone", this.phone);
-			theAttributes.put("email", this.email.equals("true"));
+			if(this.email != null) {
+				if(this.email.equals("true"))
+					theAttributes.put("email", "true");
+			}
+			else {
+				theAttributes.put("email", "false");
+			}
 
 			return theAttributes;
 		}
@@ -204,11 +210,18 @@ public class UserService {
 			this.posts = posts;
 		}
 
-		public List<String> getRatings() {
-			return ratings;
+		public List<Double> getRatings() {
+			if(this.ratings == null) {
+				this.ratings = new ArrayList<Double>();
+				this.ratings.add(3.0);
+				return this.ratings;
+			}
+			else{
+				return this.ratings;
+			}
 		}
 
-		public void setRatings(List<String> ratings) {
+		public void setRatings(List<Double> ratings) {
 			this.ratings = ratings;
 		}
 

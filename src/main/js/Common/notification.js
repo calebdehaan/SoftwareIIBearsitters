@@ -13,6 +13,8 @@ const createAccountNotif = () => toast.success('Glad to have you on board!');
 const deleteAccountNotif = () => toast.error('We\'re sorry to see you go. Hope to see you rejoin us in the future!');
 const loginNotif = (user) => toast.success('Welcome back, ' + user + '!');
 const logoutNotif = () => toast.success('Hope you see you soon!');
+const wrongDate = () => toast.error('Make sure the start and end times are at least an hour away from now!');
+const noPets = () => toast.error('Add at least one pet to the listing!');
 export {
     applyNotif,
     logoutNotif,
@@ -25,7 +27,9 @@ export {
     removePetNotif,
     createAccountNotif,
     deleteAccountNotif,
-    loginNotif
+    loginNotif,
+    wrongDate,
+    noPets
 };
 
 /*

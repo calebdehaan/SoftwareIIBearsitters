@@ -8,7 +8,7 @@ class Footer extends React.Component {
 				<div className="footer">
 					<div className="row mt-md-5 mb-md-5">
 						<div className="col-md-7">
-							&copy; 2018 BearSitters
+							&copy; 2019 BearSitters
 						</div>
 						<ul className="col-md-4 footer-links" style={{textAlign:'center'}} >
 							<li className="grow px-4" style={{display:'inline'}}><a href="/#/aboutUs">About Us</a></li>

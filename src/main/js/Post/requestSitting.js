@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as Users from '../User/users';
 import * as Bessemer from '../alloy/bessemer/components';
 import * as Validation from 'js/alloy/utils/validation';
+import {noPets, wrongDate} from 'js/Common/notification';
 
 
 class Request extends React.Component {
@@ -44,6 +45,7 @@ class Request extends React.Component {
 
 
 	onSubmit = posting => {
+		let today = new Date;
 		let newPosting = JSON.parse(JSON.stringify(posting));
 		let postStartHour = this.state.postStartHour;
 		let postEndHour = this.state.postEndHour;
@@ -83,10 +85,14 @@ class Request extends React.Component {
 
 		this.props.dispatch(ReduxForm.reset('posting'));
 
-		if(newPosting.pets !== null)
-			this.props.addPost(newPosting);
+		if(newPosting.pets !== null) {
+			if (today.getTime() > newPosting.startDate.getTime())
+				wrongDate();
+			else
+				this.props.addPost(newPosting);
+		}
 		else
-			return;
+			noPets();
 	};
 
 	minuteStartChange = e => {

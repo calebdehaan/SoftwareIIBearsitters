@@ -38,7 +38,23 @@ class MyPostings extends React.Component {
 		}
 	};
 
+	checkIfTimeToRate(today,endDate){
+		let endDatee = new Date(endDate);
+		console.log(today.getTime() > endDatee.getTime());
+		return today.getTime() > endDatee.getTime();
+
+	}
+
 	deletePost = (e, id) => {
+		this.props.dUsersPosts(id).then(() => {
+			this.props.fUsersPosts().then(() => {
+				this.state.toggle = !this.state.toggle;
+				this.setState(this.state);
+			});
+		});
+	};
+
+	cancelPost = (e, id) => {
 		this.props.dUsersPosts(id).then(() => {
 			this.props.fUsersPosts().then(() => {
 				this.state.toggle = !this.state.toggle;
@@ -86,7 +102,14 @@ class MyPostings extends React.Component {
 		this.props.updatePost(post);
 	};
 
+	addRating = (post) =>{
+
+		this.props.dUsersPosts(post.id);
+
+	};
+
 	render() {
+		let today = new Date();
 		return (
 			<div>
 				{_.isDefined(this.props.posts) && this.props.posts.length !== 0 &&
@@ -155,12 +178,24 @@ class MyPostings extends React.Component {
 									</div>
 								</li>
 								}
-								{!_.isEmpty(post.sitterPrincipal) &&
+								{!this.checkIfTimeToRate(today,post.endDate) && !_.isEmpty(post.sitterPrincipal) &&
 								<li className="list-group-item" style={{backgroundColor: 'black'}} >
 									<span> Sitter is {post.sitterPrincipal}</span>
 								</li>
 								}
+								{!this.checkIfTimeToRate(today,post.endDate) &&!_.isEmpty(post.sitterPrincipal) &&
+								<Bessemer.Button onClick={(e) => {
+									this.cancelPost(e, post.id);
+								}}
+												 style={{
+													 backgroundColor: 'black',
+													 borderColor: 'black',
+													 float: 'right'
+												 }}> Cancel Post <i
+									className='fa fa-paper-plane '></i></Bessemer.Button>
+								}
 							</ul>
+							{!this.checkIfTimeToRate(today,post.endDate) && _.isEmpty(post.sitterPrincipal) &&
 							<Bessemer.Button onClick={(e) => {
 								this.deletePost(e, post.id);
 							}}
@@ -170,6 +205,14 @@ class MyPostings extends React.Component {
 												 float: 'right'
 											 }}> Delete Post <i
 								className='fa fa-paper-plane '></i></Bessemer.Button>
+							}
+
+							{this.checkIfTimeToRate(today,post.endDate) &&
+							<Bessemer.Button onClick={(e) => {
+								this.addRating(post);
+							}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}> Rate the sitter {post.ownerPrincipal} <i
+								className='fa fa-paper-plane '></i></Bessemer.Button>
+							}
 						</div>
 					))}
 				</div>
@@ -271,6 +314,7 @@ class Posting extends React.Component {
 	};
 
 	render() {
+		let today = new Date();
 		return (
 			<div>
 				{/* This displays all the posts unless a query is produced */}
@@ -298,7 +342,7 @@ class Posting extends React.Component {
 									{ _.isDefined(post.pets) && post.pets.map((petID) => (
 										<div key={petID} className="card m-sm-0"
 											 style={{backgroundColor: 'black'}}>
-											<ul className="list-group list-group-flush"style={{maxHeight:'140px'}}>
+											<ul className="list-group list-group-flush" style={{maxHeight:'140px'}}>
 												{this.displayThePet(petID).map((pet) => (
 													<li key={pet} className="list-group-item" style={{backgroundColor: 'black',textAlign:'center',maxHeight:'35px'}}>
 														<span style={{fontSize:'13px'}} >{pet}</span>

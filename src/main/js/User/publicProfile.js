@@ -14,29 +14,10 @@ class PublicProfile extends React.Component {
 	}
 
 	componentDidMount() {
-		let promise = new Promise((resolve, reject) => {
-			setTimeout(() => {
-				Users.getPublicUser(this.props.match.params.id).then(user => {
-					this.fillPets(user.pets,resolve);
-					this.state.publicUser = user;
-					this.setState(this.state);
-			}, 4000); // resolve
-			});
-		});
-
-		// wait for the promise to resolve
-		let result = promise;
-
-		// console log the result (true)
-		console.log(result);
-	}
-
-	fillPets(pets,resolve) {
-		let list = [];
-		pets.forEach(pet => {
-			this.state.pets[pet] = Users.getPetDetails(pet).then(resolve => {
-				this.setState(this.state);
-			});
+		Users.getPublicUser(this.props.match.params.id).then(user => {
+			this.state.hasLoaded = true;
+			this.state.publicUser = user;
+			this.setState(this.state);
 		});
 	}
 
@@ -72,14 +53,6 @@ class PublicProfile extends React.Component {
 						<p>{this.state.publicUser.principal}</p>
 						<h4>Phone</h4>
 						<p>{this.state.publicUser.attributes['phone']}</p>
-						{this.state.publicUser.roles.includes('OWNER') && !_.isNull(this.state.publicUser.pets) &&
-						<div className="d-md-flex flex-md-wrap justify-content-md-start">
-							{this.state.publicUser.pets.map(pet => ( _.isDefined(this.state.pets[pet]) &&
-								<li key={pet} > {this.state.pets[pet].petName} </li>
-							))}
-						</div>
-						}
-
 						{this.state.publicUser.roles.includes('SITTER') &&
 						<h4>Ratings</h4>
 						}

@@ -30,7 +30,7 @@ public class UserTest {
         Map<String, Object> address = new HashMap<>();
         List<String> pets = Arrays.asList("123","122");
         List<String> posts = Arrays.asList("123222","122111");
-        List<String> ratings = Arrays.asList("1222","1211");
+        List<Double> ratings = Arrays.asList(1221.0,1222.0);
 
         //call constructor
         UserDto dto = new UserDto(principal, roles, attributes, address, pets, posts, ratings);

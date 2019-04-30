@@ -25,6 +25,7 @@ export class Home extends React.Component {
 	}
 
 	componentDidMount(){
+
 	}
 
 	render() {
@@ -127,7 +128,7 @@ export class SitterPosts extends React.Component {
 				Click here to add a posting!
 				<div className="registerButton">
                     <a href = "#/request">
-                        <Bessemer.Button>Find a Sitter! </Bessemer.Button>
+                        <Bessemer.Button>Request a sitter! </Bessemer.Button>
                     </a>
                 </div>
 				<Post.MyPostings/>
