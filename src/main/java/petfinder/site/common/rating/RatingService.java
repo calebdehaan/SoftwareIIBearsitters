@@ -17,6 +17,10 @@ public class RatingService {
 		return ratingDao.getRating(id);
 	}
 
+	public Optional<Double> getUserAverage(String username) {
+		return ratingDao.getUserAvg(username);
+	}
+
 	public static class RatingQuery {
 		private String principal;
 		private int numStars;

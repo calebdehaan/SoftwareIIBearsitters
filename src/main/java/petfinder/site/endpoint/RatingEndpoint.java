@@ -26,4 +26,9 @@ public class RatingEndpoint {
   public Optional<RatingDto> getRating(@PathVariable("id") String id) {
     return ratingService.getRating(id);
   }
+
+  @GetMapping(value = "/{username}", produces = "application/json")
+  public Optional<Double> getUserAverage(@PathVariable("username") String username) {
+    return ratingService.getUserAverage(username);
+  }
 }
