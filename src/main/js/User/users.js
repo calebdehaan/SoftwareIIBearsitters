@@ -108,6 +108,10 @@ export function deletePost(id) {
 	});
 }
 
+export function cancelPosting(id){
+	return axios.post('/api/posts/cancel/' + id);
+}
+
 let State = {};
 
 State.getAuthentication = state => {

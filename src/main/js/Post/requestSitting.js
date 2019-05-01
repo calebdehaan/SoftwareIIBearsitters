@@ -81,11 +81,13 @@ class Request extends React.Component {
 		newPosting.sitterPrincipal = '';
 		newPosting.startDate = startDate;
 		newPosting.endDate = endDate;
+		newPosting.isComplete = false;
+		newPosting.isCancelled = false;
 		newPosting.pets = listOfPets;
 
 		this.props.dispatch(ReduxForm.reset('posting'));
 
-		if(newPosting.pets !== null) {
+		if(!_.isEmpty(newPosting.pets)) {
 			if (today.getTime() > newPosting.startDate.getTime())
 				wrongDate();
 			else

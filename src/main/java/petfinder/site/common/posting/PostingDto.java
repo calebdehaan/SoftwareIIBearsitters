@@ -1,6 +1,5 @@
 package petfinder.site.common.posting;
 import alloy.util.Momento;
-import petfinder.site.common.pet.PetDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +10,9 @@ public class PostingDto implements Momento<String> {
 	private String sitterPrincipal;
 	private String startDate;
 	private String endDate;
+	private Boolean isComplete;
+	private Boolean isCancelled;
+	private Double postingRating;
 	private List<String> pets;
 	private List<String> possibleSitters;
 
@@ -18,12 +20,15 @@ public class PostingDto implements Momento<String> {
 	}
 
 	public PostingDto(String id, String ownerPrincipal, String sitterPrincipal, String startDate,
-			String endDate, List<String> pets, List<String> possibleSitters) {
+			String endDate, Boolean isComplete, Boolean isCancelled, Double postingRating, List<String> pets, List<String> possibleSitters) {
 		setId(id);
 		setOwnerPrincipal(ownerPrincipal);
 		setSitterPrincipal(sitterPrincipal);
 		setStartDate(startDate);
 		setEndDate(endDate);
+		setIsCancelled(isCancelled);
+		setIsComplete(isComplete);
+		setPostingRating(postingRating);
 		setPets(pets);
 		setPossibleSitters(possibleSitters);
 	}
@@ -90,6 +95,31 @@ public class PostingDto implements Momento<String> {
 		}
 		this.possibleSitters.add(principal);
 	}
+
+	public Double getPostingRating() {
+		return postingRating;
+	}
+
+	public void setPostingRating(Double postingRating) {
+		this.postingRating = postingRating;
+	}
+
+	public Boolean getIsCancelled() {
+		return isCancelled;
+	}
+
+	public void setIsCancelled(Boolean isCancelled) {
+		this.isCancelled = isCancelled;
+	}
+
+	public Boolean getIsComplete() {
+		return isComplete;
+	}
+
+	public void setIsComplete(Boolean isComplete) {
+		this.isComplete = isComplete;
+	}
+
 
 	public boolean isEmpty() {
 		return id == null;

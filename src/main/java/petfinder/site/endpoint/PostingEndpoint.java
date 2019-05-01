@@ -23,7 +23,7 @@ public class PostingEndpoint {
 	}
 
 	@PostMapping(value = "/update")
-	public void updatePet(@RequestBody PostingDto post) {
+	public void updatePost(@RequestBody PostingDto post) {
 		postingService.save(post);
 	}
 
@@ -42,6 +42,11 @@ public class PostingEndpoint {
 	@GetMapping(value = "/all", produces = "application/json")
 	public List<Optional<PostingDto>> getAllPostings() {
 		return postingService.findAllPostings();
+	}
+
+	@PostMapping(value = "/cancel/{id}")
+	public void cancelSession(@PathVariable("id") String id) {
+		postingService.cancelPost(id);
 	}
 
 	@PostMapping(value = "/delete/{id}")

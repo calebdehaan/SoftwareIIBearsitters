@@ -40,7 +40,6 @@ class MyPostings extends React.Component {
 
 	checkIfTimeToRate(today,endDate){
 		let endDatee = new Date(endDate);
-		console.log(today.getTime() > endDatee.getTime());
 		return today.getTime() > endDatee.getTime();
 
 	}
@@ -54,13 +53,13 @@ class MyPostings extends React.Component {
 		});
 	};
 
-	cancelPost = (e, id) => {
-		this.props.dUsersPosts(id).then(() => {
-			this.props.fUsersPosts().then(() => {
-				this.state.toggle = !this.state.toggle;
-				this.setState(this.state);
+	cancelPosting = (e, post) => {
+		console.log(post);
+		if(post && post.id) {
+			Users.cancelPosting(post.id).then(() => {
+				this.props.updatePost(post);
 			});
-		});
+		}
 	};
 
 	displayThePet = pet =>{
@@ -98,14 +97,20 @@ class MyPostings extends React.Component {
 	chooseSitter = (post) => {
 		post.sitterPrincipal = this.state.sitterChosen;
 		post.possibleSitters.splice(post.possibleSitters.indexOf(this.state.sitterChosen), 1);
-
+		console.log(post);
 		this.props.updatePost(post);
 	};
 
 	addRating = (post) =>{
+		let endDatee = new Date(post.endDate);
+		let today = new Date();
+		let check = today.getTime() > endDatee.getTime();
 
-		this.props.dUsersPosts(post.id);
-
+		if(check) {
+			console.log(post);
+			post.isComplete = true;
+			this.props.updatePost(post);
+		}
 	};
 
 	render() {
@@ -114,7 +119,7 @@ class MyPostings extends React.Component {
 			<div>
 				{_.isDefined(this.props.posts) && this.props.posts.length !== 0 &&
 				<div className="d-md-flex flex-md-wrap justify-content-md-start">
-					{this.props.posts.map(post => (_.isDefined(post) && _.isDefined(post.id) &&
+					{this.props.posts.map(post => (_.isDefined(post) && _.isDefined(post.id) && !post.isComplete &&
 						<div key={post.id} className="card m-sm-0" style={{backgroundColor: 'black'}}>
 							<ul className="list-group list-group-flush">
 								<li className="list-group-item" style={{backgroundColor: 'black'}}>
@@ -183,9 +188,10 @@ class MyPostings extends React.Component {
 									<span> Sitter is {post.sitterPrincipal}</span>
 								</li>
 								}
+
 								{!this.checkIfTimeToRate(today,post.endDate) &&!_.isEmpty(post.sitterPrincipal) &&
 								<Bessemer.Button onClick={(e) => {
-									this.cancelPost(e, post.id);
+									this.cancelPosting(e, post);
 								}}
 												 style={{
 													 backgroundColor: 'black',
@@ -195,7 +201,19 @@ class MyPostings extends React.Component {
 									className='fa fa-paper-plane '></i></Bessemer.Button>
 								}
 							</ul>
-							{!this.checkIfTimeToRate(today,post.endDate) && _.isEmpty(post.sitterPrincipal) &&
+							{(!this.checkIfTimeToRate(today, post.endDate) && _.isEmpty(post.sitterPrincipal) &&
+								<Bessemer.Button onClick={(e) => {
+									this.deletePost(e, post.id);
+								}}
+												 style={{
+													 backgroundColor: 'black',
+													 borderColor: 'black',
+													 float: 'right'
+												 }}> Delete Post <i
+									className='fa fa-paper-plane '></i></Bessemer.Button>
+							)
+							||(
+							post.cancelled === true &&
 							<Bessemer.Button onClick={(e) => {
 								this.deletePost(e, post.id);
 							}}
@@ -205,9 +223,9 @@ class MyPostings extends React.Component {
 												 float: 'right'
 											 }}> Delete Post <i
 								className='fa fa-paper-plane '></i></Bessemer.Button>
-							}
+							)}
 
-							{this.checkIfTimeToRate(today,post.endDate) &&
+							{this.checkIfTimeToRate(today,post.endDate) && post.isComplete === true &&
 							<Bessemer.Button onClick={(e) => {
 								this.addRating(post);
 							}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}> Rate the sitter {post.ownerPrincipal} <i

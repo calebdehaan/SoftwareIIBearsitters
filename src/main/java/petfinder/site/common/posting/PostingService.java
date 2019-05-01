@@ -29,37 +29,11 @@ public class PostingService {
 		return postingDao.findRecommendedPostings(user);
 	}
 
-	public void deletePost(String id) {
-		postingDao.delete(id);
+	public void cancelPost(String id) {
+		postingDao.cancel(id);
 	}
 
-	public static class PostingQuery {
-		private List<String> pets;
-		private String dateRangeStart;
-		private String dateRangeEnd;
-
-		public List<String> getPets() {
-			return pets;
-		}
-
-		public void setPets(List<String> pets) {
-			this.pets = pets;
-		}
-
-		public String getDateRangeStart() {
-			return dateRangeStart;
-		}
-
-		public void setDateRangeStart(String dateRangeStart) {
-			this.dateRangeStart = dateRangeStart;
-		}
-
-		public String getDateRangeEnd() {
-			return dateRangeEnd;
-		}
-
-		public void setDateRangeEnd(String dateRangeEnd) {
-			this.dateRangeEnd = dateRangeEnd;
-		}
+	public void deletePost(String id) {
+		postingDao.delete(id);
 	}
 }
