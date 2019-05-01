@@ -57,7 +57,10 @@ class MyPostings extends React.Component {
 		console.log(post);
 		if(post && post.id) {
 			Users.cancelPosting(post.id).then(() => {
-				this.props.updatePost(post);
+				this.props.fUsersPosts().then(() => {
+					this.state.hasLoaded = true;
+					this.setState(this.state);
+				});
 			});
 		}
 	};
@@ -113,13 +116,27 @@ class MyPostings extends React.Component {
 		}
 	};
 
+	checkPost = (post) =>{
+		let endDatee = new Date(post.endDate);
+		let today = new Date();
+		let check = today.getTime() > endDatee.getTime();
+
+		if(check) {
+			console.log(post);
+			post.isComplete = true;
+			this.props.updatePost(post);
+		}
+
+		return true;
+	};
+
 	render() {
 		let today = new Date();
 		return (
 			<div>
 				{_.isDefined(this.props.posts) && this.props.posts.length !== 0 &&
 				<div className="d-md-flex flex-md-wrap justify-content-md-start">
-					{this.props.posts.map(post => (_.isDefined(post) && _.isDefined(post.id) && !post.isComplete &&
+					{this.props.posts.map(post => (_.isDefined(post) && _.isDefined(post.id) && _.isNull(post.postingRating) &&
 						<div key={post.id} className="card m-sm-0" style={{backgroundColor: 'black'}}>
 							<ul className="list-group list-group-flush">
 								<li className="list-group-item" style={{backgroundColor: 'black'}}>
@@ -189,7 +206,7 @@ class MyPostings extends React.Component {
 								</li>
 								}
 
-								{!this.checkIfTimeToRate(today,post.endDate) &&!_.isEmpty(post.sitterPrincipal) &&
+								{!this.checkIfTimeToRate(today,post.endDate) && !_.isEmpty(post.sitterPrincipal) && post.isCancelled !== true &&
 								<Bessemer.Button onClick={(e) => {
 									this.cancelPosting(e, post);
 								}}
@@ -200,6 +217,7 @@ class MyPostings extends React.Component {
 												 }}> Cancel Post <i
 									className='fa fa-paper-plane '></i></Bessemer.Button>
 								}
+
 							</ul>
 							{(!this.checkIfTimeToRate(today, post.endDate) && _.isEmpty(post.sitterPrincipal) &&
 								<Bessemer.Button onClick={(e) => {
@@ -213,7 +231,7 @@ class MyPostings extends React.Component {
 									className='fa fa-paper-plane '></i></Bessemer.Button>
 							)
 							||(
-							post.cancelled === true &&
+							post.isCancelled === true &&
 							<Bessemer.Button onClick={(e) => {
 								this.deletePost(e, post.id);
 							}}
@@ -225,7 +243,7 @@ class MyPostings extends React.Component {
 								className='fa fa-paper-plane '></i></Bessemer.Button>
 							)}
 
-							{this.checkIfTimeToRate(today,post.endDate) && post.isComplete === true &&
+							{post.isComplete === true &&
 							<Bessemer.Button onClick={(e) => {
 								this.addRating(post);
 							}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}> Rate the sitter {post.ownerPrincipal} <i

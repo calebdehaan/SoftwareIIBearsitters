@@ -46,12 +46,6 @@ public class PostingDao {
 
 			}
 		}
-		System.out.println("owner :" + posting.getOwnerPrincipal());
-		System.out.println("sitter :" + posting.getSitterPrincipal());
-		System.out.println("isComplete :" + posting.getIsComplete());
-		System.out.println("isCancelled :" + posting.getIsCancelled());
-		System.out.println("rating :" + posting.getPostingRating());
-		System.out.println("id :" + posting.getId());
 		postingElasticsearchRepository.save(posting);
 	}
 
@@ -106,15 +100,10 @@ public class PostingDao {
 		Optional<PostingDto> optionalPostingDto = findPosting(id);
 		if(optionalPostingDto.isPresent()){
 			PostingDto postingDto = optionalPostingDto.get();
-			postingDto.setIsCancelled(true);
-			System.out.println("owner :" + postingDto.getOwnerPrincipal());
-			System.out.println("sitter :" + postingDto.getSitterPrincipal());
-			System.out.println("isComplete :" + postingDto.getIsComplete());
-			System.out.println("isCancelled :" + postingDto.getIsCancelled());
-			System.out.println("rating :" + postingDto.getPostingRating());
-			System.out.println("id :" + postingDto.getId());
-			System.out.println();
-			postingElasticsearchRepository.save(postingDto);
+			PostingDto newPost = new PostingDto(postingDto.getId(), postingDto.getOwnerPrincipal(), postingDto.getSitterPrincipal(), postingDto.getStartDate(),
+					postingDto.getEndDate(), postingDto.getIsComplete(), true, 0.0, postingDto.getPets(), postingDto.getPossibleSitters());
+
+			postingElasticsearchRepository.save(newPost);
 		}
 	}
 
