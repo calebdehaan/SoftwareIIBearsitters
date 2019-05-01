@@ -41,7 +41,7 @@
     "enzyme": "2.8.0",
     "eslint": "^3.18.0",
     "eslint-loader": "^1.7.0",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "extract-text-webpack-plugin": "^2.1.0",
@@ -49,8 +49,8 @@
     "fingerprintjs2": "^1.5.1",
     "glob": "^7.1.2",
     "install": "^0.8.7",
-    "jest": "^24.1.0",
-    "node-sass": "^4.5.2",
+    "jest": "^24.7.1",
+    "node-sass": "^4.12.0",
     "postcss-loader": "^1.2.2",
     "precss": "^1.4.0",
     "react-addons-test-utils": "^15.5.1",
@@ -58,7 +58,7 @@
     "style-loader": "^0.13.2",
     "url-loader": "^1.1.2",
     "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.9.7"
+    "webpack-dev-server": "^2.11.5"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
@@ -70,20 +70,21 @@
     "lodash": "^4.17.4",
     "prop-types": "^15.7.2",
     "react": "16.2.0",
-    "react-datepicker": "^2.1.0",
+    "react-datepicker": "^2.5.0",
     "react-dom": "16.2.0",
     "react-favicon": "0.0.14",
     "react-hot-loader": "4.0.0-beta.14",
+    "react-ratings-declarative": "^3.4.1",
     "react-redux": "^5.0.2",
     "react-router-dom": "4.2.0",
     "react-select": "1.2.1",
-    "react-toastify": "^5.0.1",
+    "react-toastify": "^5.1.0",
     "reactstrap": "5.0.0-alpha.4",
     "redux": "3.7.2",
     "redux-form": "^6.8.0",
     "redux-logger": "^2.8.2 ",
     "redux-thunk": "^2.2.0",
-    "universal-cookie": "^3.0.7",
-    "webpack-cli": "^3.2.3"
+    "universal-cookie": "^3.1.0",
+    "webpack-cli": "^3.3.1"
   }
 }

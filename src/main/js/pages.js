@@ -7,7 +7,6 @@ import * as Prof from 'js/User/profile';
 import * as PublicProf from 'js/User/publicProfile';
 import * as Request from 'js/Post/requestSitting';
 import * as Post from 'js/Post/postings';
-import * as NotificationCenter from 'js/Common/notificationCenter';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from './User/users';
 import * as Bessemer from 'js/alloy/bessemer/components';
@@ -25,14 +24,14 @@ export class Home extends React.Component {
 	}
 
 	componentDidMount(){
-
 	}
+
+
 
 	render() {
 		return (
 			<div className="container padded">
 				<NavBarr.NavBar />
-				<NotificationCenter.NotificationCenter/>
 				{this.state.message}
 				<p className="welcome">Welcome to the BearSitters!</p><br/>
 				<img style={{display: 'block', margin: 'auto'}} src={'statics/bearsitting.png'} alt="the bear will sit" title="the bear will sit"/>
@@ -128,7 +127,7 @@ export class SitterPosts extends React.Component {
 				Click here to add a posting!
 				<div className="registerButton">
                     <a href = "#/request">
-                        <Bessemer.Button>Request a sitter! </Bessemer.Button>
+                        <Bessemer.Button>Find a Sitter! </Bessemer.Button>
                     </a>
                 </div>
 				<Post.MyPostings/>
