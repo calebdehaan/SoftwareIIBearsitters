@@ -232,7 +232,7 @@ class MyPostings extends React.Component {
 								className='fa fa-paper-plane '></i></Bessemer.Button>
 							)}
 
-							{post.isComplete === true &&
+							{post.isComplete === true && !_.isEmpty(post.sitterPrincipal) &&
 							<Ratings.Rating postToRate={post}/>
 							}
 

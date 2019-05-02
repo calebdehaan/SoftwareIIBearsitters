@@ -67,9 +67,11 @@ class FAQPage extends React.Component {
 
                 <h2>Can all pet owners on this site see my pet-sitter rating?</h2>
                 <div className="panel">
-                    <p>Yes!
+                    <p>Yes! Just type in the email of the person you'd like to visit like this : https://bearsitters.herokuapp.com/#/publicprofile/EMAIL HERE
                     </p>
                 </div>
+
+
 
                 <h4>Do you have a question you'd like to ask us? Click the link for our contact info</h4>
 
