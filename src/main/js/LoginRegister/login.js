@@ -1,12 +1,11 @@
 import React from 'react';
 import * as ReduxForm from 'redux-form';
 import { connect } from 'react-redux';
-
 import * as Validation from '../alloy/utils/validation';
 import * as Bessemer from '../alloy/bessemer/components';
-
 import * as Users from '../User/users';
 import Redirect from 'react-router-dom/es/Redirect';
+import  {incorrectLogin} from 'js/Common/notification';
 
 
 class LoginForm extends React.Component {

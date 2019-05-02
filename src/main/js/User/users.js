@@ -9,7 +9,8 @@ import {
 	cancelPostNotif,
 	removePetNotif,
 	updatePostNotif,
-	logoutNotif
+	logoutNotif,
+	incorrectLogin,
 } from '../Common/notification';
 
 export function register(user) {
@@ -178,6 +179,9 @@ Actions.authenticate = (username, password) => {
 					loginNotif(user.attributes['firstName']);
 					dispatch(Actions.setUser(user));
 				});
+			}
+		).catch( () => {
+				incorrectLogin();
 			}
 		);
 	};

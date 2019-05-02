@@ -42,6 +42,12 @@ class EditProfile1 extends React.Component {
 			}
 			userToUpdate.pets = list;
 		}
+		if(userToUpdate.posts == null){
+			userToUpdate.posts = this.props.user.posts;
+		}
+		if(userToUpdate.ratings == null){
+			userToUpdate.ratings = this.props.user.ratings;
+		}
 
 		Users.updateUser(userToUpdate).then(() => {
 			this.props.fetchUser().then(() => {
@@ -125,6 +131,12 @@ class EditProfile2 extends React.Component {
 				list.push(this.props.pets[Pet].id);
 			}
 			userToUpdate.pets = list;
+		}
+		if(userToUpdate.posts == null){
+			userToUpdate.posts = this.props.user.posts;
+		}
+		if(userToUpdate.ratings == null){
+			userToUpdate.ratings = this.props.user.ratings;
 		}
 
 		Users.updateUser(userToUpdate).then(() => {
@@ -211,6 +223,12 @@ class EditProfile3 extends React.Component {
 			}
 			userToUpdate.pets = list;
 		}
+		if(userToUpdate.posts == null){
+			userToUpdate.posts = this.props.user.posts;
+		}
+		if(userToUpdate.ratings == null){
+			userToUpdate.ratings = this.props.user.ratings;
+		}
 
 		Users.updateUser(userToUpdate).then(() => {
 			this.props.fetchUser().then(() => {
@@ -284,12 +302,21 @@ class EditProfile4 extends React.Component {
 			}
 			userToUpdate.pets = list;
 		}
+		if(userToUpdate.posts == null){
+			userToUpdate.posts = this.props.user.posts;
+		}
+		if(userToUpdate.ratings == null){
+			userToUpdate.ratings = this.props.user.ratings;
+		}
 
-		Users.updateUser(userToUpdate).then(() => {
-			this.props.fetchUser().then(() => {
-				this.props.dispatch(ReduxForm.reset('editProfile4'));
-				this.setState(this.state);
-				this.props.action();
+
+		Users.deleteAccount().then(() => {
+			Users.register(userToUpdate).then(() => {
+				this.props.fetchUser().then(() => {
+					this.props.dispatch(ReduxForm.reset('editProfile4'));
+					this.setState(this.state);
+					this.props.action();
+				});
 			});
 		});
 	};
@@ -376,6 +403,12 @@ class EditProfile5 extends React.Component {
 				list.push(this.props.pets[Pet].id);
 			}
 			userToUpdate.pets = list;
+		}
+		if(userToUpdate.posts == null){
+			userToUpdate.posts = this.props.user.posts;
+		}
+		if(userToUpdate.ratings == null){
+			userToUpdate.ratings = this.props.user.ratings;
 		}
 
 		Users.updateUser(userToUpdate).then(() => {

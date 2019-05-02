@@ -15,6 +15,7 @@ const loginNotif = (user) => toast.success('Welcome back, ' + user + '!');
 const logoutNotif = () => toast.success('Hope you see you soon!');
 const wrongDate = () => toast.error('Make sure the start and end times are at least an hour away from now!');
 const noPets = () => toast.error('Add at least one pet to the listing!');
+const incorrectLogin = () => toast.error('Bad credentials! Try again');
 export {
     applyNotif,
     logoutNotif,
@@ -29,7 +30,8 @@ export {
     deleteAccountNotif,
     loginNotif,
     wrongDate,
-    noPets
+    noPets,
+    incorrectLogin,
 };
 
 /*
