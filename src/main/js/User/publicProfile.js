@@ -52,7 +52,7 @@ class PublicProfile extends React.Component {
 	render() {
 		return (
 			<div>
-				{(_.isEmpty(this.state.publicUser) && _.isEmpty(this.state.pets) )?
+				{(_.isEmpty(this.state.publicUser) )?
 					<div>
 						<h1>The user {this.props.match.params.id} does not exist! </h1>
 					</div>
