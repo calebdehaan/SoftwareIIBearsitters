@@ -88,9 +88,6 @@ class Request extends React.Component {
 		this.props.dispatch(ReduxForm.reset('posting'));
 
 		if(!_.isEmpty(newPosting.pets)) {
-			if (today.getTime() > newPosting.startDate.getTime())
-				wrongDate();
-			else
 				this.props.addPost(newPosting);
 		}
 		else

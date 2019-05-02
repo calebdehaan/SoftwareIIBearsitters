@@ -11,15 +11,18 @@ public class UserPublicDto implements Momento<String> {
 	private List<String> roles;
 	private Map<String, Object> attributes;
 	private List<String> pets;
+	private List<Double> ratings;
+	private int posts;
 
 	private UserPublicDto() {
 	}
 
-	public UserPublicDto(String principal, List<String> roles, Map<String, Object> attributes, List<String> pets) {
+	public UserPublicDto(String principal, List<String> roles, Map<String, Object> attributes, List<String> pets, List<Double> ratings) {
 		this.principal = principal;
 		this.roles = roles;
 		this.attributes = attributes;
 		this.pets = pets;
+		this.ratings = ratings;
 	}
 
 	public UserPublicDto(UserDto user) {
@@ -27,6 +30,8 @@ public class UserPublicDto implements Momento<String> {
 		this.roles = user.getRoles();
 		this.attributes = user.getAttributes();
 		this.pets = user.getPets();
+		this.ratings = user.getRatings();
+		this.posts = user.getPosts().size();
 	}
 
 	public String getPrincipal() {
@@ -59,6 +64,22 @@ public class UserPublicDto implements Momento<String> {
 
 	public void setPets(List<String> pets) {
 		this.pets = pets;
+	}
+
+	public List<Double> getRating() {
+		return ratings;
+	}
+
+	public void setRatings(List<Double> ratings) {
+		this.ratings = ratings;
+	}
+
+	public int getPosts() {
+		return posts;
+	}
+
+	public void setPosts(int posts) {
+		this.posts = posts;
 	}
 
 	@JsonIgnore

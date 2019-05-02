@@ -115,6 +115,17 @@ public class UserEndpoint {
 		}).orElse(null);
 	}
 
+	@PostMapping(value = "/rating/{userName:.+}/{num}")
+	public UserDto addRating(@PathVariable("userName") String user, @PathVariable("num") String num) {
+		Optional<UserDto> optUser = userService.findUserByPrincipal(user);
+		if (optUser.isPresent()) {
+			UserDto pubUser = optUser.get();
+			pubUser.addRating(Double.parseDouble(num));
+			return userService.update(pubUser);
+		}
+		return null;
+	}
+
 	@PostMapping(value = "/pet/delete/{id}")
 	public UserDto deletePet(@PathVariable("id") String id) {
 		return getUserDetails().map(userDto -> {
@@ -150,6 +161,11 @@ public class UserEndpoint {
 		Optional<UserDto> optUser = userService.findUserByPrincipal(user);
 		if (optUser.isPresent()) {
 			UserDto pubUser = optUser.get();
+			System.out.println(pubUser.getPrincipal());
+			System.out.println(pubUser.getRoles());
+			System.out.println(pubUser.getPets());
+			System.out.println(pubUser.getAddress());
+			System.out.println(pubUser.getRatings());
 			return new UserPublicDto(pubUser);
 		} else {
 			return null;

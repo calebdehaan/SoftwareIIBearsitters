@@ -97,15 +97,6 @@ public class UserDao {
 		// Helpful to understand
 		//https://www.elastic.co/guide/en/elasticsearch/client/java-api/current/java-docs-update.html
 		UpdateRequest updateRequest = new UpdateRequest();
-
-		System.out.println("principal :" + user.getPrincipal());
-		System.out.println("roles :" + user.getRoles());
-		System.out.println("address :" + user.getAddress());
-		System.out.println("pets :" + user.getPets());
-		System.out.println("posts :" + user.getPosts());
-		System.out.println("ratings :" + user.getRatings());
-
-
 		updateRequest.index("petfinder-users");
 		updateRequest.type("doc");
 		updateRequest.id(user.getPrincipal());
@@ -123,6 +114,5 @@ public class UserDao {
 				.endObject());
 
 		UpdateResponse response = eProvider.getClient().update(updateRequest);
-		System.out.println("Elasticsearch user update response: " + response);
 	}
 }

@@ -4,6 +4,7 @@ import * as Users from '../User/users';
 import _ from 'lodash';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
+import * as Ratings from 'js/Common/rating';
 import {applyNotif} from '../Common/notification';
 
 class MyPostings extends React.Component {
@@ -56,7 +57,7 @@ class MyPostings extends React.Component {
 	cancelPosting = (e, post) => {
 		console.log(post);
 		if(post && post.id) {
-			Users.cancelPosting(post.id).then(() => {
+			Users.deletePost(post.id).then(() => {
 				this.props.fUsersPosts().then(() => {
 					this.state.hasLoaded = true;
 					this.setState(this.state);
@@ -104,24 +105,12 @@ class MyPostings extends React.Component {
 		this.props.updatePost(post);
 	};
 
-	addRating = (post) =>{
-		let endDatee = new Date(post.endDate);
-		let today = new Date();
-		let check = today.getTime() > endDatee.getTime();
-
-		if(check) {
-			console.log(post);
-			post.isComplete = true;
-			this.props.updatePost(post);
-		}
-	};
-
 	checkPost = (post) =>{
 		let endDatee = new Date(post.endDate);
 		let today = new Date();
 		let check = today.getTime() > endDatee.getTime();
 
-		if(check) {
+		if(check && post.isComplete === false) {
 			console.log(post);
 			post.isComplete = true;
 			this.props.updatePost(post);
@@ -136,7 +125,7 @@ class MyPostings extends React.Component {
 			<div>
 				{_.isDefined(this.props.posts) && this.props.posts.length !== 0 &&
 				<div className="d-md-flex flex-md-wrap justify-content-md-start">
-					{this.props.posts.map(post => (_.isDefined(post) && _.isDefined(post.id) && _.isNull(post.postingRating) &&
+					{this.props.posts.map(post => (_.isDefined(post) && _.isDefined(post.id) && _.isNull(post.postingRating) && this.checkPost(post) &&
 						<div key={post.id} className="card m-sm-0" style={{backgroundColor: 'black'}}>
 							<ul className="list-group list-group-flush">
 								<li className="list-group-item" style={{backgroundColor: 'black'}}>
@@ -244,11 +233,9 @@ class MyPostings extends React.Component {
 							)}
 
 							{post.isComplete === true &&
-							<Bessemer.Button onClick={(e) => {
-								this.addRating(post);
-							}} style={{backgroundColor: 'black', borderColor: 'black', float: 'right'}}> Rate the sitter {post.ownerPrincipal} <i
-								className='fa fa-paper-plane '></i></Bessemer.Button>
+							<Ratings.Rating postToRate={post}/>
 							}
+
 						</div>
 					))}
 				</div>

@@ -2,6 +2,8 @@ import * as Users from './users';
 import React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import _ from 'lodash';
+import Ratings from 'react-ratings-declarative';
+import * as Bessemer from 'js/alloy/bessemer/components';
 
 class PublicProfile extends React.Component {
 
@@ -38,10 +40,19 @@ class PublicProfile extends React.Component {
 		return rolesStr;
 	};
 
+	displayRating = () => {
+		let rating = 0;
+		let i = 0;
+		for (i = 0; i < this.state.publicUser.rating.length; i++)
+			rating += this.state.publicUser.rating[i];
+
+		return (rating/i);
+	};
+
 	render() {
 		return (
 			<div>
-				{(_.isEmpty(this.state.publicUser) && _.isEmpty(this.state.pets))?
+				{(_.isEmpty(this.state.publicUser) && _.isEmpty(this.state.pets) )?
 					<div>
 						<h1>The user {this.props.match.params.id} does not exist! </h1>
 					</div>
@@ -49,12 +60,20 @@ class PublicProfile extends React.Component {
 					<div>
 						<h1>{this.state.publicUser.attributes['firstName']} {this.state.publicUser.attributes['lastName']} - {this.displayRoles()}</h1>
 						<h3>Contact Information</h3>
-						<h4>Email</h4>
-						<p>{this.state.publicUser.principal}</p>
-						<h4>Phone</h4>
-						<p>{this.state.publicUser.attributes['phone']}</p>
+						<h4>Email : {this.state.publicUser.principal}</h4>
+						<h4>Phone : {this.state.publicUser.attributes['phone']}</h4>
 						{this.state.publicUser.roles.includes('SITTER') &&
-						<h4>Ratings</h4>
+							<div>
+								<h4>Rating :
+									<Ratings rating={this.displayRating()} widgetRatedColors="gold">
+										<Ratings.Widget />
+										<Ratings.Widget />
+										<Ratings.Widget />
+										<Ratings.Widget />
+										<Ratings.Widget />
+									</Ratings>
+								</h4>
+							</div>
 						}
 					</div>
 				}

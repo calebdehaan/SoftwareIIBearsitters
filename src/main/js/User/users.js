@@ -28,6 +28,10 @@ export function addPost(post){
 	});
 }
 
+export function addRating(userName, num){
+	return axios.post('/api/user/rating/'+ userName + '/' + num);
+}
+
 export function authenticate(username, password) {
 	return axios(
 		{
@@ -130,6 +134,10 @@ State.getPosts = state => {
 	return state.posts;
 };
 
+State.getRatings = state => {
+	return state.ratings;
+};
+
 export { State };
 
 let Actions = {};
@@ -139,6 +147,7 @@ Actions.Types = {
 	SET_USER: 'SET_USER',
 	SET_PETS: 'SET_PETS',
 	SET_POSTS: 'SET_POSTS',
+	SET_RATINGS: 'SET_RATINGS',
 };
 
 Actions.register = user => {
@@ -146,9 +155,9 @@ Actions.register = user => {
 		return register(user).then(() => {
 			createAccountNotif();
 			return dispatch(Actions.authenticate(user.principal, user.password)).then(() => {
-				getUserDetails().then((user) => {
+				return getUserDetails().then((user) => {
 					if(user.attributes['email'] === true)
-						return sendEmailRegister();
+						sendEmailRegister();
 				});
 			});
 		});
@@ -318,6 +327,16 @@ Actions.updatePost = (post) => {
 	};
 };
 
+Actions.setRatings = ratings => {
+	if (ratings != null) {
+		for (let rating = 0; rating < ratings.length; rating++) {
+			if (ratings[rating] != null)
+				ratings[rating].num = rating;
+		}
+	}
+	return {type: Actions.Types.SET_RATINGS, ratings};
+};
+
 export { Actions };
 
 let Reducers = {};
@@ -362,6 +381,17 @@ Reducers.posts = (posts = [], action) => {
 		}
 		default: {
 			return posts;
+		}
+	}
+};
+
+Reducers.ratings = (ratings = [], action) => {
+	switch (action.type) {
+		case Actions.Types.SET_RATINGS: {
+			return action.ratings;
+		}
+		default: {
+			return ratings;
 		}
 	}
 };
