@@ -192,6 +192,7 @@ export class PublProfile extends React.Component {
 	render() {
 		return (
 			<div className="container padded">
+				<NavBarr.NavBar />
 				<div className="row">
 					<PublicProf.PublicProfile match={this.props.match}/>
 				</div>
